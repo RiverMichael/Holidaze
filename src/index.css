@@ -2,13 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* * {
+* {
   outline: auto;
   outline-color: red;
-} */
+}
 
 body {
   @apply bg-background text-text font-body;
+}
+
+#root {
+  @apply flex flex-col min-h-screen;
+}
+
+main {
+  @apply grow mt-5 mb-12 lg:mt-12 lg:mb-24 mx-auto;
 }
 
 h1,
