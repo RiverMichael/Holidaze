@@ -1,11 +1,9 @@
-import Footer from "./components/ui/Footer";
-import Header from "./components/ui/Header";
+import Layout from "./components/ui/Layout";
 
 function App() {
   return (
     <>
-      <Header />
-      <Footer />
+      <Layout />
     </>
   );
 }
