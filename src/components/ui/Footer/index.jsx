@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="sm:flex sm:items-center sm:justify-between">
           <Link to="/">
             <figure className="mb-4 sm:mb-0">
-              <img src={Logo} alt="Holidaze logotype" className="h-8" />
+              <img src={Logo} alt="Holidaze logotype" className="h-6" />
             </figure>
           </Link>
 
