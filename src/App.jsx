@@ -1,7 +1,13 @@
+import Footer from "./components/ui/Footer";
 import Header from "./components/ui/Header";
 
 function App() {
-  return <Header />;
+  return (
+    <>
+      <Header />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
