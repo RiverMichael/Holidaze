@@ -2,8 +2,8 @@ import Logo from "../../../assets/holidaze_logo.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-secondary md:rounded-lg md:shadow md:m-4">
-      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <footer className="bg-secondary md:rounded-lg md:shadow md:m-6">
+      <div className="w-full  mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <figure className="mb-4 sm:mb-0">
             <img src={Logo} alt="Holidaze logotype" className="h-8" />
