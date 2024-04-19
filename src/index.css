@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   outline: auto;
   outline-color: red;
-}
+} */
 
 body {
-  @apply bg-background text-text font-body;
+  @apply bg-neutral text-text font-body;
 }
 
 #root {
