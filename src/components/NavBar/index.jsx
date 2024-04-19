@@ -2,10 +2,11 @@ import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/holidaze_logo.png";
 import { IoSearch, IoMenu, IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import SearchBar from "../SearchBar";
+import ProfileDropdown from "../ProfileDropdown";
 
 export default function NavBar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleOutsideNavBarMenuClick = (event) => {
@@ -14,28 +15,17 @@ export default function NavBar() {
       }
     };
 
-    const handleOutsideUserMenuDropdownClick = (event) => {
-      if (!event.target.closest("#user-menu-dropdown") && !event.target.closest("#user-menu-button")) {
-        setIsDropdownOpen(false);
-      }
-    };
-
     if (isNavOpen) {
       document.addEventListener("click", handleOutsideNavBarMenuClick);
     }
 
-    if (isDropdownOpen) {
-      document.addEventListener("click", handleOutsideUserMenuDropdownClick);
-    }
-
     return () => {
       document.removeEventListener("click", handleOutsideNavBarMenuClick);
-      document.removeEventListener("click", handleOutsideUserMenuDropdownClick);
     };
-  }, [isNavOpen, isDropdownOpen]);
+  }, [isNavOpen]);
 
   return (
-    <nav className="bg-background">
+    <nav className="bg-neutral">
       <div className="w-full flex flex-wrap items-center justify-between mx-auto">
         <button type="button" onClick={() => setIsNavOpen(true)} id="navbar-toggler" className="md:hidden">
           <IoMenu size={30} className="text-primary" />
@@ -45,85 +35,81 @@ export default function NavBar() {
           <img src={Logo} alt="Holidaze logotype" className="h-8" />
         </Link>
 
-        <div className="hidden md:block">SearchBar</div>
+        <div className="hidden md:block">
+          <SearchBar />
+        </div>
 
         <div className="flex items-center gap-5">
           <div
             id="navbar-menu"
-            className={`${isNavOpen ? "p-5 h-screen absolute left-0 top-0" : "hidden"} bg-secondary md:bg-background md:block items-center md:w-full md:p-0 md:h-full md:relative gap-5`}>
-            <div className="text-right">
+            className={`${
+              isNavOpen ? "flex p-5 h-screen absolute left-0 top-0" : "hidden"
+            } bg-secondary md:bg-neutral md:flex flex-col md:flex-row items-center md:w-full md:p-0 md:h-full md:relative gap-5`}>
+            <div className="flex w-full justify-end">
               <button onClick={() => setIsNavOpen(false)} className="mb-16 md:hidden" aria-label="Show menu">
                 <IoClose size={40} className="text-primary" />
               </button>
             </div>
 
-            <ul className="flex flex-col px-5 md:p-0 gap-5 md:flex-row">
-              <li>
-                <NavLink
-                  to="/"
-                  onClick={() => setIsNavOpen(false)}
-                  className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="about"
-                  onClick={() => setIsNavOpen(false)}
-                  className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="contact"
-                  onClick={() => setIsNavOpen(false)}
-                  className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-70 transition-colors duration-300 ease-in-out"}`}>
-                  Contact
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+            <div className="flex flex-col md:flex-row gap-5 md:items-center grow justify-between px-5 mb-5 md:mb-0 md:p-0">
+              <ul className="flex flex-col  gap-5 md:flex-row">
+                <li>
+                  <NavLink
+                    to="/"
+                    onClick={() => setIsNavOpen(false)}
+                    className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="about"
+                    onClick={() => setIsNavOpen(false)}
+                    className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
+                    About
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="contact"
+                    onClick={() => setIsNavOpen(false)}
+                    className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
+                    Contact
+                  </NavLink>
+                </li>
+              </ul>
 
-          <button
-            type="button"
-            className="hidden md:flex text-sm border-2 border-black rounded-full"
-            id="user-menu-button"
-            onClick={() => setIsDropdownOpen((prev) => !prev)}
-            aria-expanded={isDropdownOpen}
-            aria-label="Show user menu">
-            <span className="sr-only">Open user menu</span>
-            <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="profile avatar" />
-          </button>
-
-          <div
-            id="user-menu-dropdown"
-            className={`${isDropdownOpen ? "block absolute right-5 top-12" : "hidden"} z-50 my-4 text-base list-none bg-secondary divide-y divide-gray-400 rounded-lg shadow`}>
-            <div className="px-4 py-3">
-              <span className="block text-sm text-primary">Laura Holiday</span>
-              <span className="block text-sm  text-text truncate">laura@holiday.com</span>
-            </div>
-            <ul className="py-2" aria-labelledby="user-menu-button">
-              <li>
-                <NavLink to="profile" onClick={() => setIsDropdownOpen(false)} className={({ isActive }) => `block px-4 py-2 text-sm ${isActive ? "opacity-40" : "text-text hover:bg-gray-100"}`}>
+              {/* If user is logged in, switch to Links and ProfileDropdown  */}
+              {/* <div className="flex flex-col gap-5">
+                <NavLink
+                  to="profile"
+                  onClick={() => setIsNavOpen(false)}
+                  className={({ isActive }) => `md:hidden font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
                   My profile
                 </NavLink>
-              </li>
-              <li>
-                <NavLink to="venues/add" onClick={() => setIsDropdownOpen(false)} className={({ isActive }) => `block px-4 py-2 text-sm ${isActive ? "opacity-40" : "text-text hover:bg-gray-100"}`}>
-                  Add Venue
+
+                // ADD LOGOUT FUNCTION TO BUTTON
+                <button onClick={() => setIsNavOpen(false)} className="md:hidden btn btn-outlined text-sm bg-secondary">
+                  Log out
+                </button>
+
+                <ProfileDropdown />
+              </div> */}
+
+              <div className="flex flex-col md:flex-row gap-2">
+                <NavLink to="login" onClick={() => setIsNavOpen(false)} className="btn btn-outlined w-full">
+                  Login
                 </NavLink>
-              </li>
-              <li className="block px-4 py-2 text-sm text-text hover:bg-gray-100">Sign out</li>
-            </ul>
+                <NavLink to="register" onClick={() => setIsNavOpen(false)} className="btn btn-primary w-full">
+                  Sign up
+                </NavLink>
+              </div>
+            </div>
           </div>
 
           <button type="button" className="md:hidden">
             <IoSearch size={30} className="text-primary" />
           </button>
-        </div>
-        <div id="navbar-menu" className="hidden">
-          Navbar dropdown
         </div>
       </div>
     </nav>
