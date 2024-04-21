@@ -11,6 +11,7 @@ export default {
       primary: { light: "#657ab3", DEFAULT: "#394974", dark: "#222b44" },
       secondary: "#eaeef6",
       accent: "#feb903",
+      error: "#dc2626",
     },
     fontFamily: {
       heading: ["Montserrat", "sans-serif"],
@@ -53,7 +54,27 @@ export default {
           },
         },
       };
-      addComponents(buttons);
+      const formInput = {
+        ".form-input": {
+          borderWidth: "2px",
+          borderColor: theme("colors.primary.DEFAULT"),
+          borderRadius: "0.3125rem",
+          display: "block",
+          "&:hover": {
+            borderColor: theme("colors.primary.light"),
+          },
+          "&:focus": {
+            borderColor: theme("colors.primary.dark"),
+          },
+          "&-error": {
+            borderColor: theme("colors.error"),
+            "&:focus": {
+              borderColor: theme("colors.error"),
+            },
+          },
+        },
+      };
+      addComponents([buttons, formInput]);
     }),
   ],
 };
