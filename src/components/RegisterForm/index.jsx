@@ -3,9 +3,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { API_AUTH_URL } from "../../shared/api";
 import { useFetchOptions } from "../../Hooks/useFetchOptions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import doFetch from "../doFetch";
+import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
+import useAuth from "../store/auth";
 
 const schema = yup.object({
   name: yup
@@ -40,13 +42,43 @@ export default function RegisterForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isError, setIsError] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [formData, setFormData] = useState([]);
+  const { setToken, setApiKey } = useAuth();
+  const navigate = useNavigate();
 
-  function handleShowToast() {
-    setShowToast(true);
-    setTimeout(() => {
-      setShowToast(false);
-    }, 3000);
-  }
+  useEffect(() => {
+    if (isUserCreated) {
+      const login = async () => {
+        const { password, email } = formData;
+        const loginData = { email, password };
+        const loginOptions = postData(loginData);
+        try {
+          const loginResult = await doFetch(`${API_AUTH_URL}/login`, loginOptions);
+          setToken(loginResult.accessToken);
+          fetchApiKey();
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+        } catch (error) {
+          console.log("error:", error);
+          setIsError(true);
+        }
+      };
+
+      const fetchApiKey = async () => {
+        try {
+          const apiKeyResult = await doFetch(`${API_AUTH_URL}/create-api-key`, postData({}));
+          console.log("apiKey:", apiKeyResult.key);
+          setApiKey(apiKeyResult.key);
+        } catch (error) {
+          console.log("error:", error);
+          setIsError(true);
+        }
+      };
+
+      login();
+    }
+  }, [isUserCreated]);
 
   const handleOnSubmit = async (data) => {
     setIsSubmitting(true);
@@ -55,24 +87,20 @@ export default function RegisterForm() {
     if (!submitData.avatar.url) {
       delete submitData.avatar;
     }
-
     const options = postData(submitData);
 
     try {
       const result = await doFetch(`${API_AUTH_URL}/register`, options);
       setIsUserCreated(true);
-      handleShowToast();
+      setIsError(false);
+      setFormData(data);
       reset();
     } catch (error) {
       console.log("error:", error);
       setIsError(true);
-      handleShowToast();
     } finally {
       setIsSubmitting(false);
-    }
-
-    if (isUserCreated) {
-      // LOGIN USER COMPONENT GOES HERE
+      setShowToast(true);
     }
   };
 
@@ -162,6 +190,10 @@ export default function RegisterForm() {
         }`}
         role="alert">
         <div className="text-lg">{isError ? "Something went wrong when creating you account! Please try again." : "Congratulations! You have created an account."}</div>
+
+        <button onClick={() => setShowToast(false)} type="button" className="ms-5" aria-label="Close">
+          <IoClose size={20} />
+        </button>
       </div>
     </>
   );
