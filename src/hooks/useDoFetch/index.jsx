@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import doFetch from "../../utils/doFetch";
 
 export default function useDoFetch(url, options) {
