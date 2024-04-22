@@ -2,12 +2,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { API_AUTH_URL } from "../../shared/api";
-import { useFetchOptions } from "../../Hooks/useFetchOptions";
+import { useFetchOptions } from "../../hooks/useFetchOptions";
 import { useState, useEffect } from "react";
-import doFetch from "../doFetch";
+import doFetch from "../../utils/doFetch";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
-import useAuth from "../store/auth";
+import useAuth from "../../store/auth";
 
 const schema = yup.object({
   name: yup
@@ -43,7 +43,7 @@ export default function RegisterForm() {
   const [isError, setIsError] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [formData, setFormData] = useState([]);
-  const { setToken, setApiKey } = useAuth();
+  const { setToken, setProfile, setApiKey } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,6 +54,8 @@ export default function RegisterForm() {
         const loginOptions = postData(loginData);
         try {
           const loginResult = await doFetch(`${API_AUTH_URL}/login`, loginOptions);
+
+          setProfile(loginResult);
           setToken(loginResult.accessToken);
           fetchApiKey();
           setTimeout(() => {
@@ -184,7 +186,7 @@ export default function RegisterForm() {
 
       <div
         id="toast"
-        className={` items-center m-4 p-5 border rounded-lg shadow absolute z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
+        className={` items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
           isError ? "border-error text-error bg-red-50" : " bg-green-50 border-green-700 text-green-700"
         }`}
         role="alert">

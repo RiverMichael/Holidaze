@@ -4,9 +4,13 @@ import { IoSearch, IoMenu, IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import SearchBar from "../SearchBar";
 import ProfileDropdown from "../ProfileDropdown";
+import useAuth from "../../store/auth";
+import useHandleLogout from "../../hooks/useHandleLogout";
 
 export default function NavBar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const { isAuthenticated, profile } = useAuth();
+  const handleLogout = useHandleLogout();
 
   useEffect(() => {
     const handleOutsideNavBarMenuClick = (event) => {
@@ -79,31 +83,36 @@ export default function NavBar() {
                 </li>
               </ul>
 
-              {/* If user is logged in, switch to Links and ProfileDropdown  */}
-              {/* <div className="flex flex-col gap-5">
-                <NavLink
-                  to="profile"
-                  onClick={() => setIsNavOpen(false)}
-                  className={({ isActive }) => `md:hidden font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
-                  My profile
-                </NavLink>
+              {!isAuthenticated ? (
+                <div className="flex flex-col md:flex-row gap-2">
+                  <NavLink to="login" onClick={() => setIsNavOpen(false)} className="btn btn-outlined w-full">
+                    Login
+                  </NavLink>
+                  <NavLink to="register" onClick={() => setIsNavOpen(false)} className="btn btn-primary w-full">
+                    Sign up
+                  </NavLink>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-5">
+                  <NavLink
+                    to="profile"
+                    onClick={() => setIsNavOpen(false)}
+                    className={({ isActive }) =>
+                      `flex  items-center gap-2 md:hidden font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`
+                    }>
+                    <figure className="w-10 h-10">
+                      <img src={profile.avatar} alt={`${profile.name} avatar`} className="w-full h-full rounded-full object-center object-cover" />
+                    </figure>
+                    My profile
+                  </NavLink>
 
-                // ADD LOGOUT FUNCTION TO BUTTON
-                <button onClick={() => setIsNavOpen(false)} className="md:hidden btn btn-outlined text-sm bg-secondary">
-                  Log out
-                </button>
+                  <button onClick={() => handleLogout()} className="md:hidden btn btn-outlined text-sm bg-secondary">
+                    Log out
+                  </button>
 
-                <ProfileDropdown />
-              </div> */}
-
-              <div className="flex flex-col md:flex-row gap-2">
-                <NavLink to="login" onClick={() => setIsNavOpen(false)} className="btn btn-outlined w-full">
-                  Login
-                </NavLink>
-                <NavLink to="register" onClick={() => setIsNavOpen(false)} className="btn btn-primary w-full">
-                  Sign up
-                </NavLink>
-              </div>
+                  <ProfileDropdown />
+                </div>
+              )}
             </div>
           </div>
 

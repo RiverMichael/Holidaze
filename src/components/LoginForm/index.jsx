@@ -1,13 +1,13 @@
 import { get, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useFetchOptions } from "../../Hooks/useFetchOptions";
+import { useFetchOptions } from "../../hooks/useFetchOptions";
 import { useEffect, useState } from "react";
-import doFetch from "../doFetch";
+import doFetch from "../../utils/doFetch";
 import { API_AUTH_URL } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
-import useAuth from "../store/auth";
+import useAuth from "../../store/auth";
 
 const schema = yup.object({
   email: yup
@@ -34,7 +34,7 @@ export default function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isError, setIsError] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const { setToken, setApiKey } = useAuth();
+  const { setToken, setApiKey, setProfile } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +42,6 @@ export default function LoginForm() {
       const fetchApiKey = async () => {
         try {
           const apiKeyResult = await doFetch(`${API_AUTH_URL}/create-api-key`, postData({}));
-          console.log("apiKey:", apiKeyResult.key);
           setApiKey(apiKeyResult.key);
 
           setTimeout(() => {
@@ -65,8 +64,8 @@ export default function LoginForm() {
 
     try {
       const result = await doFetch(`${API_AUTH_URL}/login`, options);
-      console.log("login result:", result);
 
+      setProfile(result);
       setToken(result.accessToken);
       setIsUserLoggedIn(true);
       setIsError(false);
@@ -79,20 +78,6 @@ export default function LoginForm() {
       setShowToast(true);
     }
   };
-
-  // const { postData } = useFetchOptions();
-  // const [user, setUser] = useState([])
-
-  // const { data, isError, isLoading } = useFetch(`${API_AUTH_URL}/login`, postData(userObject));
-
-  // // GET TOKEN AND STORE
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log("data:", data);
-  //     setToken(data.accessToken);
-  //     console.log("token set:", getToken());
-  //   }
-  // }, []);
 
   return (
     <>
@@ -149,7 +134,7 @@ export default function LoginForm() {
 
       <div
         id="toast"
-        className={`items-center m-4 p-5 border rounded-lg shadow absolute z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
+        className={`items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
           isError ? "border-error text-error bg-red-50" : " bg-green-50 border-green-700 text-green-700"
         }`}
         role="alert">
