@@ -1,4 +1,4 @@
-import { get, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useFetchOptions } from "../../hooks/useFetchOptions";
@@ -15,10 +15,6 @@ const schema = yup.object({
     .required("Please enter a valid email address")
     .matches(/^[A-Za-z0-9._%+-]+@stud\.noroff\.no$/, "Must be a valid @stud.noroff.no email address"),
   password: yup.string().min(8, "Password must be at least 8 characters long").required(),
-  passwordConfirmation: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords do not match")
-    .required("Please confirm your password"),
 });
 
 export default function LoginForm() {
@@ -59,8 +55,7 @@ export default function LoginForm() {
   const handleOnSubmit = async (data) => {
     setIsSubmitting(true);
 
-    const { passwordConfirmation, ...submitData } = data;
-    const options = postData(submitData);
+    const options = postData(data);
 
     try {
       const result = await doFetch(`${API_AUTH_URL}/login`, options);
@@ -98,21 +93,6 @@ export default function LoginForm() {
           </label>
           <input id="registerPassword" {...register("password")} className={`form-input w-full focus:ring-0 ${errors.password && "form-input-error"}`} type="password" placeholder="********" />
           <p className="text-error font-light">{errors.password?.message}</p>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="passwordConfirmation" className="text-sm font-bold flex justify-between">
-            Password confirmation
-            <span className={`font-light ${errors.passwordConfirmation && "text-error font-bold"}`}>*Required</span>
-          </label>
-          <input
-            id="passwordConfirmation"
-            {...register("passwordConfirmation")}
-            className={`form-input w-full focus:ring-0 ${errors.passwordConfirmation && "form-input-error"}`}
-            type="password"
-            placeholder="********"
-          />
-          <p className="text-error font-light">{errors.passwordConfirmation?.message}</p>
         </div>
 
         <button disabled={isSubmitting} className={`btn w-full ${isSubmitting ? "btn-outlined" : "btn-primary"}`}>
