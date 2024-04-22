@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "../../constants/api";
 import useDoFetch from "../../hooks/useDoFetch";
 import VenueCard from "../VenueCard";
+import LoadingIndicator from "../ui/LoadingIndicator";
 
 export default function VenuesList() {
   const { data, isLoading, isError } = useDoFetch(`${API_BASE_URL}/venues`);
@@ -8,7 +9,7 @@ export default function VenuesList() {
   console.log("venues", venues);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <LoadingIndicator />;
   }
 
   if (isError) {
