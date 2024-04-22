@@ -1,4 +1,4 @@
-import useAuth from "../../components/store/auth";
+import useAuth from "../../store/auth";
 
 export function useFetchOptions() {
   const { getToken, getApiKey } = useAuth();

@@ -8,14 +8,12 @@ export default async function doFetch(url, customOptions = {}) {
     };
 
     const response = await fetch(url, defaultOptions);
-    console.log("response:", response);
 
     if (!response.ok) {
       throw new Error("Unable to fetch data");
     }
-    const json = await response.json();
-    console.log("json:", json.data);
 
+    const json = await response.json();
     return json.data;
   } catch (error) {
     throw new Error("Unable to fetch data");

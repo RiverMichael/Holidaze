@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import doFetch from "../../components/doFetch";
+import doFetch from "../../utils/doFetch";
 
 export default function useDoFetch(url, options) {
   const [data, setData] = useState([]);
