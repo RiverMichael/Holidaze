@@ -54,7 +54,7 @@ export default function ProfileDropdown() {
             </NavLink>
           </li>
           <li>
-            <button onClick={() => handleLogout()} className="block px-4 py-2 text-sm text-text hover:bg-gray-100">
+            <button onClick={() => handleLogout()} className="block px-4 py-2 text-sm text-text hover:bg-gray-100 w-full text-left">
               Sign out
             </button>
           </li>

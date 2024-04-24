@@ -107,50 +107,74 @@ export default function RegisterForm() {
 
   return (
     <>
-      <form id="registerForm" onSubmit={handleSubmit(handleOnSubmit)}>
-        <div className="mb-3">
-          <label htmlFor="registerName" className="text-sm font-bold flex justify-between">
+      <form id="registerForm" onSubmit={handleSubmit(handleOnSubmit)} className="flex flex-col gap-3">
+        <div className="w-full flex flex-col gap-1">
+          <label htmlFor="registerName" className="text-sm font-bold flex justify-between w-full">
             Username
             <span className={`font-light ${errors.name && "text-error font-bold"}`}>*Required</span>
           </label>
-          <input id="registerName" {...register("name")} className={`form-input w-full focus:ring-0 ${errors.name && "form-input-error"}`} type="text" placeholder="Laura Holiday" />
+          <input
+            id="registerName"
+            {...register("name")}
+            className={`form-input w-full ${errors.name ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
+            type="text"
+            placeholder="Laura Holiday"
+          />
           <p className="text-error font-light">{errors.name?.message}</p>
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="registerEmail" className="text-sm font-bold flex justify-between">
+        <div className="w-full flex flex-col gap-1">
+          <label htmlFor="registerEmail" className="text-sm font-bold flex justify-between w-full">
             Email
             <span className={`font-light ${errors.email && "text-error font-bold"}`}>*Required</span>
           </label>
-          <input id="registerEmail" {...register("email")} className={`form-input w-full focus:ring-0 ${errors.email && "form-input-error"}`} type="email" placeholder="laura@holiday.com" />
+          <input
+            id="registerEmail"
+            {...register("email")}
+            className={`form-input w-full ${errors.email ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
+            type="email"
+            placeholder="laura@holiday.com"
+          />
           <p className="text-error font-light">{errors.email?.message}</p>
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="registerAvatar" className="text-sm font-bold flex justify-between">
+        <div className="w-full flex flex-col gap-1">
+          <label htmlFor="registerAvatar" className="text-sm font-bold flex justify-between w-full">
             Avatar URL
           </label>
-          <input id="registerAvatar" {...register("avatar.url")} className={`form-input w-full focus:ring-0 ${errors.avatar && "form-input-error"}`} type="url" placeholder="https://image.jpg" />
+          <input
+            id="registerAvatar"
+            {...register("avatar.url")}
+            className={`form-input w-full ${errors.avatar ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
+            type="url"
+            placeholder="https://image.jpg"
+          />
           <p className="text-error font-light">{errors.avatar?.url.message}</p>
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="registerPassword" className="text-sm font-bold flex justify-between">
+        <div className="w-full flex flex-col gap-1">
+          <label htmlFor="registerPassword" className="text-sm font-bold flex justify-between w-full">
             Password
             <span className={`font-light ${errors.password && "text-error font-bold"}`}>*Required</span>
           </label>
-          <input id="registerPassword" {...register("password")} className={`form-input w-full focus:ring-0 ${errors.password && "form-input-error"}`} type="password" placeholder="********" />
+          <input
+            id="registerPassword"
+            {...register("password")}
+            className={`form-input w-full ${errors.password ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
+            type="password"
+            placeholder="********"
+          />
           <p className="text-error font-light">{errors.password?.message}</p>
         </div>
-        <div className="mb-3">
-          <label htmlFor="passwordConfirmation" className="text-sm font-bold flex justify-between">
+        <div className="w-full flex flex-col gap-1">
+          <label htmlFor="passwordConfirmation" className="text-sm font-bold flex justify-between w-full">
             Password confirmation
             <span className={`font-light ${errors.passwordConfirmation && "text-error font-bold"}`}>*Required</span>
           </label>
           <input
             id="passwordConfirmation"
             {...register("passwordConfirmation")}
-            className={`form-input w-full focus:ring-0 ${errors.passwordConfirmation && "form-input-error"}`}
+            className={`form-input w-full ${errors.passwordConfirmation ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
             type="password"
             placeholder="********"
           />
