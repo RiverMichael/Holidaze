@@ -97,13 +97,11 @@ export default function NavBar() {
                   <NavLink
                     to="profile"
                     onClick={() => setIsNavOpen(false)}
-                    className={({ isActive }) =>
-                      `flex  items-center gap-2 md:hidden font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`
-                    }>
+                    className={({ isActive }) => `flex items-center gap-2 md:hidden text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
                     <figure className="w-10 h-10">
                       <img src={profile.avatar} alt={`${profile.name} avatar`} className="w-full h-full rounded-full object-center object-cover" />
                     </figure>
-                    My profile
+                    {profile.name}
                   </NavLink>
 
                   <button onClick={() => handleLogout()} className="md:hidden btn btn-outlined text-sm bg-secondary">
