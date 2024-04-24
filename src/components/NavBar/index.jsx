@@ -56,7 +56,7 @@ export default function NavBar() {
             </div>
 
             <div className="flex flex-col md:flex-row gap-5 md:items-center grow justify-between px-5 mb-5 md:mb-0 md:p-0">
-              <ul className="flex flex-col  gap-5 md:flex-row">
+              <ul className="flex flex-col gap-5 md:flex-row">
                 <li>
                   <NavLink
                     to="/"

@@ -46,7 +46,7 @@ export default {
         },
         ".btn-outlined": {
           backgroundColor: theme("colors.neutral"),
-          color: theme("colors.primary"),
+          color: theme("colors.primary.DEFAULT"),
           "&:hover": {
             backgroundColor: theme("colors.primary.dark"),
             color: theme("colors.neutral"),
