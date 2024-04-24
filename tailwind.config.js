@@ -56,8 +56,8 @@ export default {
       };
       const formInput = {
         ".form-input": {
-          borderWidth: "2px",
-          borderColor: theme("colors.primary.DEFAULT"),
+          borderWidth: "1px",
+          borderColor: "#e2e8f0",
           borderRadius: "0.3125rem",
           display: "block",
           "&:hover": {
@@ -68,6 +68,9 @@ export default {
           },
           "&-error": {
             borderColor: theme("colors.error"),
+            "&:hover": {
+              borderColor: theme("colors.error"),
+            },
             "&:focus": {
               borderColor: theme("colors.error"),
             },

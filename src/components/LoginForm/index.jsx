@@ -76,22 +76,34 @@ export default function LoginForm() {
 
   return (
     <>
-      <form id="loginForm" onSubmit={handleSubmit(handleOnSubmit)}>
-        <div className="mb-3">
-          <label htmlFor="loginEmail" className="text-sm font-bold flex justify-between">
+      <form id="loginForm" onSubmit={handleSubmit(handleOnSubmit)} className="flex flex-col gap-3">
+        <div className="w-full flex flex-col gap-1">
+          <label htmlFor="loginEmail" className="text-sm font-bold flex justify-between w-full">
             Email
             <span className={`font-light ${errors.email && "text-error font-bold"}`}>*Required</span>
           </label>
-          <input id="loginEmail" {...register("email")} className={`form-input w-full focus:ring-0 ${errors.email && "form-input-error"}`} type="email" placeholder="laura@holiday.com" />
+          <input
+            id="loginEmail"
+            {...register("email")}
+            className={`form-input w-full ${errors.email ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
+            type="email"
+            placeholder="laura@holiday.com"
+          />
           <p className="text-error font-light">{errors.email?.message}</p>
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="registerPassword" className="text-sm font-bold flex justify-between">
+        <div className="w-full flex flex-col gap-1">
+          <label htmlFor="registerPassword" className="text-sm font-bold flex justify-between w-full">
             Password
             <span className={`font-light ${errors.password && "text-error font-bold"}`}>*Required</span>
           </label>
-          <input id="registerPassword" {...register("password")} className={`form-input w-full focus:ring-0 ${errors.password && "form-input-error"}`} type="password" placeholder="********" />
+          <input
+            id="registerPassword"
+            {...register("password")}
+            className={`form-input w-full ${errors.password ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
+            type="password"
+            placeholder="********"
+          />
           <p className="text-error font-light">{errors.password?.message}</p>
         </div>
 
@@ -118,7 +130,7 @@ export default function LoginForm() {
           isError ? "border-error text-error bg-red-50" : " bg-green-50 border-green-700 text-green-700"
         }`}
         role="alert">
-        <div className="text-lg">{isError ? "Something went wrong when trying to login to your account! Please try again." : "Congratulations! You have been logged in to your account."}</div>
+        <div className="text-lg">{isError ? "Something went wrong when trying to login to your account! Please try again." : "You have been logged in to your account."}</div>
 
         <button onClick={() => setShowToast(false)} type="button" className="ms-5" aria-label="Close">
           <IoClose size={20} />
