@@ -46,3 +46,13 @@ h4 {
 h5 {
   @apply text-xl;
 }
+
+.custom-carousel div {
+  @apply rounded-none;
+}
+
+@media (min-width: 768px) {
+  .custom-carousel div {
+    @apply rounded;
+  }
+}

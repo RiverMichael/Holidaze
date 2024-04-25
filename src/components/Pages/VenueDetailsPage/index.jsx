@@ -1,8 +1,11 @@
+import VenueDetails from "../../VenueDetails";
+
 export default function VenueDetailsPage() {
   return (
-    <main>
-      <h1>VenueDetailsPage</h1>
-      <div>Venues details goes here...</div>
+    <main
+      className="mx-0
+    md:mx-auto md:container md:px-5">
+      <VenueDetails />
     </main>
   );
 }
