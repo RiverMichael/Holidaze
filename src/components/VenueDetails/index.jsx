@@ -1,15 +1,20 @@
 import { useParams } from "react-router";
 import useDoFetch from "../../hooks/useDoFetch";
 import { API_BASE_URL } from "../../constants/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LoadingIndicator from "../ui/LoadingIndicator";
 import ErrorMessage from "../ui/ErrorMessage";
-import { Carousel } from "flowbite-react";
+import { Carousel, Modal } from "flowbite-react";
+import { IoClose, IoLocation, IoPeople } from "react-icons/io5";
+import StarRating from "../StarRating";
+import StaticMap from "../../utils/StaticMap";
 
 export default function VenueDetails() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState([]);
+
   let id = useParams().id;
   const { data: venue, isLoading, isError } = useDoFetch(`${API_BASE_URL}/venues/${id}?_owner=true&_bookings=true`);
-  console.log("venue", venue);
 
   useEffect(() => {
     let metaDescription = document.querySelector("meta[name='description']");
@@ -26,6 +31,8 @@ export default function VenueDetails() {
       document.title = "Venue not found | Venues | Holidaze";
       metaDescription.setAttribute("content", "Unfortunately we don`t have this venue at Holidaze");
     }
+
+    console.log("venue", venue);
   }, [venue, isLoading, isError]);
 
   if (isLoading) {
@@ -36,21 +43,119 @@ export default function VenueDetails() {
     return <ErrorMessage message="Oooops! We could not find this venue, please try again." />;
   }
 
+  const handleImageClick = (url, alt) => {
+    setModalImage({ url, alt: alt || venue.name });
+    setIsModalOpen(true);
+  };
+
   if (venue) {
     return (
-      <section className="flex flex-col gap-3 items-center justify-center">
-        <div className="relative w-full h-56 sm:h-72 md:h-96 lg:h-96 md:max-w-3xl lg:max-w-4xl custom-carousel">
-          {venue.media.length > 1 ? (
-            <Carousel slide={false}>
-              {venue.media.map((media, index) => (
-                <img key={index} src={media.url} alt={venue.name} className="w-full h-full object-cover object-center" />
-              ))}
-            </Carousel>
-          ) : (
-            <img src={venue.media[0].url} alt={venue.name} className="w-full h-full object-cover object-center"></img>
-          )}
-        </div>
-      </section>
+      <>
+        <section className="flex flex-col gap-3  md:max-w-3xl lg:max-w-5xl mx-auto">
+          <div className="relative w-full h-56 sm:h-72 md:h-96 lg:h-96 custom-carousel">
+            {venue.media.length > 1 ? (
+              <Carousel slide={false}>
+                {venue.media.map((media, index) => (
+                  <img
+                    key={index}
+                    src={media.url}
+                    alt={media.alt || venue.name}
+                    onClick={() => handleImageClick(media.url, media.alt)}
+                    className="w-full h-full object-cover object-center cursor-zoom-in"
+                  />
+                ))}
+              </Carousel>
+            ) : (
+              <img
+                src={venue.media[0].url}
+                alt={venue.media[0].alt || venue.name}
+                onClick={() => handleImageClick(venue.media[0].url, venue.media[0].alt)}
+                className="w-full h-full object-cover object-center cursor-zoom-in"></img>
+            )}
+          </div>
+
+          <div className="px-5 md:px-0 flex flex-col md:flex-row gap-10 justify-between border border-red-500">
+            <div className="flex flex-col w-fit gap-5 border border-green-500">
+              <div className="flex flex-col gap-1">
+                <h1 className="text-3xl text-wrap">{venue.name}</h1>
+                <div className="flex items-center  gap-10">
+                  <div className="flex items-center gap-1">
+                    <IoLocation size={20} className="text-primary" />
+                    <span>
+                      {venue.location.city}, {venue.location.country}
+                    </span>
+                  </div>
+
+                  <StarRating rating={venue.rating} />
+                </div>
+              </div>
+
+              <div className="flex items-center flex-wrap gap-2">
+                {Object.entries(venue.meta).map(
+                  ([feature, value], index) =>
+                    value && (
+                      <span key={index} className="text-sm px-3 py-1 rounded-full bg-secondary text-primary capitalize">
+                        {feature}
+                      </span>
+                    )
+                )}
+              </div>
+
+              <div className="flex items-center gap-10 flex-wrap">
+                <div className="text-primary text-xl font-bold">
+                  ${venue.price} <span className="text-primary-dark text-base font-normal">/ Night</span>
+                </div>
+
+                <div className="flex items-center gap-1 text-primary">
+                  <IoPeople size={20} /> <div className="text-text">{venue.maxGuests} Guests</div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-base">Description</h3>
+                <p>{venue.description}</p>
+              </div>
+
+              <div>
+                <h3 className="text-base">Venue manager</h3>
+                <div className="flex gap-2 items-center">
+                  <figure>
+                    <img src={venue.owner.avatar.url} alt={`${venue.owner.name} avatar`} className="h-10 w-10 rounded-full" />
+                  </figure>
+                  <p>{venue.owner.name}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-10 border flex-none border-blue-500">
+              <div className="border border-yellow-500">
+                <h2 className="text-2xl">Book this venue</h2>
+              </div>
+              <div className="border border-pink-500">
+                <h3 className="text-base">
+                  {venue.location.city}, {venue.location.country}
+                </h3>
+
+                <div>
+                  <StaticMap lat={venue.location.lat} lng={venue.location.lng} city={venue.location.city} country={venue.location.country} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Modal dismissible show={isModalOpen} onClose={() => setIsModalOpen(false)} className="">
+          <Modal.Body className="p-0 relative rounded">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-2 right-2 text-neutral rounded-full bg-primary-light bg-opacity-50 hover:bg-primary hover:bg-opacity-100 focus-visible:outline-none">
+              <IoClose size={40} />
+            </button>
+
+            <img src={modalImage.url} alt={modalImage.alt} className="w-full h-[80vh] object-cover" />
+          </Modal.Body>
+        </Modal>
+      </>
     );
   }
 }

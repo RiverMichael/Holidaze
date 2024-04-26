@@ -51,6 +51,10 @@ h5 {
   @apply rounded-none;
 }
 
+.custom-carousel button {
+  @apply bg-primary bg-opacity-50  hover:bg-opacity-100 rounded-full;
+}
+
 @media (min-width: 768px) {
   .custom-carousel div {
     @apply rounded;
