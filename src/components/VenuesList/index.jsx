@@ -6,7 +6,14 @@ import LoadingIndicator from "../ui/LoadingIndicator";
 
 export default function VenuesList() {
   const { data, isLoading, isError } = useDoFetch(`${API_BASE_URL}/venues`);
-  const venues = data;
+  const venues = data.filter(
+    (venue) =>
+      venue.media.length > 0 &&
+      !venue.name.toLowerCase().includes("test") &&
+      !venue.name.toLowerCase().includes("string") &&
+      !venue.name.toLowerCase().includes("aa") &&
+      (venue.location.city || venue.location.country)
+  );
 
   if (isLoading) {
     return <LoadingIndicator />;
