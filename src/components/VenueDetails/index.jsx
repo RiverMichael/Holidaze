@@ -7,7 +7,7 @@ import ErrorMessage from "../ui/ErrorMessage";
 import { Carousel, Modal } from "flowbite-react";
 import { IoClose, IoLocation, IoPeople } from "react-icons/io5";
 import StarRating from "../StarRating";
-import StaticMap from "../../utils/StaticMap";
+import VenueMap from "../VenueMap";
 
 export default function VenueDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -137,7 +137,7 @@ export default function VenueDetails() {
                 </h3>
 
                 <div>
-                  <StaticMap lat={venue.location.lat} lng={venue.location.lng} city={venue.location.city} country={venue.location.country} />
+                  <VenueMap lat={venue.location.lat} lng={venue.location.lng} city={venue.location.city} country={venue.location.country} />
                 </div>
               </div>
             </div>
