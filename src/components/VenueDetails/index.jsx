@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import useDoFetch from "../../hooks/useDoFetch";
-import { API_BASE_URL } from "../../constants/api";
+import { API_BASE_URL } from "../../constants/apiURL";
 import { useEffect, useState } from "react";
 import LoadingIndicator from "../ui/LoadingIndicator";
 import ErrorMessage from "../ui/ErrorMessage";
@@ -8,6 +8,7 @@ import { Carousel, Modal } from "flowbite-react";
 import { IoClose, IoLocation, IoPeople } from "react-icons/io5";
 import StarRating from "../StarRating";
 import VenueMap from "../VenueMap";
+import BookVenue from "../BookVenue";
 
 export default function VenueDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,10 +75,10 @@ export default function VenueDetails() {
             )}
           </div>
 
-          <div className="px-5 md:px-0 flex flex-col md:flex-row gap-10 justify-between border border-red-500">
-            <div className="flex flex-col w-fit gap-5 border border-green-500">
+          <div className="px-5 md:px-0 flex flex-col md:flex-row gap-10 justify-between">
+            <div className="flex flex-col w-fit gap-5">
               <div className="flex flex-col gap-1">
-                <h1 className="text-3xl text-wrap">{venue.name}</h1>
+                <h1 className="text-3xl text-wrap capitalize">{venue.name}</h1>
                 <div className="flex items-center  gap-10">
                   <div className="flex items-center gap-1">
                     <IoLocation size={20} className="text-primary" />
@@ -127,32 +128,33 @@ export default function VenueDetails() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-10 border flex-none border-blue-500">
-              <div className="border border-yellow-500">
+            <div className="flex flex-col gap-10 flex-none">
+              <div>
                 <h2 className="text-2xl">Book this venue</h2>
+                <BookVenue />
               </div>
-              <div className="border border-pink-500">
-                <h3 className="text-base">
+              <div>
+                <h3 className="text-base capitalize">
                   {venue.location.city}, {venue.location.country}
                 </h3>
 
-                <div>
-                  <VenueMap lat={venue.location.lat} lng={venue.location.lng} city={venue.location.city} country={venue.location.country} />
+                <div className="max-w-fit">
+                  <VenueMap name={venue.name} location={venue.location} />
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <Modal dismissible show={isModalOpen} onClose={() => setIsModalOpen(false)} className="">
-          <Modal.Body className="p-0 relative rounded">
+        <Modal dismissible size="7xl" show={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <Modal.Body className="p-0 rounded">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-2 right-2 text-neutral rounded-full bg-primary-light bg-opacity-50 hover:bg-primary hover:bg-opacity-100 focus-visible:outline-none">
               <IoClose size={40} />
             </button>
 
-            <img src={modalImage.url} alt={modalImage.alt} className="w-full h-[80vh] object-cover" />
+            <img src={modalImage.url} alt={modalImage.alt} className="w-full h-full object-cover" />
           </Modal.Body>
         </Modal>
       </>
