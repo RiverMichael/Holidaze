@@ -32,8 +32,6 @@ export default function VenueDetails() {
       document.title = "Venue not found | Venues | Holidaze";
       metaDescription.setAttribute("content", "Unfortunately we don`t have this venue at Holidaze");
     }
-
-    console.log("venue", venue);
   }, [venue, isLoading, isError]);
 
   if (isLoading) {
