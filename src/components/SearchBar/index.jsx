@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { IoSearchOutline, IoClose } from "react-icons/io5";
 import useDoFetch from "../../hooks/useDoFetch";
-import { API_BASE_URL } from "../../constants/api";
+import { API_BASE_URL } from "../../constants/apiURL";
 import { Link } from "react-router-dom";
 
 export default function SearchBar() {
