@@ -9,17 +9,24 @@ export default function SearchBar() {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const { data, isLoading, isError } = useDoFetch(`${API_BASE_URL}/venues`);
-  const venues = data;
+  const venues = data.filter(
+    (venue) => !venue.name.toLowerCase().includes("test") && !venue.name.toLowerCase().includes("string") && !venue.name.toLowerCase().includes("aa") && (venue.location.city || venue.location.country)
+  );
 
   useEffect(() => {
     if (searchTerm && venues) {
-      const filteredSuggestions = venues.filter(({ name }) => name.toLowerCase().includes(searchTerm.toLowerCase()));
+      const filteredSuggestions = venues.filter(
+        ({ name, location }) =>
+          name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (location.city && location.city.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (location.country && location.country.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
       setSuggestions(filteredSuggestions);
       setShowSuggestions(true);
     } else {
       setShowSuggestions(false);
     }
-  }, [searchTerm, venues]);
+  }, [searchTerm]);
 
   return (
     <>
@@ -36,7 +43,7 @@ export default function SearchBar() {
             id="search-navbar"
             type="text"
             aria-label="Search venues"
-            placeholder="Search venue"
+            placeholder="Search by venue, city or country"
             className="ps-8 w-full border-none focus:ring-0"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
@@ -67,7 +74,11 @@ export default function SearchBar() {
                   <Link to={`venues/${id}`}>
                     <div className="flex gap-2 items-center">
                       <figure className="w-8 h-8">
-                        <img src={media[0].url} alt={name} className="rounded object-center object-cover w-full h-full" />
+                        {media && media.length ? (
+                          <img src={media[0].url} alt={name} className="rounded object-center object-cover w-full h-full" />
+                        ) : (
+                          <img src="https://placehold.co/600x400?text=No+image" alt="Placeholder image" className="rounded object-center object-cover w-full h-full"></img>
+                        )}
                       </figure>
                       <div className="capitalize text-base text-primary font-bold">{name}</div>
                       <div className="flex gap-1 capitalize text-sm">
