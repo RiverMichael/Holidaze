@@ -7,7 +7,11 @@ export default function VenueCard({ venue }) {
     <div className="max-w-sm bg-neutral w-80 pb-2 border rounded-lg shadow">
       <Link to={`/venues/${venue.id}`}>
         <figure className="w-full h-48 overflow-hidden rounded-t-lg">
-          <img src={venue.media[0].url} alt={venue.media[0].alt} className="object-cover object-center w-full h-48" />
+          {venue.media.length ? (
+            <img src={venue.media[0].url} alt={venue.media[0].alt} className="object-cover object-center w-full h-48" />
+          ) : (
+            <img src="https://placehold.co/600x400?text=No+image" alt="Placeholder image" className="object-cover object-center w-full h-48"></img>
+          )}
         </figure>
       </Link>
 
