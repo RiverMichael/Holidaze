@@ -54,24 +54,28 @@ export default function VenueDetails() {
       <>
         <section className="flex flex-col gap-3  md:max-w-3xl lg:max-w-5xl mx-auto">
           <div className="relative w-full h-56 sm:h-72 md:h-96 lg:h-96 custom-carousel">
-            {venue.media.length > 1 ? (
-              <Carousel slide={false}>
-                {venue.media.map((media, index) => (
-                  <img
-                    key={index}
-                    src={media.url}
-                    alt={media.alt || venue.name}
-                    onClick={() => handleImageClick(media.url, media.alt)}
-                    className="w-full h-full object-cover object-center cursor-zoom-in"
-                  />
-                ))}
-              </Carousel>
+            {venue.media.length ? (
+              venue.media.length > 1 ? (
+                <Carousel slide={false}>
+                  {venue.media.map((media, index) => (
+                    <img
+                      key={index}
+                      src={media.url}
+                      alt={media.alt || venue.name}
+                      onClick={() => handleImageClick(media.url, media.alt)}
+                      className="w-full h-full object-cover object-center cursor-zoom-in"
+                    />
+                  ))}
+                </Carousel>
+              ) : (
+                <img
+                  src={venue.media[0].url}
+                  alt={venue.media[0].alt || venue.name}
+                  onClick={() => handleImageClick(venue.media[0].url, venue.media[0].alt)}
+                  className="w-full h-full object-cover object-center cursor-zoom-in md:rounded"></img>
+              )
             ) : (
-              <img
-                src={venue.media[0].url}
-                alt={venue.media[0].alt || venue.name}
-                onClick={() => handleImageClick(venue.media[0].url, venue.media[0].alt)}
-                className="w-full h-full object-cover object-center cursor-zoom-in"></img>
+              <img src="https://placehold.co/600x400?text=No+image" alt="Placeholder image" className="w-full h-full object-cover object-center md:rounded"></img>
             )}
           </div>
 

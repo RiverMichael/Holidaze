@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Logo from "../../assets/holidaze_logo.png";
 import { IoSearch, IoMenu, IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
@@ -6,12 +6,14 @@ import SearchBar from "../SearchBar";
 import ProfileDropdown from "../ProfileDropdown";
 import useAuth from "../../store/auth";
 import useHandleLogout from "../../hooks/useHandleLogout";
+import { scrollToTop } from "../../utils/scrollToTop";
 
 export default function NavBar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const { isAuthenticated, profile } = useAuth();
   const handleLogout = useHandleLogout();
+  const location = useLocation();
 
   useEffect(() => {
     const handleOutsideNavBarMenuClick = (event) => {
@@ -29,6 +31,11 @@ export default function NavBar() {
     };
   }, [isNavOpen]);
 
+  const handleNavLinks = (path) => {
+    scrollToTop(path, location.pathname);
+    setIsNavOpen(false);
+  };
+
   return (
     <>
       <nav className="bg-neutral">
@@ -37,7 +44,7 @@ export default function NavBar() {
             <IoMenu size={30} className="text-primary" />
           </button>
 
-          <Link to="/">
+          <Link to="/" onClick={() => handleNavLinks("/")}>
             <img src={Logo} alt="Holidaze logotype" className="h-8" />
           </Link>
 
@@ -62,7 +69,7 @@ export default function NavBar() {
                   <li>
                     <NavLink
                       to="/"
-                      onClick={() => setIsNavOpen(false)}
+                      onClick={() => handleNavLinks("/")}
                       className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
                       Home
                     </NavLink>
@@ -70,7 +77,7 @@ export default function NavBar() {
                   <li>
                     <NavLink
                       to="about"
-                      onClick={() => setIsNavOpen(false)}
+                      onClick={() => handleNavLinks("/about")}
                       className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
                       About
                     </NavLink>
@@ -78,7 +85,7 @@ export default function NavBar() {
                   <li>
                     <NavLink
                       to="contact"
-                      onClick={() => setIsNavOpen(false)}
+                      onClick={() => handleNavLinks("/contact")}
                       className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
                       Contact
                     </NavLink>
