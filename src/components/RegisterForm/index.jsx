@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { API_AUTH_URL } from "../../constants/api";
+import { API_AUTH_URL } from "../../constants/apiURL";
 import { useFetchOptions } from "../../hooks/useFetchOptions";
 import { useState, useEffect } from "react";
 import doFetch from "../../utils/doFetch";

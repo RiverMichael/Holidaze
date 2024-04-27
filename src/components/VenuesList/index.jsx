@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../../constants/api";
+import { API_BASE_URL } from "../../constants/apiURL";
 import useDoFetch from "../../hooks/useDoFetch";
 import VenueCard from "../VenueCard";
 import ErrorMessage from "../ui/ErrorMessage";

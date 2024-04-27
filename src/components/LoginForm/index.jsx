@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { useFetchOptions } from "../../hooks/useFetchOptions";
 import { useEffect, useState } from "react";
 import doFetch from "../../utils/doFetch";
-import { API_AUTH_URL } from "../../constants/api";
+import { API_AUTH_URL } from "../../constants/apiURL";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import useAuth from "../../store/auth";
