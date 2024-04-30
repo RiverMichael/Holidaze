@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { IoCalendarOutline } from "react-icons/io5";
@@ -18,34 +18,77 @@ function getDatesInRange(startDate, endDate) {
   return dateList;
 }
 
-function DateRangePicker({ bookings }) {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [datePickerOpen, setDatePickerOpen] = useState(false);
-
+function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDate }) {
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const bookedDates = bookings.flatMap((booking) => getDatesInRange(booking.dateFrom, booking.dateTo));
 
-  console.log("bookings", bookings);
+  useEffect(() => {
+    const handleOutsideDatePickerClick = (event) => {
+      if (isDatePickerOpen && !event.target.closest(".react-datepicker") && !event.target.closest("#checkInDate") && !event.target.closest("#checkOutDate")) {
+        setIsDatePickerOpen(false);
+      }
+    };
 
-  const handleChange = (dates) => {
+    if (isDatePickerOpen) {
+      document.addEventListener("click", handleOutsideDatePickerClick);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleOutsideDatePickerClick);
+    };
+  }, [isDatePickerOpen]);
+
+  const formatDate = (date) => date.toISOString().split("T")[0];
+
+  function isDateBooked(date) {
+    return bookedDates.some((bookedDate) => formatDate(bookedDate) === formatDate(date));
+  }
+
+  function isDateRangeBooked(start, end) {
+    let currentCheckDate = new Date(start);
+    currentCheckDate.setDate(currentCheckDate.getDate() + 1); // Start checking from the day after the start date
+    let beforeEndDate = new Date(end);
+    beforeEndDate.setDate(beforeEndDate.getDate());
+
+    while (currentCheckDate < beforeEndDate) {
+      if (isDateBooked(currentCheckDate)) {
+        return true;
+      }
+      currentCheckDate.setDate(currentCheckDate.getDate() + 1);
+    }
+    return false;
+  }
+
+  const handleDateChange = (dates) => {
     const [start, end] = dates;
+
+    if (start && end) {
+      if (isDateRangeBooked(start, end)) {
+        setIsAlertOpen(true); // Open popover if date range includes booked dates
+        setStartDate(null);
+        return; // Prevent setting the date range
+      }
+    }
+
     setStartDate(start);
     setEndDate(end);
+    setIsAlertOpen(false);
     if (!end) {
-      setDatePickerOpen(true); // Keep date picker open for end date selection
+      setIsDatePickerOpen(true);
     } else {
-      setDatePickerOpen(false); // Close date picker after end date selection
+      setIsDatePickerOpen(false);
     }
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-2 w-full relative">
       <div>
-        <label htmlFor="checkInDate" className="text-sm font-bold">
+        <label htmlFor="checkInDate" className="text-sm font-bold text-primary">
           Check-in
         </label>
-        <div className="form-input w-fit focus-within:ring-1 focus-within:border-primary-dark focus-within:ring-primary-dark flex px-2 items-center relative">
-          <div className="text-primary-dark absolute inset-y-0 flex items-center pointer-events-none  start-2">
+        <div className="form-input w-full focus-within:ring-1 focus-within:border-primary-dark focus-within:ring-primary-dark flex px-2 items-center relative">
+          <div className="text-primary-dark absolute inset-y-0 flex items-center pointer-events-none start-2">
             <IoCalendarOutline size={20} />
           </div>
           <input
@@ -54,17 +97,18 @@ function DateRangePicker({ bookings }) {
             className="w-full ps-8 border-none hover:cursor-pointer focus:ring-0"
             placeholder={new Date().toLocaleDateString("en-GB")}
             value={startDate ? startDate.toLocaleDateString("en-GB") : ""}
-            onClick={() => setDatePickerOpen(true)} // Open DatePicker when start input is clicked
+            onClick={() => {
+              setIsDatePickerOpen(true);
+            }}
             readOnly
           />
         </div>
       </div>
-
       <div>
-        <label htmlFor="checkOutDate" className="text-sm font-bold">
+        <label htmlFor="checkOutDate" className="text-sm font-bold text-primary">
           Check-out
         </label>
-        <div className="form-input w-fit focus-within:ring-1 focus-within:border-primary-dark focus-within:ring-primary-dark flex px-2 items-center relative">
+        <div className="form-input w-full focus-within:ring-1 focus-within:border-primary-dark focus-within:ring-primary-dark flex px-2 items-center relative">
           <div className="text-primary-dark absolute inset-y-0 flex items-center pointer-events-none  start-2">
             <IoCalendarOutline size={20} />
           </div>
@@ -75,13 +119,32 @@ function DateRangePicker({ bookings }) {
             placeholder={new Date().toLocaleDateString("en-GB")}
             value={endDate ? endDate.toLocaleDateString("en-GB") : ""}
             onClick={() => {
-              setDatePickerOpen(true); // Allow reopening date picker if start date is set
+              setIsDatePickerOpen(true);
             }}
             readOnly
           />
         </div>
       </div>
-      {datePickerOpen && <DatePicker selected={startDate} onChange={handleChange} startDate={startDate} endDate={endDate} selectsRange inline minDate={new Date()} excludeDates={bookedDates} />}
+      {isDatePickerOpen && (
+        <div className="absolute top-full mt-1 z-20">
+          <DatePicker
+            selected={startDate}
+            onChange={handleDateChange}
+            startDate={startDate}
+            endDate={endDate}
+            selectsRange
+            inline
+            minDate={new Date()}
+            excludeDates={bookedDates}
+            calendarStartDay={1}
+          />
+          {isAlertOpen && (
+            <div className="absolute -top-24 start-0 bg-red-50 p-2 rounded border border-error text-error z-30" role="alert">
+              Selected dates includes dates that are unavailable. Please choose different dates.
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
