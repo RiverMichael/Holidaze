@@ -9,6 +9,7 @@ import AddVenuePage from "../components/Pages/AddVenuePage";
 import EditVenuePage from "../components/Pages/EditVenuePage";
 import ContactPage from "../components/Pages/ContactPage";
 import AboutPage from "../components/Pages/AboutPage";
+import BookingConfirmationPage from "../components/Pages/BookingConfirmationPage";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <AboutPage />,
+      },
+      {
+        path: "booking-confirmation/:id",
+        element: <BookingConfirmationPage />,
       },
     ],
   },
