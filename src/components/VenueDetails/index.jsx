@@ -8,7 +8,7 @@ import { Carousel, Modal } from "flowbite-react";
 import { IoClose, IoLocation, IoPeople } from "react-icons/io5";
 import StarRating from "../StarRating";
 import VenueMap from "../VenueMap";
-import BookVenue from "../BookVenue";
+import BookVenueForm from "../BookVenueForm";
 
 export default function VenueDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -130,10 +130,10 @@ export default function VenueDetails() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-10 flex-none">
+            <div className="flex flex-col gap-10 flex-none w-fit">
               <div>
                 <h2 className="text-2xl">Book this venue</h2>
-                <BookVenue />
+                <BookVenueForm venue={venue} />
               </div>
               <div>
                 <h3 className="text-base capitalize">

@@ -3,7 +3,7 @@ import { GOOGLE_MAPS_API_KEY } from "../../constants/apiKey";
 export default function VenueMap({ name, location }) {
   const { lat, lng, city, country } = location;
   const googleMapsApiKey = GOOGLE_MAPS_API_KEY;
-  const mapSize = "350x250";
+  const mapSize = "300x200";
   let center;
 
   if (lat && lng) {
