@@ -130,7 +130,7 @@ export default function VenueDetails() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-10 flex-none">
+            <div className="flex flex-col gap-10 flex-none w-fit">
               <div>
                 <h2 className="text-2xl">Book this venue</h2>
                 <BookVenueForm venue={venue} />
