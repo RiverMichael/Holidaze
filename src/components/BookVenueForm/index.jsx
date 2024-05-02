@@ -11,7 +11,9 @@ import doFetch from "../../utils/doFetch";
 import { API_BASE_URL } from "../../constants/apiURL";
 
 const schema = yup.object({
-  //
+  startDate: yup.date().required("Check-in date is required"),
+  endDate: yup.date().required("Check-out date is required"),
+  guests: yup.number().required("Number of guests is required").positive("Number of guests must be positive").integer("Number of guests must be an integer"),
 });
 
 export default function BookVenueForm({ venue }) {
@@ -42,11 +44,13 @@ export default function BookVenueForm({ venue }) {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({ resolver: yupResolver(schema), mode: "onSubmit" });
 
   const handleFormSubmit = async (data) => {
     setIsSubmitting(true);
     const formData = { ...data, venueId: venue.id, dateFrom: startDate?.toISOString(), dateTo: endDate?.toISOString(), guests: parseInt(data.guests) };
+    console.log("formData", formData);
 
     const options = postData(formData);
 
@@ -67,7 +71,16 @@ export default function BookVenueForm({ venue }) {
     <>
       <form id="bookVenueForm" onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col w-full gap-5">
         <div className="flex flex-col gap-2">
-          <DateRangePicker bookings={venue.bookings} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
+          <DateRangePicker
+            bookings={venue.bookings}
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            register={register}
+            setValue={setValue}
+            errors={errors}
+          />
 
           <div>
             <label htmlFor="numberOfGuests" className="text-sm font-bold text-primary">
