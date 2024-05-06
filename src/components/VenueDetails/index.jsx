@@ -11,7 +11,6 @@ import VenueMap from "../VenueMap";
 import BookVenueForm from "../BookVenueForm";
 import useAuth from "../../store/auth";
 import checkIfUserIsOwner from "../../utils/checkIfUserIsOwner";
-import BookedVenueCard from "../BookedVenueCard";
 import VenueBookingsList from "../VenueBookingsList";
 
 export default function VenueDetails() {
@@ -36,7 +35,7 @@ export default function VenueDetails() {
       metaDescription.setAttribute("content", `Book ${venue.name} for your next holiday at Holidaze`);
     } else if (isError) {
       document.title = "Venue not found | Venues | Holidaze";
-      metaDescription.setAttribute("content", "Unfortunately we don`t have this venue at Holidaze");
+      metaDescription.setAttribute("content", "Unfortunately we can not find this venue at Holidaze");
     }
 
     if (!isLoading && venue && profile) {

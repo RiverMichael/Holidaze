@@ -1,4 +1,8 @@
+import useUpdateHead from "../../../hooks/useUpdateHead";
+
 export default function ContactPage() {
+  useUpdateHead("Contact", "Contact us if you have any questions or concerns");
+
   return (
     <main className="flex flex-col gap-8">
       <h1>Contact us</h1>
