@@ -10,6 +10,7 @@ import EditVenuePage from "../components/Pages/EditVenuePage";
 import ContactPage from "../components/Pages/ContactPage";
 import AboutPage from "../components/Pages/AboutPage";
 import BookingConfirmationPage from "../components/Pages/BookingConfirmationPage";
+import PageNotFound from "../components/Pages/PageNotFound";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "booking-confirmation/:id",
         element: <BookingConfirmationPage />,
+      },
+      {
+        path: "*",
+        element: <PageNotFound />,
       },
     ],
   },

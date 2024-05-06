@@ -9,8 +9,14 @@ import { IoClose, IoLocation, IoPeople } from "react-icons/io5";
 import StarRating from "../StarRating";
 import VenueMap from "../VenueMap";
 import BookVenueForm from "../BookVenueForm";
+import useAuth from "../../store/auth";
+import checkIfUserIsOwner from "../../utils/checkIfUserIsOwner";
+import BookedVenueCard from "../BookedVenueCard";
+import VenueBookingsList from "../VenueBookingsList";
 
 export default function VenueDetails() {
+  const { profile } = useAuth();
+  const [isOwner, setIsOwner] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState([]);
 
@@ -32,7 +38,11 @@ export default function VenueDetails() {
       document.title = "Venue not found | Venues | Holidaze";
       metaDescription.setAttribute("content", "Unfortunately we don`t have this venue at Holidaze");
     }
-  }, [venue, isLoading, isError]);
+
+    if (!isLoading && venue && profile) {
+      setIsOwner(checkIfUserIsOwner(venue.owner, profile));
+    }
+  }, [venue, isLoading, isError, profile]);
 
   if (isLoading) {
     return <LoadingIndicator />;
@@ -51,6 +61,12 @@ export default function VenueDetails() {
     return (
       <>
         <section className="flex flex-col gap-3  md:max-w-3xl lg:max-w-5xl mx-auto">
+          {isOwner && (
+            <div className="flex justify-center items-center gap-5 mb-2 md:mb-5">
+              <span className="font-bold text-lg">This is your venue</span>
+              <button className="btn btn-primary text-sm px-4">Edit Venue</button>
+            </div>
+          )}
           <div className="relative w-full h-56 sm:h-72 md:h-96 lg:h-96 custom-carousel">
             {venue.media.length ? (
               venue.media.length > 1 ? (
@@ -123,7 +139,7 @@ export default function VenueDetails() {
                 <h3 className="text-base">Venue manager</h3>
                 <div className="flex gap-2 items-center">
                   <figure>
-                    <img src={venue.owner.avatar.url} alt={`${venue.owner.name} avatar`} className="h-10 w-10 rounded-full" />
+                    <img src={venue.owner.avatar.url} alt={`${venue.owner.name} avatar`} className="h-10 w-10 rounded-full object-cover object-center" />
                   </figure>
                   <p>{venue.owner.name}</p>
                 </div>
@@ -131,10 +147,18 @@ export default function VenueDetails() {
             </div>
 
             <div className="flex flex-col gap-10 flex-none w-fit">
-              <div>
-                <h2 className="text-2xl">Book this venue</h2>
-                <BookVenueForm venue={venue} />
-              </div>
+              {!isOwner ? (
+                <div>
+                  <h2 className="text-2xl">Book this venue</h2>
+                  <BookVenueForm venue={venue} />
+                </div>
+              ) : (
+                <div>
+                  <h2 className="text-2xl">Venue Bookings</h2>
+                  <VenueBookingsList bookings={venue.bookings} />
+                </div>
+              )}
+
               <div>
                 <h3 className="text-base capitalize">
                   {venue.location.city}, {venue.location.country}
