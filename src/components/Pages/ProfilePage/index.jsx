@@ -1,8 +1,9 @@
+import ProfileDetails from "../../ProfileDetails";
+
 export default function ProfilePage() {
   return (
-    <main>
-      <h1>Profile Page</h1>
-      <section>Profile page content goes here...</section>c
+    <main className="px-5 container max-w-4xl">
+      <ProfileDetails />
     </main>
   );
 }
