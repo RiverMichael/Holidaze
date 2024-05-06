@@ -50,7 +50,6 @@ export default function BookVenueForm({ venue }) {
   const handleFormSubmit = async (data) => {
     setIsSubmitting(true);
     const formData = { ...data, venueId: venue.id, dateFrom: startDate?.toISOString(), dateTo: endDate?.toISOString(), guests: parseInt(data.guests) };
-    console.log("formData", formData);
 
     const options = postData(formData);
 
