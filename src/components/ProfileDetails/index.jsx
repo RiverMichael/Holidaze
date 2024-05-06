@@ -27,7 +27,22 @@ export default function ProfileDetails() {
     }
   }, [data]);
 
-  console.log("profile", profile);
+  useEffect(() => {
+    let metaDescription = document.querySelector("meta[name='description']");
+    if (!metaDescription) {
+      metaDescription = document.createElement("meta");
+      metaDescription.setAttribute("name", "description");
+      document.head.appendChild(metaDescription);
+    }
+
+    if (profile && !isLoading && !isError) {
+      document.title = `${profile.name} | Profile | Holidaze`;
+      metaDescription.setAttribute("content", `View ${profile.name}'s profile at Holidaze`);
+    } else if (isError) {
+      document.title = "Profile not found | Profile | Holidaze";
+      metaDescription.setAttribute("content", "Unfortunately we can not find this profile at Holidaze");
+    }
+  }, [profile, isLoading, isError]);
 
   const handleProfileUpdate = (updatedProfile) => {
     setIsEditProfileModalOpen(false);
