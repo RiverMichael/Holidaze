@@ -1,6 +1,9 @@
+import useUpdateHead from "../../../hooks/useUpdateHead";
 import LoginForm from "../../LoginForm";
 
 export default function LoginPage() {
+  useUpdateHead("Login", "Login to your Holidaze account");
+
   return (
     <main className="flex flex-col gap-8 px-5 container max-w-sm">
       <div>

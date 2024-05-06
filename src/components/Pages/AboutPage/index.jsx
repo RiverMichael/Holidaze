@@ -1,4 +1,8 @@
+import useUpdateHead from "../../../hooks/useUpdateHead";
+
 export default function AboutPage() {
+  useUpdateHead("About", "Learn more about Holidaze and our mission");
+
   return (
     <main className="flex flex-col gap-8 px-5">
       <h1>Welcome to Holidaze!</h1>

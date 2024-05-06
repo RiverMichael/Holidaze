@@ -44,7 +44,10 @@ export default function ProfileDropdown() {
         </div>
         <ul className="py-2" aria-labelledby="user-menu-button">
           <li>
-            <NavLink to="profile" onClick={() => setIsDropdownOpen(false)} className={({ isActive }) => `block px-4 py-2 text-sm ${isActive ? "opacity-40" : "text-text hover:bg-gray-100"}`}>
+            <NavLink
+              to={`/profile/${profile.name}`}
+              onClick={() => setIsDropdownOpen(false)}
+              className={({ isActive }) => `block px-4 py-2 text-sm ${isActive ? "opacity-40" : "text-text hover:bg-gray-100"}`}>
               My profile
             </NavLink>
           </li>

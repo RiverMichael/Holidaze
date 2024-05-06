@@ -13,6 +13,10 @@ const useAuth = create((set, get) => ({
   getApiKey: () => get().apiKey,
 
   setProfile: (profile) => set({ profile: { name: profile.name, email: profile.email, avatar: profile.avatar.url } }),
+  updateAvatar: (avatarUrl) => {
+    const currentProfile = get().profile;
+    set({ profile: { ...currentProfile, avatar: avatarUrl } });
+  },
 
   logout: () => set({ accessToken: "", apiKey: "", isAuthenticated: false, profile: {} }),
 }));

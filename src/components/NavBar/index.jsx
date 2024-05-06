@@ -104,7 +104,7 @@ export default function NavBar() {
                 ) : (
                   <div className="flex flex-col gap-5">
                     <NavLink
-                      to="profile"
+                      to={`/profile/${profile.name}`}
                       onClick={() => setIsNavOpen(false)}
                       className={({ isActive }) =>
                         `flex items-center gap-2 lg:hidden text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`
