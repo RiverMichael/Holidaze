@@ -1,0 +1,20 @@
+import BookedVenueCard from "../BookedVenueCard";
+
+export default function UpcomingBookingsList({ bookings }) {
+  const currentDate = new Date();
+  const sortedBookings = bookings.filter((booking) => new Date(booking.dateTo) > currentDate).sort((a, b) => new Date(a.dateFrom) - new Date(b.dateFrom));
+
+  if (sortedBookings.length > 0) {
+    return (
+      <ul className="flex flex-col gap-5">
+        {sortedBookings.map((booking) => (
+          <div key={booking.id} className="mb-5">
+            <BookedVenueCard booking={booking} />
+          </div>
+        ))}
+      </ul>
+    );
+  } else {
+    return <p>You have no upcoming bookings</p>;
+  }
+}
