@@ -42,7 +42,6 @@ export default function LoginForm() {
 
           if (profile?.name) {
             const profileResult = await doFetch(`${API_BASE_URL}/profiles/${profile.name}`, getData());
-            console.log("profileResult:", profileResult);
             setVenueManager(profileResult.venueManager);
           }
 
