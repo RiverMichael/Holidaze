@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useUpdateHead from "../../../hooks/useUpdateHead";
 import RegisterForm from "../../RegisterForm";
 
@@ -11,8 +12,11 @@ export default function RegisterPage() {
         <p className="text-primary font-heading font-bold text-lg">a new account</p>
       </div>
 
-      <section>
+      <section className="flex flex-col gap-2">
         <RegisterForm />
+        <Link to="/login" className="link-primary text-center">
+          Already have an account?
+        </Link>
       </section>
     </main>
   );

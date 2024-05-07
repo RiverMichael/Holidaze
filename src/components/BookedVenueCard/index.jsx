@@ -31,7 +31,7 @@ export default function BookedVenueCard({ booking }) {
 
       <div className="flex flex-col">
         <h3 className="text-2xl capitalize">
-          <Link to={`/venues/${booking.venue.id}`} className="hover:opacity-70 transition-all duration-200 ease-in-out">
+          <Link to={`/venues/${booking.venue.id}`} className="link-primary hover:no-underline">
             {booking.venue.name}
           </Link>
         </h3>

@@ -21,17 +21,17 @@ export default function Footer() {
 
           <ul className="flex flex-wrap items-center gap-3 md:gap-6 text-sm font-medium mb-6 sm:mb-0">
             <li>
-              <NavLink to="/" onClick={() => handleNavLinks("/")} className={({ isActive }) => `text-base ${isActive ? "opacity-40" : "hover:text-gray-400"}`}>
+              <NavLink to="/" onClick={() => handleNavLinks("/")} className={({ isActive }) => `link text-base font-normal ${isActive && "link-active"}`}>
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="about" onClick={() => handleNavLinks("/about")} className={({ isActive }) => `text-base ${isActive ? "opacity-40" : "hover:text-gray-400"}`}>
+              <NavLink to="about" onClick={() => handleNavLinks("/about")} className={({ isActive }) => `link text-base font-normal ${isActive && "link-active"}`}>
                 About
               </NavLink>
             </li>
             <li>
-              <NavLink to="contact" onClick={() => handleNavLinks("/contact")} className={({ isActive }) => `text-base ${isActive ? "opacity-40" : "hover:text-gray-400"}`}>
+              <NavLink to="contact" onClick={() => handleNavLinks("/contact")} className={({ isActive }) => `link text-base font-normal ${isActive && "link-active"}`}>
                 Contact
               </NavLink>
             </li>
@@ -40,7 +40,7 @@ export default function Footer() {
         <hr className="my-6 lg:my-8 w-full rounded border border-gray-300 " />
         <span className="block text-sm sm:text-center">
           Copyright &copy; 2024 |{" "}
-          <Link to="https://www.michaelriver.dev" target="_blank" className="hover:text-gray-400">
+          <Link to="https://www.michaelriver.dev" target="_blank" className="link-primary">
             Michael Nilsson
           </Link>
         </span>

@@ -67,26 +67,17 @@ export default function NavBar() {
               <div className="flex flex-col lg:flex-row gap-5 lg:items-center grow justify-between px-5 mb-5 lg:mb-0 lg:p-0">
                 <ul className="flex flex-col gap-5 lg:flex-row">
                   <li>
-                    <NavLink
-                      to="/"
-                      onClick={() => handleNavLinks("/")}
-                      className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
+                    <NavLink to="/" onClick={() => handleNavLinks("/")} className={({ isActive }) => `link ${isActive && "link-active"}`}>
                       Home
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      to="about"
-                      onClick={() => handleNavLinks("/about")}
-                      className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
+                    <NavLink to="about" onClick={() => handleNavLinks("/about")} className={({ isActive }) => `link ${isActive && "link-active"}`}>
                       About
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      to="contact"
-                      onClick={() => handleNavLinks("/contact")}
-                      className={({ isActive }) => `font-bold text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`}>
+                    <NavLink to="contact" onClick={() => handleNavLinks("/contact")} className={({ isActive }) => `link ${isActive && "link-active"}`}>
                       Contact
                     </NavLink>
                   </li>
@@ -106,9 +97,7 @@ export default function NavBar() {
                     <NavLink
                       to={`/profile/${profile.name}`}
                       onClick={() => setIsNavOpen(false)}
-                      className={({ isActive }) =>
-                        `flex items-center gap-2 lg:hidden text-text ${isActive ? "opacity-50" : "text-primary hover:opacity-50 transition-colors duration-300 ease-in-out"}`
-                      }>
+                      className={({ isActive }) => `flex items-center gap-2 lg:hidden link font-normal ${isActive && "link-active"}`}>
                       <figure className="w-10 h-10">
                         <img src={profile.avatar} alt={`${profile.name} avatar`} className="w-full h-full rounded-full object-center object-cover" />
                       </figure>

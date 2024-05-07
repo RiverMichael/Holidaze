@@ -68,12 +68,12 @@ export default function ProfileDetails() {
               <figure className="w-20 h-20">
                 <img src={profile.avatar.url} alt={profile.name} className=" w-full h-full rounded-full object-cover object-center" />
               </figure>
-              <button onClick={() => setIsEditProfileModalOpen(true)} className="text-sm underline underline-offset-2 hover:opacity-60">
+              <button onClick={() => setIsEditProfileModalOpen(true)} className="text-sm underline underline-offset-2 link font-normal">
                 Edit profile
               </button>
             </div>
 
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
               <h1 className="text-xl md:text-3xl">{data.name}</h1>
 
               <div className="w-max">
