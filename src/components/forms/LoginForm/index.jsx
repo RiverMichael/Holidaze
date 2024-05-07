@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useFetchOptions } from "../../hooks/useFetchOptions";
+import { useFetchOptions } from "../../../hooks/useFetchOptions";
 import { useEffect, useState } from "react";
-import doFetch from "../../utils/doFetch";
-import { API_AUTH_URL } from "../../constants/apiURL";
+import doFetch from "../../../utils/doFetch";
+import { API_AUTH_URL, API_BASE_URL } from "../../../constants/apiURL";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
-import useAuth from "../../store/auth";
+import useAuth from "../../../store/auth";
 
 const schema = yup.object({
   email: yup
@@ -25,12 +25,12 @@ export default function LoginForm() {
     reset,
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
-  const { postData } = useFetchOptions();
+  const { postData, getData } = useFetchOptions();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isError, setIsError] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const { setToken, setApiKey, setProfile } = useAuth();
+  const { setToken, setApiKey, setProfile, profile, setVenueManager } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,6 +39,11 @@ export default function LoginForm() {
         try {
           const apiKeyResult = await doFetch(`${API_AUTH_URL}/create-api-key`, postData({}));
           setApiKey(apiKeyResult.key);
+
+          if (profile?.name) {
+            const profileResult = await doFetch(`${API_BASE_URL}/profiles/${profile.name}`, getData());
+            setVenueManager(profileResult.venueManager);
+          }
 
           setTimeout(() => {
             navigate("/");
@@ -50,7 +55,7 @@ export default function LoginForm() {
       };
       fetchApiKey();
     }
-  }, [isUserLoggedIn]);
+  }, [isUserLoggedIn, profile?.name]);
 
   const handleOnSubmit = async (data) => {
     setIsSubmitting(true);
@@ -59,7 +64,6 @@ export default function LoginForm() {
 
     try {
       const result = await doFetch(`${API_AUTH_URL}/login`, options);
-
       setProfile(result);
       setToken(result.accessToken);
       setIsUserLoggedIn(true);

@@ -10,8 +10,8 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-secondary md:rounded-lg md:shadow md:m-6">
-      <div className="w-full  mx-auto p-4 md:py-8">
+    <footer className="bg-secondary lg:rounded-lg lg:shadow lg:m-6">
+      <div className="w-full mx-auto p-4 lg:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <Link to="/" onClick={() => handleNavLinks("/")}>
             <figure className="mb-4 sm:mb-0">

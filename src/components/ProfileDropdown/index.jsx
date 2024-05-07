@@ -5,7 +5,7 @@ import useHandleLogout from "../../hooks/useHandleLogout";
 
 export default function ProfileDropdown() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { profile } = useAuth();
+  const { profile, isVenueManager } = useAuth();
   const handleLogout = useHandleLogout();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function ProfileDropdown() {
 
   return (
     <>
-      <button type="button" className="hidden md:flex text-sm" id="user-menu-button" onClick={() => setIsDropdownOpen((prev) => !prev)} aria-expanded={isDropdownOpen} aria-label="Show user menu">
+      <button type="button" className="hidden lg:flex text-sm" id="user-menu-button" onClick={() => setIsDropdownOpen((prev) => !prev)} aria-expanded={isDropdownOpen} aria-label="Show user menu">
         <span className="sr-only">Open user menu</span>
         <figure className="w-10 h-10">
           <img src={profile.avatar} alt={`${profile.name} avatar`} className="w-full h-full rounded-full object-center object-cover" />
@@ -51,14 +51,18 @@ export default function ProfileDropdown() {
               My profile
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="venues/add"
-              onClick={() => setIsDropdownOpen(false)}
-              className={({ isActive }) => `block px-4 py-2 link font-normal ${isActive ? "link-active" : "hover:bg-gray-50 hover:shadow-sm"}`}>
-              Add Venue
-            </NavLink>
-          </li>
+
+          {isVenueManager && (
+            <li>
+              <NavLink
+                to="venues/add"
+                onClick={() => setIsDropdownOpen(false)}
+                className={({ isActive }) => `block px-4 py-2 link font-normal ${isActive ? "link-active" : "hover:bg-gray-50 hover:shadow-sm"}`}>
+                Add Venue
+              </NavLink>
+            </li>
+          )}
+
           <li>
             <button onClick={() => handleLogout()} className="block px-4 py-2 link font-normal w-full text-left hover:bg-gray-50 hover:shadow-sm">
               Sign out

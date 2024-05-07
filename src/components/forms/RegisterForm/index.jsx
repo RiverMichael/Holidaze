@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { API_AUTH_URL } from "../../constants/apiURL";
-import { useFetchOptions } from "../../hooks/useFetchOptions";
+import { API_AUTH_URL } from "../../../constants/apiURL";
+import { useFetchOptions } from "../../../hooks/useFetchOptions";
 import { useState, useEffect } from "react";
-import doFetch from "../../utils/doFetch";
+import doFetch from "../../../utils/doFetch";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
-import useAuth from "../../store/auth";
+import useAuth from "../../../store/auth";
 
 const schema = yup.object({
   name: yup

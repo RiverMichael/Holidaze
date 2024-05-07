@@ -1,11 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useFetchOptions } from "../../hooks/useFetchOptions";
+import { useFetchOptions } from "../../../hooks/useFetchOptions";
 import { useState } from "react";
-import doFetch from "../../utils/doFetch";
-import { API_BASE_URL } from "../../constants/apiURL";
-import useAuth from "../../store/auth";
+import doFetch from "../../../utils/doFetch";
+import { API_BASE_URL } from "../../../constants/apiURL";
+import useAuth from "../../../store/auth";
 
 const schema = yup.object({
   avatar: yup.object({
@@ -31,7 +31,7 @@ export default function UpdateProfileForm({ profile, onSuccess }) {
   const { updateData } = useFetchOptions();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isError, setIsError] = useState(false);
-  const { updateAvatar } = useAuth();
+  const { updateAvatar, setVenueManager } = useAuth();
 
   const handleOnSubmit = async (data) => {
     setIsSubmitting(true);
@@ -39,10 +39,10 @@ export default function UpdateProfileForm({ profile, onSuccess }) {
 
     try {
       const result = await doFetch(`${API_BASE_URL}/profiles/${profile.name}`, options);
-
       onSuccess(result);
       setIsError(false);
       updateAvatar(data.avatar.url);
+      setVenueManager(data.venueManager);
     } catch (error) {
       console.log("error:", error);
       setIsError(true);
