@@ -47,7 +47,7 @@ export default function AddVenueForm() {
     mode: "onChange",
     defaultValues: {
       // maxGuests: 1,
-      rating: null,
+      rating: 0,
       location: { lat: null, lng: null },
       media: [{ url: "" }],
     },

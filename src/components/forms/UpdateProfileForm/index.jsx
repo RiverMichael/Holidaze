@@ -1,11 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useFetchOptions } from "../../hooks/useFetchOptions";
+import { useFetchOptions } from "../../../hooks/useFetchOptions";
 import { useState } from "react";
-import doFetch from "../../utils/doFetch";
-import { API_BASE_URL } from "../../constants/apiURL";
-import useAuth from "../../store/auth";
+import doFetch from "../../../utils/doFetch";
+import { API_BASE_URL } from "../../../constants/apiURL";
+import useAuth from "../../../store/auth";
 
 const schema = yup.object({
   avatar: yup.object({

@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useFetchOptions } from "../../hooks/useFetchOptions";
+import { useFetchOptions } from "../../../hooks/useFetchOptions";
 import { useEffect, useState } from "react";
-import doFetch from "../../utils/doFetch";
-import { API_AUTH_URL, API_BASE_URL } from "../../constants/apiURL";
+import doFetch from "../../../utils/doFetch";
+import { API_AUTH_URL, API_BASE_URL } from "../../../constants/apiURL";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
-import useAuth from "../../store/auth";
+import useAuth from "../../../store/auth";
 
 const schema = yup.object({
   email: yup

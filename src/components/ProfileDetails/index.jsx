@@ -6,7 +6,7 @@ import ErrorMessage from "../ui/ErrorMessage";
 import { useFetchOptions } from "../../hooks/useFetchOptions";
 import { useEffect, useState } from "react";
 import { Modal, ModalBody, ModalHeader, Tabs } from "flowbite-react";
-import UpdateProfileForm from "../UpdateProfileForm";
+import UpdateProfileForm from "../forms/UpdateProfileForm";
 import { IoClose } from "react-icons/io5";
 import UpcomingBookingsList from "../UpcomingBookingsList";
 import PreviousBookingsList from "../PreviousBookingsList";
