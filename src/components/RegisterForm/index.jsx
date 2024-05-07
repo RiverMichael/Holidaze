@@ -183,7 +183,7 @@ export default function RegisterForm() {
           <p className="text-error font-light">{errors.passwordConfirmation?.message}</p>
         </div>
 
-        <div className="flex gap-2 items-center mb-8">
+        <div className="flex gap-2 items-center mb-5">
           <input
             type="checkbox"
             id="registerManager"

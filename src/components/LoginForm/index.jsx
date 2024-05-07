@@ -42,7 +42,7 @@ export default function LoginForm() {
 
           setTimeout(() => {
             navigate("/");
-          }, 1500);
+          }, 1000);
         } catch (error) {
           console.log("error:", error);
           setIsError(true);
