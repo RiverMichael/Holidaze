@@ -11,6 +11,7 @@ import { IoClose } from "react-icons/io5";
 import UpcomingBookingsList from "../UpcomingBookingsList";
 import PreviousBookingsList from "../PreviousBookingsList";
 import ManagerVenuesList from "../ManagerVenuesList";
+import { Link } from "react-router-dom";
 
 export default function ProfileDetails() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -108,7 +109,11 @@ export default function ProfileDetails() {
 
               {profile.venueManager && (
                 <Tabs.Item title="Venues">
-                  <div>{data.venues.length > 0 ? <ManagerVenuesList venues={data.venues} /> : "You have no listed venues"}</div>
+                  <section>{data.venues.length > 0 ? <ManagerVenuesList venues={data.venues} /> : <div className="mb-5">You have no listed venues</div>}</section>
+
+                  <Link to="/venues/add" className="btn btn-primary w-max">
+                    Add venue
+                  </Link>
                 </Tabs.Item>
               )}
             </Tabs>
