@@ -54,6 +54,30 @@ export default {
           },
         },
       };
+      const links = {
+        ".link": {
+          fontWeight: "700",
+          color: theme("colors.text"),
+          "&:hover": {
+            color: theme("colors.primary.light"),
+            transition: "all 0.2s ease-in-out",
+          },
+          "&-primary": {
+            color: theme("colors.primary.DEFAULT"),
+            "&:hover": {
+              color: theme("colors.primary.light"),
+              textDecoration: "underline",
+              opacity: "0.8",
+            },
+          },
+          "&-active": {
+            opacity: "0.5",
+            "&:hover": {
+              color: theme("colors.text"),
+            },
+          },
+        },
+      };
       const formInput = {
         ".form-input": {
           borderWidth: "1px",
@@ -77,7 +101,7 @@ export default {
           },
         },
       };
-      addComponents([buttons, formInput]);
+      addComponents([buttons, links, formInput]);
     }),
   ],
 };

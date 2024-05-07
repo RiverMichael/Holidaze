@@ -39,25 +39,28 @@ export default function ProfileDropdown() {
           isDropdownOpen ? "block absolute right-0 top-8" : "hidden"
         } z-50 my-4 text-base list-none bg-secondary divide-y divide-gray-400 rounded-lg shadow  transition-all duration-500 ease-in-out overflow-hidden`}>
         <div className="px-4 py-3">
-          <span className="block text-sm text-primary">{profile.name}</span>
+          <span className="block font-bold text-primary">{profile.name}</span>
           <span className="block text-sm  text-text truncate">{profile.email}</span>
         </div>
-        <ul className="py-2" aria-labelledby="user-menu-button">
+        <ul className="pt-2" aria-labelledby="user-menu-button">
           <li>
             <NavLink
               to={`/profile/${profile.name}`}
               onClick={() => setIsDropdownOpen(false)}
-              className={({ isActive }) => `block px-4 py-2 text-sm ${isActive ? "opacity-40" : "text-text hover:bg-gray-100"}`}>
+              className={({ isActive }) => `block px-4 py-2 link font-normal ${isActive ? "link-active" : "hover:bg-gray-50 hover:shadow-sm"}`}>
               My profile
             </NavLink>
           </li>
           <li>
-            <NavLink to="venues/add" onClick={() => setIsDropdownOpen(false)} className={({ isActive }) => `block px-4 py-2 text-sm ${isActive ? "opacity-40" : "text-text hover:bg-gray-100"}`}>
+            <NavLink
+              to="venues/add"
+              onClick={() => setIsDropdownOpen(false)}
+              className={({ isActive }) => `block px-4 py-2 link font-normal ${isActive ? "link-active" : "hover:bg-gray-50 hover:shadow-sm"}`}>
               Add Venue
             </NavLink>
           </li>
           <li>
-            <button onClick={() => handleLogout()} className="block px-4 py-2 text-sm text-text hover:bg-gray-100 w-full text-left">
+            <button onClick={() => handleLogout()} className="block px-4 py-2 link font-normal w-full text-left hover:bg-gray-50 hover:shadow-sm">
               Sign out
             </button>
           </li>

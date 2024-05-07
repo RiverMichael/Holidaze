@@ -18,8 +18,8 @@ export default function ManagerVenuesList({ venues }) {
           </Link>
 
           <div className="flex justify-between flex-wrap">
-            <Link to={`/venues/${venue.id}`} className="hover:opacity-60 transition-all duration-200 ease-in-out">
-              <h2 className="text-lg md:text-2xl">{venue.name}</h2>
+            <Link to={`/venues/${venue.id}`} className="">
+              <h2 className="text-lg md:text-2xl link-primary hover:no-underline">{venue.name}</h2>
             </Link>
             <StarRating rating={venue.rating} />
           </div>
