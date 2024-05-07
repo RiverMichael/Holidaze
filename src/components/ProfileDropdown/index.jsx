@@ -5,7 +5,7 @@ import useHandleLogout from "../../hooks/useHandleLogout";
 
 export default function ProfileDropdown() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { profile } = useAuth();
+  const { profile, isVenueManager } = useAuth();
   const handleLogout = useHandleLogout();
 
   useEffect(() => {
@@ -51,14 +51,18 @@ export default function ProfileDropdown() {
               My profile
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="venues/add"
-              onClick={() => setIsDropdownOpen(false)}
-              className={({ isActive }) => `block px-4 py-2 link font-normal ${isActive ? "link-active" : "hover:bg-gray-50 hover:shadow-sm"}`}>
-              Add Venue
-            </NavLink>
-          </li>
+
+          {isVenueManager && (
+            <li>
+              <NavLink
+                to="venues/add"
+                onClick={() => setIsDropdownOpen(false)}
+                className={({ isActive }) => `block px-4 py-2 link font-normal ${isActive ? "link-active" : "hover:bg-gray-50 hover:shadow-sm"}`}>
+                Add Venue
+              </NavLink>
+            </li>
+          )}
+
           <li>
             <button onClick={() => handleLogout()} className="block px-4 py-2 link font-normal w-full text-left hover:bg-gray-50 hover:shadow-sm">
               Sign out

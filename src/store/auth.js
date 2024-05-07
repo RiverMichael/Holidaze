@@ -5,6 +5,7 @@ const useAuth = create((set, get) => ({
   apiKey: "",
   isAuthenticated: false,
   profile: {},
+  isVenueManager: false,
 
   setToken: (token) => set({ accessToken: token }),
   getToken: () => get().accessToken,
@@ -17,6 +18,8 @@ const useAuth = create((set, get) => ({
     const currentProfile = get().profile;
     set({ profile: { ...currentProfile, avatar: avatarUrl } });
   },
+
+  setVenueManager: (isVenueManager) => set({ isVenueManager }),
 
   logout: () => set({ accessToken: "", apiKey: "", isAuthenticated: false, profile: {} }),
 }));
