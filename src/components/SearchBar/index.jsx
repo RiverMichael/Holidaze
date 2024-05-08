@@ -1,32 +1,54 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { IoSearchOutline, IoClose } from "react-icons/io5";
-import useDoFetch from "../../hooks/useDoFetch";
 import { API_BASE_URL } from "../../constants/apiURL";
 import { Link } from "react-router-dom";
+import doFetch from "../../utils/doFetch";
+import { debounce } from "lodash";
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const { data, isLoading, isError } = useDoFetch(`${API_BASE_URL}/venues`);
-  const venues = data.filter(
-    (venue) => !venue.name.toLowerCase().includes("test") && !venue.name.toLowerCase().includes("string") && !venue.name.toLowerCase().includes("aa") && (venue.location.city || venue.location.country)
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchSearchResults = useCallback(
+    debounce(async (search) => {
+      if (!search) {
+        setShowSuggestions(false);
+        setIsLoading(false);
+        setIsError(false);
+        return;
+      }
+      setIsLoading(true);
+      setIsError(false);
+      try {
+        const fetchSearchResult = await doFetch(`${API_BASE_URL}/venues/search?q=${search}`);
+
+        if (fetchSearchResult.data) {
+          const venues = fetchSearchResult.data.filter(
+            (venue) =>
+              !venue.name.toLowerCase().includes("test") &&
+              !venue.name.toLowerCase().includes("string") &&
+              !venue.name.toLowerCase().includes("aa") &&
+              !venue.description.toLowerCase().includes("test")
+          );
+          setSuggestions(venues);
+          setShowSuggestions(true);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 300),
+    []
   );
 
   useEffect(() => {
-    if (searchTerm && venues) {
-      const filteredSuggestions = venues.filter(
-        ({ name, location }) =>
-          name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (location.city && location.city.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (location.country && location.country.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-      setSuggestions(filteredSuggestions);
-      setShowSuggestions(true);
-    } else {
-      setShowSuggestions(false);
-    }
-  }, [searchTerm]);
+    fetchSearchResults(searchTerm);
+  }, [searchTerm, fetchSearchResults]);
 
   return (
     <>
@@ -43,7 +65,7 @@ export default function SearchBar() {
             id="search-navbar"
             type="text"
             aria-label="Search venues"
-            placeholder="Search by venue, city or country"
+            placeholder="Search venue by name or description"
             className="ps-8 w-full border-none focus:ring-0"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
@@ -66,34 +88,33 @@ export default function SearchBar() {
           )}
         </div>
 
-        {showSuggestions && !isLoading && !isError && (
+        {showSuggestions && !isLoading && !isError && suggestions.length > 0 && (
           <ul className="rounded border border-secondary bg-neutral absolute mt-1 w-full py-2 overflow-auto max-h-[70vh]">
-            {suggestions.length > 0 ? (
-              suggestions.map(({ id, media, name, location }) => (
-                <li key={id} className="hover:bg-gray-200 p-2">
-                  <Link to={`venues/${id}`}>
-                    <div className="flex gap-2 items-center">
-                      <figure className="w-8 h-8">
-                        {media && media.length ? (
-                          <img src={media[0].url} alt={name} className="rounded object-center object-cover w-full h-full" />
-                        ) : (
-                          <img src="https://placehold.co/600x400?text=No+image" alt="Placeholder image" className="rounded object-center object-cover w-full h-full"></img>
-                        )}
-                      </figure>
-                      <div className="capitalize text-base text-primary font-bold">{name}</div>
-                      <div className="flex gap-1 capitalize text-sm">
-                        <p>
-                          {location.city}, {location.country}
-                        </p>
-                      </div>
+            {suggestions.map(({ id, media, name, location }) => (
+              <li key={id} className="hover:bg-gray-200 p-2">
+                <Link to={`venues/${id}`}>
+                  <div className="flex gap-2 items-center">
+                    <figure className="w-8 h-8">
+                      {media && media.length ? (
+                        <img src={media[0].url} alt={name} className="rounded object-center object-cover w-full h-full" />
+                      ) : (
+                        <img src="https://placehold.co/600x400?text=No+image" alt="Placeholder image" className="rounded object-center object-cover w-full h-full"></img>
+                      )}
+                    </figure>
+                    <div className="capitalize text-base text-primary font-bold">{name}</div>
+                    <div className="flex gap-1 capitalize text-sm">
+                      <p>
+                        {location.city}, {location.country}
+                      </p>
                     </div>
-                  </Link>
-                </li>
-              ))
-            ) : (
-              <li className="p-2">Sorry! We can not find any venue that match this search.</li>
-            )}
+                  </div>
+                </Link>
+              </li>
+            ))}
           </ul>
+        )}
+        {showSuggestions && !isLoading && !isError && suggestions.length === 0 && (
+          <div className="rounded border border-secondary bg-neutral absolute mt-1 w-full p-2">Sorry! We can not find any venue that matches this search.</div>
         )}
       </form>
     </>
