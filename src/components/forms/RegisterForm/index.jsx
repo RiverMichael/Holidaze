@@ -56,8 +56,8 @@ export default function RegisterForm() {
         try {
           const loginResult = await doFetch(`${API_AUTH_URL}/login`, loginOptions);
 
-          setProfile(loginResult);
-          setToken(loginResult.accessToken);
+          setProfile(loginResult.data);
+          setToken(loginResult.data.accessToken);
           fetchApiKey();
           setTimeout(() => {
             navigate("/");
@@ -71,7 +71,7 @@ export default function RegisterForm() {
       const fetchApiKey = async () => {
         try {
           const apiKeyResult = await doFetch(`${API_AUTH_URL}/create-api-key`, postData({}));
-          setApiKey(apiKeyResult.key);
+          setApiKey(apiKeyResult.data.key);
         } catch (error) {
           console.log("error:", error);
           setIsError(true);

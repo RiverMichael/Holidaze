@@ -39,7 +39,7 @@ export default function UpdateProfileForm({ profile, onSuccess }) {
 
     try {
       const result = await doFetch(`${API_BASE_URL}/profiles/${profile.name}`, options);
-      onSuccess(result);
+      onSuccess(result.data);
       setIsError(false);
       updateAvatar(data.avatar.url);
       setVenueManager(data.venueManager);

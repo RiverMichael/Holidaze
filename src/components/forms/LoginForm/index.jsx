@@ -38,11 +38,11 @@ export default function LoginForm() {
       const fetchApiKey = async () => {
         try {
           const apiKeyResult = await doFetch(`${API_AUTH_URL}/create-api-key`, postData({}));
-          setApiKey(apiKeyResult.key);
+          setApiKey(apiKeyResult.data.key);
 
           if (profile?.name) {
             const profileResult = await doFetch(`${API_BASE_URL}/profiles/${profile.name}`, getData());
-            setVenueManager(profileResult.venueManager);
+            setVenueManager(profileResult.data.venueManager);
           }
 
           setTimeout(() => {
@@ -64,8 +64,8 @@ export default function LoginForm() {
 
     try {
       const result = await doFetch(`${API_AUTH_URL}/login`, options);
-      setProfile(result);
-      setToken(result.accessToken);
+      setProfile(result.data);
+      setToken(result.data.accessToken);
       setIsUserLoggedIn(true);
       setIsError(false);
       reset();

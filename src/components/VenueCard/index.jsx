@@ -4,7 +4,7 @@ import StarRating from "../StarRating";
 
 export default function VenueCard({ venue }) {
   return (
-    <div className="max-w-sm bg-neutral w-80 pb-2 border rounded-lg shadow">
+    <div className="bg-neutral w-80 pb-2 border rounded-lg shadow">
       <Link to={`/venues/${venue.id}`}>
         <figure className="w-full h-48 overflow-hidden rounded-t-lg">
           {venue.media.length ? (
@@ -17,7 +17,7 @@ export default function VenueCard({ venue }) {
 
       <div className="flex flex-col py-2 px-3 gap-5">
         <div className="flex flex-col gap-2">
-          <div className=" w-fit">
+          <div className="w-fit">
             <Link to={`/venues/${venue.id}`} className="hover:opacity-70 transition-all duration-200 ease-in-out">
               <h2 className="text-xl">{venue.name}</h2>
             </Link>
