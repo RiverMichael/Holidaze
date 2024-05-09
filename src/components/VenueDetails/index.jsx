@@ -8,7 +8,7 @@ import { Carousel, Modal } from "flowbite-react";
 import { IoClose, IoLocation, IoPeople, IoHome } from "react-icons/io5";
 import StarRating from "../StarRating";
 import VenueMap from "../VenueMap";
-import BookVenueForm from "../BookVenueForm";
+import BookVenueForm from "../forms/BookVenueForm";
 import useAuth from "../../store/auth";
 import checkIfUserIsOwner from "../../utils/checkIfUserIsOwner";
 import VenueBookingsList from "../VenueBookingsList";
