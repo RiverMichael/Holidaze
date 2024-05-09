@@ -46,7 +46,6 @@ export default function AddVenueForm() {
     resolver: yupResolver(schema),
     mode: "onChange",
     defaultValues: {
-      // maxGuests: 1,
       rating: 0,
       location: { lat: null, lng: null },
       media: [{ url: "" }],
@@ -66,13 +65,16 @@ export default function AddVenueForm() {
 
   const handleOnSubmit = async (data) => {
     setIsSubmitting(true);
-    console.log("data:", data);
 
-    const options = postData(data);
+    const filteredMedia = data.media.filter((mediaItem) => mediaItem.url.trim() !== "");
+    const formData = {
+      ...data,
+      media: filteredMedia,
+    };
+    const options = postData(formData);
 
     try {
       const result = await doFetch(`${API_BASE_URL}/venues/`, options);
-      console.log("add new venue result:", result);
       setIsError(false);
       setTimeout(() => {
         navigate("/");
