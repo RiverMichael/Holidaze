@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 export default function ManagerVenuesList({ venues }) {
   return (
-    <ul className="flex flex-col gap-5">
+    <ul className="flex flex-col gap-10 mb-10 w-max">
       {venues.map((venue) => (
-        <div key={venue.id} className="mb-5 max-w-md">
+        <div key={venue.id} className="max-w-md">
           <Link to={`/venues/${venue.id}`}>
             <figure className="max-w-md h-48">
               {venue.media.length ? (
