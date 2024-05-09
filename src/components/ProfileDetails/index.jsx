@@ -66,7 +66,7 @@ export default function ProfileDetails() {
         <div className="flex flex-col gap-12 justify-center items-center ">
           <section className="flex items-center gap-5 md:gap-10 w-full">
             <div className="flex flex-col">
-              <figure className="w-20 h-20">
+              <figure className="w-28 h-28">
                 <img src={profile.avatar.url} alt={profile.name} className=" w-full h-full rounded-full object-cover object-center" />
               </figure>
               <button onClick={() => setIsEditProfileModalOpen(true)} className="text-sm underline underline-offset-2 link font-normal">
