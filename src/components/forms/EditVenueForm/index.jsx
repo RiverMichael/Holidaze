@@ -7,6 +7,8 @@ import { useNavigate } from "react-router";
 import doFetch from "../../../utils/doFetch";
 import { API_BASE_URL } from "../../../constants/apiURL";
 import { IoTrashOutline, IoClose } from "react-icons/io5";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Modal, ModalBody, ModalHeader } from "flowbite-react";
 
 const schema = yup.object({
   name: yup.string().required("Please enter a venue name"),
@@ -36,8 +38,6 @@ const schema = yup.object({
 });
 
 export default function EditVenueForm({ venue }) {
-  console.log("venue:", venue);
-
   const {
     register,
     control,
@@ -69,13 +69,16 @@ export default function EditVenueForm({ venue }) {
     name: "media",
   });
 
-  const { updateData } = useFetchOptions();
+  const { updateData, deleteData } = useFetchOptions();
   const [isSubmitting, setIsSubmitting] = useState();
   const [isError, setIsError] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const handleOnSubmit = async (data) => {
+    setIsDeleting(false);
     setIsSubmitting(true);
 
     const filteredMedia = data.media.filter((mediaItem) => mediaItem.url.trim() !== "");
@@ -96,6 +99,29 @@ export default function EditVenueForm({ venue }) {
       setIsError(true);
     } finally {
       setIsSubmitting(false);
+      setShowToast(true);
+    }
+  };
+
+  const handleDeleteVenue = async () => {
+    setIsDeleting(true);
+
+    try {
+      const deleteResult = await fetch(`${API_BASE_URL}/venues/${venue.id}`, deleteData());
+
+      if (deleteResult.status !== 204) {
+        throw new Error("Failed to delete venue");
+      }
+
+      setIsError(false);
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    } catch (error) {
+      console.log("error:", error);
+      setIsError(true);
+    } finally {
+      setShowModal(false);
       setShowToast(true);
     }
   };
@@ -338,15 +364,34 @@ export default function EditVenueForm({ venue }) {
             Cancel
           </button>
         </div>
+
+        <div className="flex justify-end mt-2">
+          <button type="button" onClick={() => setShowModal(true)} className="btn w-1/3 bg-red-700 text-neutral border-red-700 text-sm hover:bg-red-50 hover:text-red-700">
+            Delete venue
+          </button>
+        </div>
       </form>
 
       <div
         id="toast"
-        className={` items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-red-800 text-red-800 bg-red-50" : " bg-green-50 border-green-800 text-green-800"
+        className={`items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
+          isError ? "border-red-800 text-red-800 bg-red-50" : "bg-green-50 text-green-800 border-green-800"
         }`}
         role="alert">
-        <div className="text-lg">{isError ? "Something went wrong when updating this venue! Please try again." : "Congratulations! You have updated this venue!"}</div>
+        <div className="text-lg">
+          {isDeleting && isError && "Something went wrong when deleting this venue! Please try again."}
+          {isError && !isDeleting && "Something went wrong when updating this venue! Please try again."}
+          {!isError && !isDeleting && (
+            <div>
+              Congratulations! You have updated the <span className="text-primary-light">{venue.name}</span> venue!
+            </div>
+          )}
+          {isDeleting && !isError && (
+            <div>
+              You have deleted the <span className="text-primary-light">{venue.name}</span> venue!
+            </div>
+          )}
+        </div>
 
         <button
           onClick={() => setShowToast(false)}
@@ -356,6 +401,24 @@ export default function EditVenueForm({ venue }) {
           <IoClose size={20} />
         </button>
       </div>
+
+      <Modal show={showModal} size="md" onClose={() => setShowModal(false)} popup>
+        <ModalHeader />
+        <ModalBody>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="mx-auto mb-2 h-14 w-14 text-red-700" />
+            <h3 className="mb-10 text-lg font-normal text-red-700">Are you sure you want to delete this venue?</h3>
+            <div className="flex justify-evenly">
+              <button onClick={handleDeleteVenue} className="btn bg-red-700 text-neutral border-red-700 hover:bg-red-50 hover:text-red-700">
+                Delete
+              </button>
+              <button onClick={() => setShowModal(false)} className="btn btn-outlined">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </ModalBody>
+      </Modal>
     </>
   );
 }
