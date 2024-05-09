@@ -54,8 +54,8 @@ export default function BookVenueForm({ venue }) {
     const options = postData(formData);
 
     try {
-      const booking = await doFetch(`${API_BASE_URL}/bookings`, options);
-      navigate(`/booking-confirmation/${booking.id}`);
+      const bookingResult = await doFetch(`${API_BASE_URL}/bookings`, options);
+      navigate(`/booking-confirmation/${bookingResult.data.id}`);
       reset();
     } catch (error) {
       console.log("error", error);

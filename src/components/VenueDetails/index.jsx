@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 import LoadingIndicator from "../ui/LoadingIndicator";
 import ErrorMessage from "../ui/ErrorMessage";
 import { Carousel, Modal } from "flowbite-react";
-import { IoClose, IoLocation, IoPeople } from "react-icons/io5";
+import { IoClose, IoLocation, IoPeople, IoHome } from "react-icons/io5";
 import StarRating from "../StarRating";
 import VenueMap from "../VenueMap";
 import BookVenueForm from "../BookVenueForm";
 import useAuth from "../../store/auth";
 import checkIfUserIsOwner from "../../utils/checkIfUserIsOwner";
 import VenueBookingsList from "../VenueBookingsList";
+import { Link } from "react-router-dom";
+import { Breadcrumb } from "flowbite-react";
 
 export default function VenueDetails() {
   const { profile } = useAuth();
@@ -59,11 +61,24 @@ export default function VenueDetails() {
   if (venue) {
     return (
       <>
-        <section className="flex flex-col gap-3  md:max-w-3xl lg:max-w-5xl mx-auto">
+        <section className="flex flex-col gap-3 md:max-w-3xl lg:max-w-5xl mx-auto">
+          <div className="px-5 md:px-0 mb-2 md:mb-5">
+            <Breadcrumb aria-label="breadcrumb">
+              <Breadcrumb.Item href="/" icon={IoHome}>
+                All Venues
+              </Breadcrumb.Item>
+              {venue.location.country && <Breadcrumb.Item href="/">{venue.location.country}</Breadcrumb.Item>}
+              {venue.location.city && <Breadcrumb.Item href="/">{venue.location.city}</Breadcrumb.Item>}
+              <Breadcrumb.Item active="true">{venue.name}</Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+
           {isOwner && (
             <div className="flex justify-center items-center gap-5 mb-2 md:mb-5">
               <span className="font-bold text-lg">This is your venue</span>
-              <button className="btn btn-primary text-sm px-4">Edit Venue</button>
+              <Link to={`/venues/${id}/edit`} className="btn btn-primary text-sm px-4">
+                Edit Venue
+              </Link>
             </div>
           )}
           <div className="relative w-full h-56 sm:h-72 md:h-96 lg:h-96 custom-carousel">

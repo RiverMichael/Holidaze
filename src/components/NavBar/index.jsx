@@ -48,7 +48,7 @@ export default function NavBar() {
             <img src={Logo} alt="Holidaze logotype" className="h-8" />
           </Link>
 
-          <div className="hidden lg:block grow">
+          <div className="hidden lg:block grow px-5">
             <SearchBar />
           </div>
 
@@ -121,7 +121,11 @@ export default function NavBar() {
         </div>
       </nav>
 
-      <div className="w-full mt-5 lg:hidden">{isSearchVisible && <SearchBar />}</div>
+      {isSearchVisible && (
+        <div className="w-full mt-5 lg:hidden">
+          <SearchBar />
+        </div>
+      )}
     </>
   );
 }

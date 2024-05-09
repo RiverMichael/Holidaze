@@ -109,7 +109,7 @@ export default function ProfileDetails() {
 
               {profile.venueManager && (
                 <Tabs.Item title="Venues">
-                  <section>{data.venues.length > 0 ? <ManagerVenuesList venues={data.venues} /> : <div className="mb-5">You have no listed venues</div>}</section>
+                  <section className="w-max">{data.venues.length > 0 ? <ManagerVenuesList venues={data.venues} /> : <div className="mb-5">You have no listed venues</div>}</section>
 
                   <Link to="/venues/add" className="btn btn-primary w-max">
                     Add venue
