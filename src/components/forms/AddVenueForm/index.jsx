@@ -123,7 +123,7 @@ export default function AddVenueForm() {
 
         <div className="flex justify-between">
           <div className="w-1/4 flex flex-col gap-1">
-            <label htmlFor="addVenuePrice" className="text-primary text-sm font-bold flex flex-col w-full flex-wrap">
+            <label htmlFor="addVenuePrice" className="text-primary text-sm font-bold flex flex-col w-full flex-wrap grow">
               $ Price / Night <span className={`font-light text-text ${errors.price && "text-error font-bold"}`}>*Required</span>
             </label>
             <input
@@ -137,7 +137,7 @@ export default function AddVenueForm() {
           </div>
 
           <div className="w-1/4 flex flex-col gap-1">
-            <label htmlFor="addVenueGuests" className="text-primary text-sm font-bold flex flex-col w-full flex-wrap">
+            <label htmlFor="addVenueGuests" className="text-primary text-sm font-bold flex flex-col w-full flex-wrap grow">
               Guests <span className={`font-light text-text ${errors.maxGuests && "text-error font-bold"}`}>*Required</span>
             </label>
             <input
@@ -151,7 +151,7 @@ export default function AddVenueForm() {
           </div>
 
           <div className="w-1/4 flex flex-col gap-1">
-            <label htmlFor="addVenueRating" className="text-primary text-sm font-bold flex flex-col w-full flex-wrap">
+            <label htmlFor="addVenueRating" className="text-primary text-sm font-bold flex flex-col w-full flex-wrap grow">
               Rating <span className={`font-light text-text ${errors.rating && "text-error font-bold"}`}>(0 - 5)</span>
             </label>
             <input
