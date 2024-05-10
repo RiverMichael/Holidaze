@@ -4,10 +4,13 @@ export default function AboutPage() {
   useUpdateHead("About", "Learn more about Holidaze and our mission");
 
   return (
-    <main className="flex flex-col gap-8 px-5">
-      <h1>Welcome to Holidaze!</h1>
+    <main className="flex flex-col gap-8 px-5 max-w-lg">
+      <div>
+        <h1>Welcome</h1>
+        <p className="text-primary font-heading font-bold text-lg">to the story about Holidaze</p>
+      </div>
 
-      <article className="flex flex-col gap-5 max-w-xl">
+      <article className="flex flex-col gap-5">
         <p>At Holidaze, we believe that finding the perfect getaway shouldn`t be a chore, it should be the beginning of an adventure.</p>
 
         <p>
