@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import DateRangePicker from "../DateRangePicker";
+import DateRangePicker from "../../DateRangePicker";
 import { IoPeople, IoClose } from "react-icons/io5";
 import { useState, useEffect } from "react";
-import useAuth from "../../store/auth";
+import useAuth from "../../../store/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { useFetchOptions } from "../../hooks/useFetchOptions";
-import doFetch from "../../utils/doFetch";
-import { API_BASE_URL } from "../../constants/apiURL";
+import { useFetchOptions } from "../../../hooks/useFetchOptions";
+import doFetch from "../../../utils/doFetch";
+import { API_BASE_URL } from "../../../constants/apiURL";
 
 const schema = yup.object({
   startDate: yup.date().required("Check-in date is required"),

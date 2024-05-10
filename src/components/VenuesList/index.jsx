@@ -35,7 +35,7 @@ export default function VenuesList() {
   if (venues) {
     return (
       <>
-        <section className="flex flex-wrap gap-10 justify-center w-full">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10">
           {venues.map((venue) => (
             <VenueCard key={venue.id} venue={venue} />
           ))}
