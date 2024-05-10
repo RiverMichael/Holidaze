@@ -67,8 +67,16 @@ export default function VenueDetails() {
               <Breadcrumb.Item href="/" icon={IoHome}>
                 All Venues
               </Breadcrumb.Item>
-              {venue.location.country && <Breadcrumb.Item href="/">{venue.location.country}</Breadcrumb.Item>}
-              {venue.location.city && <Breadcrumb.Item href="/">{venue.location.city}</Breadcrumb.Item>}
+              {venue.location.country && (
+                <Breadcrumb.Item>
+                  <Link to="/">{venue.location.country}</Link>
+                </Breadcrumb.Item>
+              )}
+              {venue.location.city && (
+                <Breadcrumb.Item>
+                  <Link to="/">{venue.location.city}</Link>
+                </Breadcrumb.Item>
+              )}
               <Breadcrumb.Item active="true">{venue.name}</Breadcrumb.Item>
             </Breadcrumb>
           </div>
