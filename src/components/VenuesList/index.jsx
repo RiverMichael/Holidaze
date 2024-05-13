@@ -41,7 +41,7 @@ export default function VenuesList() {
           ))}
         </section>
 
-        <div className="overflow-x-auto  text-primary-light">
+        <div className="flex justify-center overflow-x-auto text-primary-light">
           <Pagination currentPage={isCurrentPage} totalPages={metaData.pageCount} onPageChange={onPageChange} previousLabel="" nextLabel="" showIcons />
         </div>
       </>

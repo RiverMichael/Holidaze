@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function ManagerVenuesList({ venues }) {
   return (
-    <ul className="flex flex-col gap-10 mb-10 w-max">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-10 w-full">
       {venues.map((venue) => (
         <div key={venue.id} className="max-w-md">
           <Link to={`/venues/${venue.id}`}>
@@ -24,7 +24,7 @@ export default function ManagerVenuesList({ venues }) {
             <StarRating rating={venue.rating} />
           </div>
 
-          <div className="flex gap-1 text-primary">
+          <div className="flex gap-1 text-primary items-center">
             <IoLocation size={20} />
             <p className="text-base capitalize">
               {venue.location.city}, {venue.location.country}
