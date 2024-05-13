@@ -44,7 +44,7 @@ export default function RegisterForm() {
   const [isError, setIsError] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [formData, setFormData] = useState([]);
-  const { setToken, setProfile, setApiKey } = useAuth();
+  const { setToken, setUser, setApiKey } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function RegisterForm() {
         try {
           const loginResult = await doFetch(`${API_AUTH_URL}/login`, loginOptions);
 
-          setProfile(loginResult.data);
+          setUser(loginResult.data);
           setToken(loginResult.data.accessToken);
           fetchApiKey();
           setTimeout(() => {

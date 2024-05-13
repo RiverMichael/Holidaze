@@ -12,13 +12,17 @@ import UpcomingBookingsList from "../UpcomingBookingsList";
 import PreviousBookingsList from "../PreviousBookingsList";
 import ManagerVenuesList from "../ManagerVenuesList";
 import { Link } from "react-router-dom";
+import useAuth from "../../store/auth";
+import checkIfProfileIsUsersProfile from "../../utils/checkIfProfileIsUsersProfile";
 
 export default function ProfileDetails() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [profile, setProfile] = useState(null);
-  let name = useParams().name;
+  const [isProfileUsersProfile, setIsProfileUsersProfile] = useState(false);
   const { getData } = useFetchOptions();
+  const { user } = useAuth();
+  let name = useParams().name;
 
   const { data, isLoading, isError } = useDoFetch(`${API_BASE_URL}/profiles/${name}?_bookings=true&_venues=true`, getData());
 
@@ -27,6 +31,12 @@ export default function ProfileDetails() {
       setProfile(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (profile && user) {
+      setIsProfileUsersProfile(checkIfProfileIsUsersProfile(profile, user));
+    }
+  }, [profile, user]);
 
   useEffect(() => {
     let metaDescription = document.querySelector("meta[name='description']");
@@ -69,9 +79,11 @@ export default function ProfileDetails() {
               <figure className="w-28 h-28">
                 <img src={profile.avatar.url} alt={profile.name} className=" w-full h-full rounded-full object-cover object-center" />
               </figure>
-              <button onClick={() => setIsEditProfileModalOpen(true)} className="text-sm underline underline-offset-2 link font-normal">
-                Edit profile
-              </button>
+              {isProfileUsersProfile && (
+                <button onClick={() => setIsEditProfileModalOpen(true)} className="text-sm underline underline-offset-2 link font-normal">
+                  Edit profile
+                </button>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -93,31 +105,38 @@ export default function ProfileDetails() {
             </div>
           </section>
 
-          <section className="w-full">
-            <Tabs style="default" className="flex-nowrap">
-              <Tabs.Item active title="Upcoming bookings">
-                <div>
-                  <UpcomingBookingsList bookings={data.bookings} />
-                </div>
-              </Tabs.Item>
-
-              <Tabs.Item title="Previous bookings">
-                <div>
-                  <PreviousBookingsList bookings={data.bookings} />
-                </div>
-              </Tabs.Item>
-
-              {profile.venueManager && (
-                <Tabs.Item title="My venues">
-                  <section className="w-max">{data.venues.length > 0 ? <ManagerVenuesList venues={data.venues} /> : <div className="mb-5">You have no listed venues</div>}</section>
-
-                  <Link to="/venues/add" className="btn btn-primary w-max">
-                    Add venue
-                  </Link>
+          {isProfileUsersProfile ? (
+            <section className="w-full">
+              <Tabs style="default" className="flex-nowrap">
+                <Tabs.Item active title="Upcoming bookings">
+                  <div>
+                    <UpcomingBookingsList bookings={data.bookings} />
+                  </div>
                 </Tabs.Item>
-              )}
-            </Tabs>
-          </section>
+
+                <Tabs.Item title="Previous bookings">
+                  <div>
+                    <PreviousBookingsList bookings={data.bookings} />
+                  </div>
+                </Tabs.Item>
+
+                {profile.venueManager && (
+                  <Tabs.Item title="My venues">
+                    <section className="">{data.venues.length > 0 ? <ManagerVenuesList venues={data.venues} /> : <div className="mb-5">You have no listed venues</div>}</section>
+
+                    <Link to="/venues/add" className="btn btn-primary w-max">
+                      Add venue
+                    </Link>
+                  </Tabs.Item>
+                )}
+              </Tabs>
+            </section>
+          ) : (
+            <section className="flex flex-col gap-2 w-full">
+              <h2 className="text-lg md:text-2xl">{data.name}'s venues</h2>
+              {data.venues.length > 0 ? <ManagerVenuesList venues={data.venues} /> : "This venue manager has no venues listed."}
+            </section>
+          )}
         </div>
 
         <Modal dismissible size="md" show={isEditProfileModalOpen} onClose={() => setIsEditProfileModalOpen(false)}>

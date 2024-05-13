@@ -30,7 +30,7 @@ export default function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isError, setIsError] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const { setToken, setApiKey, setProfile, profile, setVenueManager } = useAuth();
+  const { setToken, setApiKey, setUser, user, setVenueManager } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,9 +40,9 @@ export default function LoginForm() {
           const apiKeyResult = await doFetch(`${API_AUTH_URL}/create-api-key`, postData({}));
           setApiKey(apiKeyResult.data.key);
 
-          if (profile?.name) {
-            const profileResult = await doFetch(`${API_BASE_URL}/profiles/${profile.name}`, getData());
-            setVenueManager(profileResult.data.venueManager);
+          if (user?.name) {
+            const userResult = await doFetch(`${API_BASE_URL}/profiles/${user.name}`, getData());
+            setVenueManager(userResult.data.venueManager);
           }
 
           setTimeout(() => {
@@ -55,7 +55,7 @@ export default function LoginForm() {
       };
       fetchApiKey();
     }
-  }, [isUserLoggedIn, profile?.name]);
+  }, [isUserLoggedIn, user?.name]);
 
   const handleOnSubmit = async (data) => {
     setIsSubmitting(true);
@@ -64,7 +64,7 @@ export default function LoginForm() {
 
     try {
       const result = await doFetch(`${API_AUTH_URL}/login`, options);
-      setProfile(result.data);
+      setUser(result.data);
       setToken(result.data.accessToken);
       setIsUserLoggedIn(true);
       setIsError(false);
