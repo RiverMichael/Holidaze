@@ -4,7 +4,7 @@ const useAuth = create((set, get) => ({
   accessToken: "",
   apiKey: "",
   isAuthenticated: false,
-  profile: {},
+  user: {},
   isVenueManager: false,
 
   setToken: (token) => set({ accessToken: token }),
@@ -13,15 +13,15 @@ const useAuth = create((set, get) => ({
   setApiKey: (key) => set({ apiKey: key, isAuthenticated: true }),
   getApiKey: () => get().apiKey,
 
-  setProfile: (profile) => set({ profile: { name: profile.name, email: profile.email, avatar: profile.avatar.url } }),
+  setUser: (user) => set({ user: { name: user.name, email: user.email, avatar: user.avatar.url } }),
   updateAvatar: (avatarUrl) => {
-    const currentProfile = get().profile;
-    set({ profile: { ...currentProfile, avatar: avatarUrl } });
+    const currentUser = get().user;
+    set({ user: { ...currentUser, avatar: avatarUrl } });
   },
 
   setVenueManager: (isVenueManager) => set({ isVenueManager }),
 
-  logout: () => set({ accessToken: "", apiKey: "", isAuthenticated: false, profile: {} }),
+  logout: () => set({ accessToken: "", apiKey: "", isAuthenticated: false, user: {} }),
 }));
 
 export default useAuth;

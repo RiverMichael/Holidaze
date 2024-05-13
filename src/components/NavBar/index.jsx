@@ -11,7 +11,7 @@ import { scrollToTop } from "../../utils/scrollToTop";
 export default function NavBar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const { isAuthenticated, profile } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const handleLogout = useHandleLogout();
   const location = useLocation();
 
@@ -95,13 +95,13 @@ export default function NavBar() {
                 ) : (
                   <div className="flex flex-col gap-5">
                     <NavLink
-                      to={`/profile/${profile.name}`}
+                      to={`/profile/${user.name}`}
                       onClick={() => setIsNavOpen(false)}
                       className={({ isActive }) => `flex items-center gap-2 lg:hidden link font-normal ${isActive && "link-active"}`}>
                       <figure className="w-10 h-10">
-                        <img src={profile.avatar} alt={`${profile.name} avatar`} className="w-full h-full rounded-full object-center object-cover" />
+                        <img src={user.avatar} alt={`${user.name} avatar`} className="w-full h-full rounded-full object-center object-cover" />
                       </figure>
-                      {profile.name}
+                      {user.name}
                     </NavLink>
 
                     <button onClick={() => handleLogout()} className="lg:hidden btn btn-outlined text-sm bg-secondary">
