@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import { Breadcrumb } from "flowbite-react";
 
 export default function VenueDetails() {
-  const { profile } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [isOwner, setIsOwner] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState([]);
@@ -40,10 +40,10 @@ export default function VenueDetails() {
       metaDescription.setAttribute("content", "Unfortunately we can not find this venue at Holidaze");
     }
 
-    if (!isLoading && venue && profile) {
-      setIsOwner(checkIfUserIsOwner(venue.owner, profile));
+    if (!isLoading && venue && user) {
+      setIsOwner(checkIfUserIsOwner(venue.owner, user));
     }
-  }, [venue, isLoading, isError, profile]);
+  }, [venue, isLoading, isError, user]);
 
   if (isLoading) {
     return <LoadingIndicator />;
@@ -163,7 +163,13 @@ export default function VenueDetails() {
                   <figure>
                     <img src={venue.owner.avatar.url} alt={`${venue.owner.name} avatar`} className="h-10 w-10 rounded-full object-cover object-center" />
                   </figure>
-                  <p>{venue.owner.name}</p>
+                  {isAuthenticated ? (
+                    <Link to={`/profile/${venue.owner.name}`} className="link font-normal">
+                      {venue.owner.name}
+                    </Link>
+                  ) : (
+                    <p>{venue.owner.name}</p>
+                  )}
                 </div>
               </div>
             </div>
