@@ -60,3 +60,24 @@ h5 {
     @apply rounded;
   }
 }
+
+.rc-slider-rail {
+  @apply bg-secondary;
+}
+
+.rc-slider-track {
+  @apply bg-primary;
+}
+
+.rc-slider-handle {
+  @apply bg-primary border-primary opacity-100;
+  box-shadow: none !important;
+}
+
+.rc-slider-handle:hover {
+  @apply bg-primary-light border-primary-light;
+}
+
+.rc-slider-handle:active {
+  @apply bg-primary-light border-primary-light;
+}
