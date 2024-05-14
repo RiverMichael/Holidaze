@@ -25,7 +25,7 @@ export default function VenuesList({ filterTerms }) {
 
       try {
         while (page <= totalPages) {
-          const result = await doFetch(`${API_BASE_URL}/venues?page=${page}`);
+          const result = await doFetch(`${API_BASE_URL}/venues?sort=rating&sortOrder=desc&page=${page}`);
 
           result.data.forEach((venue) => {
             if (fetchedVenues.every((v) => v.id !== venue.id)) {
