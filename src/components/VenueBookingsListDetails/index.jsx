@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoCalendar, IoPeople, IoTrashOutline } from "react-icons/io5";
+import { IoCalendar, IoPeople } from "react-icons/io5";
 
 export default function VenueBookingsListDetails({ booking }) {
   const [tooltipId, setTooltipId] = useState(false);
@@ -34,9 +34,7 @@ export default function VenueBookingsListDetails({ booking }) {
           onMouseEnter={() => setTooltipId(booking.id)}
           onMouseLeave={() => setTooltipId(null)}
           type="button"
-          className="p-2 rounded-lg hover:bg-primary-dark hover:text-neutral focus-visible:outline-none">
-          <IoTrashOutline size={15} />
-        </button>
+          className="p-2 rounded-lg hover:bg-primary-dark hover:text-neutral focus-visible:outline-none"></button>
         {tooltipId === booking.id && (
           <div id="tooltip-deleteBooking" role="tooltip" className="inline-block absolute bottom-full mb-2 start-0 w-max z-10 bg-secondary px-2 py-1 rounded text-sm">
             Cancel booking
