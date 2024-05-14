@@ -90,7 +90,6 @@ export default function RegisterForm() {
       delete submitData.avatar;
     }
     const options = postData(submitData);
-    console.log(options);
 
     try {
       const result = await doFetch(`${API_AUTH_URL}/register`, options);
