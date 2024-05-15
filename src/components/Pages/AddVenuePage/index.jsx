@@ -11,9 +11,7 @@ export default function AddVenuePage() {
         <p className="text-primary font-heading font-bold text-lg">a new venue</p>
       </div>
 
-      <section>
-        <AddVenueForm />
-      </section>
+      <AddVenueForm />
     </main>
   );
 }

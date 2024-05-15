@@ -61,8 +61,8 @@ export default function VenueDetails() {
   if (venue) {
     return (
       <>
-        <section className="flex flex-col gap-3 md:max-w-3xl lg:max-w-5xl mx-auto">
-          <div className="px-5 md:px-0 mb-2 md:mb-5">
+        <section className="flex flex-col gap-5 md:gap-8 md:max-w-3xl lg:max-w-5xl mx-auto">
+          <div id="breadcrumbs" className="px-5 md:px-0">
             <Breadcrumb aria-label="breadcrumb">
               <Breadcrumb.Item href="/" icon={IoHome}>
                 All Venues
@@ -89,7 +89,7 @@ export default function VenueDetails() {
               </Link>
             </div>
           )}
-          <div className="relative w-full h-56 sm:h-72 md:h-96 lg:h-96 custom-carousel">
+          <section className="relative w-full h-56 sm:h-72 md:h-96 lg:h-96 custom-carousel">
             {venue.media.length ? (
               venue.media.length > 1 ? (
                 <Carousel slide={false}>
@@ -113,13 +113,13 @@ export default function VenueDetails() {
             ) : (
               <img src="https://placehold.co/600x400?text=No+image" alt="Placeholder image" className="w-full h-full object-cover object-center md:rounded"></img>
             )}
-          </div>
+          </section>
 
           <div className="px-5 md:px-0 flex flex-col md:flex-row gap-10 justify-between">
-            <div className="flex flex-col w-fit gap-5">
+            <article className="flex flex-col w-fit gap-5">
               <div className="flex flex-col gap-1">
                 <h1 className="text-3xl text-wrap capitalize">{venue.name}</h1>
-                <div className="flex items-center  gap-10">
+                <div className="flex items-center gap-10">
                   <div className="flex items-center gap-1">
                     <IoLocation size={20} className="text-primary" />
                     <span>
@@ -152,7 +152,7 @@ export default function VenueDetails() {
                 </div>
               </div>
 
-              <div>
+              <div className="max-w-lg">
                 <h3 className="text-base">Description</h3>
                 <p>{venue.description}</p>
               </div>
@@ -172,30 +172,30 @@ export default function VenueDetails() {
                   )}
                 </div>
               </div>
-            </div>
+            </article>
 
             <div className="flex flex-col gap-10 flex-none w-fit">
               {!isOwner ? (
-                <div>
+                <section>
                   <h2 className="text-2xl">Book this venue</h2>
                   <BookVenueForm venue={venue} />
-                </div>
+                </section>
               ) : (
-                <div>
+                <section>
                   <h2 className="text-2xl">Venue Bookings</h2>
                   <VenueBookingsList bookings={venue.bookings} />
-                </div>
+                </section>
               )}
 
-              <div>
+              <section>
                 <h3 className="text-base capitalize">
                   {venue.location.city}, {venue.location.country}
                 </h3>
 
-                <div className="max-w-fit">
+                <figure className="max-w-fit rounded">
                   <VenueMap name={venue.name} location={venue.location} />
-                </div>
-              </div>
+                </figure>
+              </section>
             </div>
           </div>
         </section>
