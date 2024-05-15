@@ -9,6 +9,27 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "description": "Holidaze, a fictional accommodation booking website. Built with React, Vite, TailwindCSS, and Flowbite.",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RiverMichael/Holidaze.git"
+  },
+  "keywords": [
+    "React",
+    "Vite",
+    "TailwindCSS",
+    "Flowbite",
+    "JavaScript",
+    "CSS",
+    "HTML"
+  ],
+  "author": "Michael Nilsson <mrn@michaelriver.dev>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RiverMichael/Holidaze/issues"
+  },
+  "homepage": "https://github.com/RiverMichael/Holidaze#readme",
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "flowbite": "^2.3.0",
