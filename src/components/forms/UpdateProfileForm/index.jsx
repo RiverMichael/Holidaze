@@ -22,7 +22,7 @@ export default function UpdateProfileForm({ profile, onSuccess }) {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      avatar: { url: profile?.avatar?.url || "" },
+      avatar: { url: profile?.avatar?.url, alt: profile.name || "" },
       venueManager: profile?.venueManager || false,
     },
     mode: "onChange",
@@ -41,7 +41,7 @@ export default function UpdateProfileForm({ profile, onSuccess }) {
       const result = await doFetch(`${API_BASE_URL}/profiles/${profile.name}`, options);
       onSuccess(result.data);
       setIsError(false);
-      updateAvatar(data.avatar.url);
+      updateAvatar(data.avatar);
       setVenueManager(data.venueManager);
     } catch (error) {
       console.log("error:", error);

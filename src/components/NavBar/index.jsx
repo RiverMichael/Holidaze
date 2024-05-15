@@ -99,7 +99,7 @@ export default function NavBar() {
                       onClick={() => setIsNavOpen(false)}
                       className={({ isActive }) => `flex items-center gap-2 lg:hidden link font-normal ${isActive && "link-active"}`}>
                       <figure className="w-10 h-10">
-                        <img src={user.avatar} alt={`${user.name} avatar`} className="w-full h-full rounded-full object-center object-cover" />
+                        <img src={user.avatar.url} alt={user.avatar.alt || user.name} className="w-full h-full rounded-full object-center object-cover" />
                       </figure>
                       {user.name}
                     </NavLink>
