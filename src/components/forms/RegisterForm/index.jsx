@@ -89,6 +89,10 @@ export default function RegisterForm() {
     if (!submitData.avatar.url) {
       delete submitData.avatar;
     }
+    if (!submitData.avatar.alt) {
+      submitData.avatar.alt = submitData.name;
+    }
+
     const options = postData(submitData);
 
     try {
