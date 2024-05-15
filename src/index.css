@@ -81,3 +81,7 @@ h5 {
 .rc-slider-handle:active {
   @apply bg-primary-light border-primary-light;
 }
+
+#breadcrumbs ol {
+  @apply flex-wrap;
+}
