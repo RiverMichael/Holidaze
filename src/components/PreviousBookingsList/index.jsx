@@ -9,9 +9,9 @@ export default function PreviousBookingsList({ bookings }) {
     return (
       <ul className="flex flex-col gap-5">
         {sortedBookings.map((booking) => (
-          <div key={booking.id} className="mb-5 opacity-80">
+          <li key={booking.id} className="mb-5 opacity-80">
             <BookedVenueCard booking={booking} />
-          </div>
+          </li>
         ))}
       </ul>
     );

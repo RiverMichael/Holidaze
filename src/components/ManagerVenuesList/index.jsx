@@ -6,7 +6,7 @@ export default function ManagerVenuesList({ venues }) {
   return (
     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-10 w-full">
       {venues.map((venue) => (
-        <div key={venue.id} className="max-w-md">
+        <li key={venue.id} className="max-w-md">
           <Link to={`/venues/${venue.id}`}>
             <figure className="max-w-md h-48">
               {venue.media.length ? (
@@ -30,7 +30,7 @@ export default function ManagerVenuesList({ venues }) {
               {venue.location.city}, {venue.location.country}
             </p>
           </div>
-        </div>
+        </li>
       ))}
     </ul>
   );
