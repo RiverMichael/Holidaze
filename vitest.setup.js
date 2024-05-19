@@ -26,7 +26,23 @@ global.fetch = vi.fn((url, options) => {
         json: () => Promise.resolve({ error: "Unauthorized" }),
       });
     }
+  } else if (url.endsWith("/profiles/testuser")) {
+    const authHeader = options.headers.Authorization;
+    const apiKeyHeader = options.headers["X-Noroff-API-Key"];
+    if (authHeader === "Bearer test-token" && apiKeyHeader === "test-api-key") {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ data: { venueManager: false } }),
+      });
+    } else {
+      return Promise.resolve({
+        ok: false,
+        status: 401,
+        json: () => Promise.resolve({ error: "Unauthorized" }),
+      });
+    }
   }
+
   return Promise.resolve({
     ok: false,
     json: () => Promise.resolve({}),
