@@ -8,15 +8,9 @@ import { API_AUTH_URL } from "../../../constants/apiURL";
 const mockSetToken = vi.fn();
 const mockSetUser = vi.fn();
 const mockSetApiKey = vi.fn();
-const mockGetToken = vi.fn(() => {
-  const token = mockGetToken._value;
-  return token;
-});
+const mockGetToken = vi.fn(() => mockGetToken._value);
 mockGetToken._value = undefined;
-const mockGetApiKey = vi.fn(() => {
-  const apiKey = mockGetApiKey._value;
-  return apiKey;
-});
+const mockGetApiKey = vi.fn(() => mockGetApiKey._value);
 mockGetApiKey._value = undefined;
 
 vi.mock("../../../store/auth", async (importOriginal) => {
