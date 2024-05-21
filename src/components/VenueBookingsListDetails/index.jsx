@@ -21,7 +21,9 @@ export default function VenueBookingsListDetails({ booking }) {
         </div>
         <div className="flex gap-1 items-center">
           <IoPeople size={20} className="text-primary" />
-          <span>{booking.guests} Guests</span>
+          <span>
+            {booking.guests} {booking.guests > 1 ? "Guests" : "Guest"}
+          </span>
         </div>
         <Link to={`/profile/${booking.customer.name}`} className="link font-normal">
           <div className="flex gap-1 items-center">
