@@ -118,7 +118,7 @@ export default function VenuesList({ filterTerms }) {
           ))}
         </section>
 
-        <div className="flex justify-center overflow-x-auto text-primary-light">
+        <div className="flex justify-center overflow-x-auto">
           <Pagination currentPage={isCurrentPage} totalPages={Math.ceil(filteredVenues.length / venuesPerPage)} onPageChange={onPageChange} previousLabel="" nextLabel="" showIcons />
         </div>
       </>

@@ -37,7 +37,7 @@ export default function HomePage() {
 
   return (
     <main className="flex flex-col gap-8 px-5">
-      <section className="flex flex-col md:flex-row gap-5 justify-between md:items-center">
+      <section className="flex flex-col md:flex-row gap-8 justify-between md:items-center">
         <div>
           <h1>Browse</h1>
           <p className="text-primary font-heading font-bold text-lg">our holidaze venues</p>
