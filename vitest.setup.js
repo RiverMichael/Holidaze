@@ -48,3 +48,24 @@ global.fetch = vi.fn((url, options) => {
     json: () => Promise.resolve({}),
   });
 });
+
+// Mock localStorage
+const localStorageMock = {
+  setItem: vi.fn((key, value) => {
+    localStorageMock[key] = value;
+  }),
+  getItem: vi.fn((key) => localStorageMock[key] || null),
+  removeItem: vi.fn((key) => {
+    delete localStorageMock[key];
+  }),
+  clear: vi.fn(() => {
+    Object.keys(localStorageMock).forEach((key) => {
+      if (typeof localStorageMock[key] !== "function") {
+        delete localStorageMock[key];
+      }
+    });
+  }),
+};
+
+// Set the mock as global localStorage
+global.localStorage = localStorageMock;
