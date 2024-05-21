@@ -132,9 +132,15 @@ export default function ProfileDetails() {
               </Tabs>
             </section>
           ) : (
-            <section className="flex flex-col gap-2 w-full">
-              <h2 className="text-lg md:text-2xl">{data.name}'s venues</h2>
-              {data.venues.length > 0 ? <ManagerVenuesList venues={data.venues} /> : "This venue manager has no venues listed."}
+            <section className="w-full">
+              {data.venueManager ? (
+                <div className="flex flex-col gap-2">
+                  <h2 className="text-lg md:text-2xl">{data.name}'s venues</h2>
+                  {data.venues.length > 0 ? <ManagerVenuesList venues={data.venues} /> : "This venue manager has no venues listed."}
+                </div>
+              ) : (
+                <p>This user is not a venue manager.</p>
+              )}
             </section>
           )}
         </div>
