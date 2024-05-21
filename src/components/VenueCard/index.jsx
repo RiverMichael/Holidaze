@@ -43,7 +43,10 @@ export default function VenueCard({ venue }) {
             </div>
 
             <div className="flex items-center gap-1 text-primary">
-              <IoPeople size={20} /> <div className="text-text">{venue.maxGuests} Guests</div>
+              <IoPeople size={20} />{" "}
+              <div className="text-text">
+                {venue.maxGuests} {venue.maxGuests > 1 ? "Guests" : "Guest"}
+              </div>
             </div>
           </div>
 
