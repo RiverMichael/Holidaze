@@ -1,22 +1,23 @@
 import { Link } from "react-router-dom";
 import { IoLocation, IoPeople } from "react-icons/io5";
 import StarRating from "../StarRating";
+import VenueFeaturesList from "../VenueFeaturesList";
 
 export default function VenueCard({ venue }) {
   return (
-    <div className="bg-neutral pb-2 border rounded-lg shadow max-w-80 flex flex-col">
+    <div className="bg-neutral pb-2 border border-secondary rounded-lg shadow max-w-80 flex flex-col">
       <Link to={`/venues/${venue.id}`}>
         <figure className="w-full h-48 overflow-hidden rounded-t-lg">
           {venue.media.length ? (
-            <img src={venue.media[0].url} alt={venue.media[0].alt} className="object-cover object-center w-full h-48" />
+            <img src={venue.media[0].url} alt={venue.media[0].alt || venue.name} className="object-cover object-center w-full h-48" />
           ) : (
             <img src="https://placehold.co/600x400?text=No+image" alt="Placeholder image" className="object-cover object-center w-full h-48"></img>
           )}
         </figure>
       </Link>
 
-      <div className="flex flex-col py-2 px-3 gap-5 justify-between grow">
-        <div className="flex flex-col gap-3">
+      <div className="flex flex-col py-2 px-3 gap-6 justify-between grow">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <div>
               <Link to={`/venues/${venue.id}`} className="hover:opacity-70 transition-all duration-200 ease-in-out">
@@ -47,14 +48,7 @@ export default function VenueCard({ venue }) {
           </div>
 
           <div className="flex items-center flex-wrap gap-2">
-            {Object.entries(venue.meta).map(
-              ([feature, value], index) =>
-                value && (
-                  <span key={index} className="text-sm px-3 py-1 rounded-full bg-secondary text-primary capitalize">
-                    {feature}
-                  </span>
-                )
-            )}
+            <VenueFeaturesList features={Object.entries(venue.meta)} />
           </div>
         </div>
 

@@ -14,6 +14,7 @@ import checkIfUserIsOwner from "../../utils/checkIfUserIsOwner";
 import VenueBookingsList from "../VenueBookingsList";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "flowbite-react";
+import VenueFeaturesList from "../VenueFeaturesList";
 
 export default function VenueDetails() {
   const { user, isAuthenticated } = useAuth();
@@ -131,20 +132,13 @@ export default function VenueDetails() {
                 </div>
               </div>
 
-              <div className="flex items-center flex-wrap gap-2">
-                {Object.entries(venue.meta).map(
-                  ([feature, value], index) =>
-                    value && (
-                      <span key={index} className="text-sm px-3 py-1 rounded-full bg-secondary text-primary capitalize">
-                        {feature}
-                      </span>
-                    )
-                )}
+              <div className="flex items-center flex-wrap gap-x-4 gap-y-2">
+                <VenueFeaturesList features={Object.entries(venue.meta)} />
               </div>
 
               <div className="flex items-center gap-10 flex-wrap">
                 <div className="text-primary text-xl font-bold">
-                  ${venue.price} <span className="text-primary-dark text-base font-normal">/ Night</span>
+                  ${venue.price} <span className="text-text text-base font-normal">/ Night</span>
                 </div>
 
                 <div className="flex items-center gap-1 text-primary">
