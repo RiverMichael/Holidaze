@@ -8,13 +8,13 @@ function getDatesInRange(startDate, endDate) {
   const end = new Date(endDate);
   const dateList = [];
 
-  let currentDate = new Date(start.toISOString().split("T")[0]); // Ensure no time component
+  let formattedStartDate = new Date(start.toISOString().split("T")[0]);
+  let formattedEndDate = new Date(end.toISOString().split("T")[0]);
 
-  while (currentDate <= end) {
-    dateList.push(new Date(currentDate));
-    currentDate.setDate(currentDate.getDate() + 1);
+  while (formattedStartDate <= formattedEndDate) {
+    dateList.push(new Date(formattedStartDate));
+    formattedStartDate.setDate(formattedStartDate.getDate() + 1);
   }
-
   return dateList;
 }
 

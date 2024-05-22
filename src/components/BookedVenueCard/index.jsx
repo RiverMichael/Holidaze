@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../utils/formatDate";
 
 export default function BookedVenueCard({ booking }) {
   const [numberOfNights, setNumberOfNights] = useState(0);
@@ -39,11 +40,11 @@ export default function BookedVenueCard({ booking }) {
         <ul className="flex flex-col md:flex-row md:flex-wrap gap-x-3">
           <li className="flex gap-1 md:items-center">
             <h4 className="text-primary font-bold text-base">Check-in date:</h4>
-            <p>{booking.dateFrom ? new Date(booking.dateFrom).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "Date not available"}</p>
+            <p>{formatDate(booking.dateFrom)}</p>
           </li>
           <li className="flex gap-1 md:items-center">
             <h4 className="text-primary font-bold text-base">Check-out date:</h4>
-            <p>{booking.dateTo ? new Date(booking.dateTo).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "Date not available"}</p>
+            <p>{formatDate(booking.dateTo)}</p>
           </li>
           <li className="flex gap-1 md:items-center">
             <h4 className="text-primary font-bold text-base">Nights:</h4>
@@ -60,7 +61,8 @@ export default function BookedVenueCard({ booking }) {
           <li className="flex gap-1 md:items-center">
             <h4 className="text-primary font-bold text-base">Location:</h4>
             <p className="capitalize">
-              {booking.venue.location.address}, {booking.venue.location.zip}, {booking.venue.location.city}, {booking.venue.location.country}
+              {booking.venue.location.address && `${booking.venue.location.address}, `} {booking.venue.location.zip && `${booking.venue.location.zip}, `}
+              {booking.venue.location.city && `${booking.venue.location.city}, `} {booking.venue.location.country && `${booking.venue.location.country}`}
             </p>
           </li>
         </ul>
