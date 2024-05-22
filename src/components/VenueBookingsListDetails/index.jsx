@@ -1,15 +1,8 @@
-import { useState } from "react";
-import { IoCalendar, IoPeople, IoTrashOutline } from "react-icons/io5";
+import { IoCalendar, IoPeople } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../utils/formatDate";
 
 export default function VenueBookingsListDetails({ booking }) {
-  const [tooltipId, setTooltipId] = useState(false);
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-  };
-
   return (
     <li key={booking.id} className="flex justify-between items-center bg-neutral shadow p-2 border border-secondary rounded">
       <div className="flex flex-col gap-1">
