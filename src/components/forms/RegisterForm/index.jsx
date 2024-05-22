@@ -89,7 +89,7 @@ export default function RegisterForm() {
     if (!submitData.avatar.url) {
       delete submitData.avatar;
     }
-    if (!submitData.avatar.alt) {
+    if (submitData.avatar && !submitData.avatar.alt) {
       submitData.avatar.alt = submitData.name;
     }
 
