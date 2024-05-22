@@ -85,11 +85,11 @@ export default function NavBar() {
 
                 {!isAuthenticated ? (
                   <div className="flex flex-col lg:flex-row gap-2">
-                    <NavLink to="login" onClick={() => setIsNavOpen(false)} className="btn btn-outlined w-full">
+                    <NavLink to="login" onClick={() => setIsNavOpen(false)} className="btn btn-outlined bg-secondary lg:bg-neutral w-full">
                       Login
                     </NavLink>
                     <NavLink to="register" onClick={() => setIsNavOpen(false)} className="btn btn-primary w-full">
-                      Sign up
+                      Register
                     </NavLink>
                   </div>
                 ) : (

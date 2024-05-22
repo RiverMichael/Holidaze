@@ -209,7 +209,7 @@ export default function RegisterForm() {
               />
             </svg>
           )}
-          {isSubmitting ? "Registering..." : "Sign up"}
+          {isSubmitting ? "Registering..." : "Register"}
         </button>
       </form>
 
