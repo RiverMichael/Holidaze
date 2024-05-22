@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useAuth from "../../store/auth";
 import useHandleLogout from "../../hooks/useHandleLogout";
+import { IoPersonCircleOutline, IoHomeOutline, IoPowerOutline } from "react-icons/io5";
 
 export default function ProfileDropdown() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -37,18 +38,18 @@ export default function ProfileDropdown() {
         id="user-menu-dropdown"
         className={`${
           isDropdownOpen ? "block absolute right-0 top-8" : "hidden"
-        } z-50 my-4 text-base list-none bg-secondary divide-y divide-gray-400 rounded-lg shadow  transition-all duration-500 ease-in-out overflow-hidden`}>
-        <div className="px-4 py-3">
+        } z-50 my-4 text-base list-none bg-neutral border border-secondary divide-y divide-secondary rounded-lg shadow-lg  transition-all duration-500 ease-in-out overflow-hidden`}>
+        <div className="px-4 py-4">
           <span className="block font-bold text-primary">{user.name}</span>
           <span className="block text-sm  text-text truncate">{user.email}</span>
         </div>
-        <ul className="pt-2" aria-labelledby="user-menu-button">
+        <ul className="py-3 flex flex-col gap-1" aria-labelledby="user-menu-button">
           <li>
             <NavLink
               to={`/profile/${user.name}`}
               onClick={() => setIsDropdownOpen(false)}
-              className={({ isActive }) => `block px-4 py-2 link font-normal ${isActive ? "link-active" : "hover:bg-gray-50 hover:shadow-sm"}`}>
-              My profile
+              className={({ isActive }) => `px-4 py-2 link font-normal rounded flex items-center gap-2 ${isActive ? "link-active" : "hover:bg-secondary hover:shadow-sm"}`}>
+              <IoPersonCircleOutline size={20} className="text-primary" /> My profile
             </NavLink>
           </li>
 
@@ -57,15 +58,15 @@ export default function ProfileDropdown() {
               <NavLink
                 to="venues/add"
                 onClick={() => setIsDropdownOpen(false)}
-                className={({ isActive }) => `block px-4 py-2 link font-normal ${isActive ? "link-active" : "hover:bg-gray-50 hover:shadow-sm"}`}>
-                Add Venue
+                className={({ isActive }) => `px-4 py-2 link font-normal rounded flex items-center gap-2 ${isActive ? "link-active" : " hover:bg-secondary hover:shadow-sm"}`}>
+                <IoHomeOutline size={20} className="text-primary" /> Add venue
               </NavLink>
             </li>
           )}
 
           <li>
-            <button onClick={() => handleLogout()} className="block px-4 py-2 link font-normal w-full text-left hover:bg-gray-50 hover:shadow-sm">
-              Sign out
+            <button onClick={() => handleLogout()} className="px-4 py-2 link font-normal rounded w-full hover:bg-secondary hover:shadow-sm flex items-center gap-2">
+              <IoPowerOutline size={20} className="text-primary" /> Log out
             </button>
           </li>
         </ul>

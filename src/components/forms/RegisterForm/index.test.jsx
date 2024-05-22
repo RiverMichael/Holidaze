@@ -62,11 +62,11 @@ describe("RegisterForm", () => {
     expect(screen.getByLabelText(/Password/i, { selector: 'input[id="registerPassword"]' })).toBeInTheDocument();
     expect(screen.getByLabelText(/Password confirmation/i, { selector: 'input[id="passwordConfirmation"]' })).toBeInTheDocument();
     expect(screen.getByLabelText(/I want to be a venue manager/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Sign up/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Register/i })).toBeInTheDocument();
   });
 
   it("Should display validation errors on submit", async () => {
-    fireEvent.click(screen.getByRole("button", { name: /Sign up/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Register/i }));
 
     await waitFor(() => {
       expect(screen.getByText(/Please enter your name/i)).toBeInTheDocument();
@@ -95,7 +95,7 @@ describe("RegisterForm", () => {
       target: { value: TEST_USER.password },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /Sign up/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Register/i }));
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledTimes(3);
