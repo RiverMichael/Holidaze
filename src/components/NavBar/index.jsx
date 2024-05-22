@@ -40,7 +40,7 @@ export default function NavBar() {
     <>
       <nav className="bg-neutral">
         <div className="w-full flex flex-wrap items-center justify-between mx-auto">
-          <button type="button" onClick={() => setIsNavOpen(true)} id="navbar-toggler" className="lg:hidden">
+          <button type="button" onClick={() => setIsNavOpen(true)} id="navbar-toggler" className="lg:hidden" aria-label="show menu">
             <IoMenu size={30} className="text-primary" />
           </button>
 
@@ -114,7 +114,7 @@ export default function NavBar() {
               </div>
             </div>
 
-            <button type="button" id="search-toggler" className="lg:hidden">
+            <button type="button" id="search-toggler" className="lg:hidden" aria-label="search venues">
               <IoSearch size={30} className="text-primary" onClick={() => setIsSearchVisible(!isSearchVisible)} />
             </button>
           </div>
