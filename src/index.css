@@ -85,3 +85,15 @@ h5 {
 #breadcrumbs ol {
   @apply flex-wrap;
 }
+
+.react-datepicker__header {
+  @apply bg-primary;
+}
+
+.react-datepicker__current-month {
+  @apply text-neutral;
+}
+
+.react-datepicker__day--in-range {
+  @apply bg-secondary text-primary-dark font-medium;
+}
