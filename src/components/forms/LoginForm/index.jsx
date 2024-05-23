@@ -130,13 +130,17 @@ export default function LoginForm() {
 
       <div
         id="toast"
-        className={`items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-error text-error bg-red-50" : " bg-green-50 border-green-700 text-green-700"
+        className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
+          isError ? "border-error text-error" : "border-green-700 text-green-700"
         }`}
         role="alert">
         <div className="text-lg">{isError ? "Something went wrong when trying to login to your account! Please try again." : "You have been logged in to your account."}</div>
 
-        <button onClick={() => setShowToast(false)} type="button" className="ms-5" aria-label="Close">
+        <button
+          onClick={() => setShowToast(false)}
+          type="button"
+          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-green-700 hover:text-neutral"}`}
+          aria-label="Close">
           <IoClose size={20} />
         </button>
       </div>
