@@ -44,7 +44,7 @@ export default function AddVenueForm() {
     reset,
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       rating: 0,
       location: { lat: null, lng: null },

@@ -7,7 +7,7 @@ import { Modal, ModalBody, ModalHeader } from "flowbite-react";
 
 const schema = yup.object({
   name: yup.string().required("Please enter your name").min(3, "Name must be at least 3 characters long"),
-  email: yup.string().email().required("Please enter a valid email address"),
+  email: yup.string().email("Please enter a valid email address").required("Please enter a valid email address"),
   subject: yup.string().oneOf(["booking", "venue", "profile", "other"], "Please select a subject").required("Please select a subject"),
   body: yup.string().required("Please enter a message").min(10, "Message must be at least 10 characters long").max(500, "Message must be less than 500 characters long"),
 });
@@ -18,7 +18,7 @@ export default function ContactForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
+  } = useForm({ resolver: yupResolver(schema), mode: "onSubmit" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();

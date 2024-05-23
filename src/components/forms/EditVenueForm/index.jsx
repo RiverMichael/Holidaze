@@ -46,7 +46,7 @@ export default function EditVenueForm({ venue }) {
     reset,
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       name: venue.name,
       description: venue.description,

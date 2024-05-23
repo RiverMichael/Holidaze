@@ -23,7 +23,7 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
+  } = useForm({ resolver: yupResolver(schema), mode: "onSubmit" });
 
   const { postData, getData } = useFetchOptions();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -91,7 +91,7 @@ export default function LoginForm() {
             {...register("email")}
             className={`form-input w-full ${errors.email ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
             type="email"
-            placeholder="laura@holiday.com"
+            placeholder="laura@stud.noroff.no"
           />
           <p className="text-error font-light">{errors.email?.message}</p>
         </div>

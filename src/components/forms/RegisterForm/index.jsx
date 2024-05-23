@@ -12,14 +12,14 @@ import useAuth from "../../../store/auth";
 const schema = yup.object({
   name: yup
     .string()
-    .required("Please enter your name")
-    .matches(/^[A-Za-z0-9_]+$/, "Name can only use a-Z, 0-9, and _"),
+    .required("Please enter a username")
+    .matches(/^[A-Za-z0-9_]+$/, "Username can only use a-Z, 0-9, and _"),
   email: yup
     .string()
-    .required("Please enter a valid email address")
+    .required("Please enter a valid @stud.noroff.no address")
     .matches(/^[A-Za-z0-9._%+-]+@stud\.noroff\.no$/, "Must be a valid @stud.noroff.no email address"),
   avatar: yup.object({
-    url: yup.string().url("Please enter an URL"),
+    url: yup.string().url("Please enter a valid URL"),
   }),
   password: yup.string().min(8, "Password must be at least 8 characters long").required(),
   passwordConfirmation: yup
@@ -35,7 +35,7 @@ export default function RegisterForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
+  } = useForm({ resolver: yupResolver(schema), mode: "onSubmit" });
 
   const { postData } = useFetchOptions();
 
@@ -125,12 +125,13 @@ export default function RegisterForm() {
             type="text"
             placeholder="Laura Holiday"
           />
+          {!errors.name && <span className="text-sm font-light">Username can only use a-Z, 0-9, and _</span>}
           <p className="text-error font-light">{errors.name?.message}</p>
         </div>
 
         <div className="w-full flex flex-col gap-1">
           <label htmlFor="registerEmail" className="text-sm font-bold flex justify-between w-full">
-            Email
+            <div className="flex gap-2">Email</div>
             <span className={`font-light ${errors.email && "text-error font-bold"}`}>*Required</span>
           </label>
           <input
@@ -138,8 +139,10 @@ export default function RegisterForm() {
             {...register("email")}
             className={`form-input w-full ${errors.email ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
             type="email"
-            placeholder="laura@holiday.com"
+            placeholder="laura@stud.noroff.no"
           />
+          {!errors.email && <span className="text-sm font-light">Email must be a @stud.noroff.no address</span>}
+
           <p className="text-error font-light">{errors.email?.message}</p>
         </div>
 
@@ -169,6 +172,7 @@ export default function RegisterForm() {
             type="password"
             placeholder="********"
           />
+          {!errors.password && <span className="text-sm font-light">Password must be at least 8 characters long</span>}
           <p className="text-error font-light">{errors.password?.message}</p>
         </div>
         <div className="w-full flex flex-col gap-1">
