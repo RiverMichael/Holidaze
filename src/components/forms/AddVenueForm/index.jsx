@@ -44,7 +44,7 @@ export default function AddVenueForm() {
     reset,
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       rating: 0,
       location: { lat: null, lng: null },
@@ -329,8 +329,8 @@ export default function AddVenueForm() {
 
       <div
         id="toast"
-        className={` items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-red-800 text-red-800 bg-red-50" : " bg-green-50 border-green-800 text-green-800"
+        className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
+          isError ? "border-error text-error" : "border-green-700 text-green-700"
         }`}
         role="alert">
         <div className="text-lg">{isError ? "Something went wrong when creating the venue! Please try again." : "Congratulations! You have created a new venue!"}</div>
@@ -338,7 +338,7 @@ export default function AddVenueForm() {
         <button
           onClick={() => setShowToast(false)}
           type="button"
-          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-red-800 hover:text-red-50" : "hover:bg-green-800 hover:text-green-50"}`}
+          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-green-700 hover:text-neutral"}`}
           aria-label="Close">
           <IoClose size={20} />
         </button>

@@ -1,4 +1,4 @@
-import VenueBookingDetails from "../VenueBookingsListDetails";
+import VenueBookingsListDetails from "../VenueBookingsListDetails";
 
 export default function VenueBookingsList({ bookings }) {
   const sortedBookings = [...bookings].sort((a, b) => {
@@ -11,7 +11,7 @@ export default function VenueBookingsList({ bookings }) {
       {upcomingBookings.length ? (
         <ul className="flex flex-col gap-2 mt-1">
           {upcomingBookings.map((booking) => (
-            <VenueBookingDetails key={booking.id} booking={booking} />
+            <VenueBookingsListDetails key={booking.id} booking={booking} />
           ))}
         </ul>
       ) : (

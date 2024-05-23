@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { IoCalendarOutline } from "react-icons/io5";
+import { IoCalendarOutline, IoClose } from "react-icons/io5";
 
 function getDatesInRange(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const dateList = [];
 
-  let currentDate = new Date(start.toISOString().split("T")[0]); // Ensure no time component
+  let formattedStartDate = new Date(start.toISOString().split("T")[0]);
+  let formattedEndDate = new Date(end.toISOString().split("T")[0]);
 
-  while (currentDate <= end) {
-    dateList.push(new Date(currentDate));
-    currentDate.setDate(currentDate.getDate() + 1);
+  while (formattedStartDate <= formattedEndDate) {
+    dateList.push(new Date(formattedStartDate));
+    formattedStartDate.setDate(formattedStartDate.getDate() + 1);
   }
-
   return dateList;
 }
 
@@ -22,6 +22,7 @@ function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDat
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [dateSetting, setDateSetting] = useState("");
   const bookedDates = bookings.flatMap((booking) => getDatesInRange(booking.dateFrom, booking.dateTo));
 
   useEffect(() => {
@@ -45,15 +46,13 @@ function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDat
     register("endDate");
   }, [register]);
 
-  const formatDate = (date) => date.toISOString().split("T")[0];
-
   function isDateBooked(date) {
-    return bookedDates.some((bookedDate) => formatDate(bookedDate) === formatDate(date));
+    return bookedDates.some((bookedDate) => bookedDate.getFullYear() === date.getFullYear() && bookedDate.getMonth() === date.getMonth() && bookedDate.getDate() === date.getDate());
   }
 
   function isDateRangeBooked(start, end) {
     let currentCheckDate = new Date(start);
-    currentCheckDate.setDate(currentCheckDate.getDate() + 1); // Start checking from the day after the start date
+    currentCheckDate.setDate(currentCheckDate.getDate() + 1);
     let beforeEndDate = new Date(end);
     beforeEndDate.setDate(beforeEndDate.getDate());
 
@@ -69,39 +68,60 @@ function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDat
   const handleDateChange = (dates) => {
     const [start, end] = dates;
 
-    if (start && end) {
-      if (end <= start) {
-        setAlertMessage("Check-out date must be after check-in date.");
-        setIsAlertOpen(true);
-        setEndDate(null);
-        setValue("endDate", null);
-        return;
-      }
+    if (start && dateSetting === "start") {
+      setStartDate(start);
+      setValue("startDate", start, { shouldValidate: true });
 
-      if (isDateRangeBooked(start, end)) {
-        setAlertMessage("Selected dates includes dates that are unavailable. Please choose different dates.");
-        setIsAlertOpen(true);
-        setStartDate(null);
+      if (start >= endDate) {
         setEndDate(null);
-        setValue("startDate", null);
         setValue("endDate", null);
-        return;
+      }
+    } else if (start && dateSetting === "end") {
+      setEndDate(start);
+      setValue("endDate", start, { shouldValidate: true });
+
+      if (start <= startDate) {
+        setStartDate(start);
+        setEndDate(null);
+        setValue("startDate", start, { shouldValidate: true });
+        setValue("endDate", null);
       }
     }
 
-    setStartDate(start);
-    setEndDate(end);
+    if (end && start >= end) {
+      setAlertMessage("Check-in and check-out can not be the same date. Please choose different dates.");
+      setIsAlertOpen(true);
+      setEndDate(null);
+      setStartDate(start);
+      setValue("startDate", start, { shouldValidate: true });
+      setValue("endDate", null);
+      return;
+    }
 
-    setValue("startDate", start, { shouldValidate: true });
-    setValue("endDate", end, { shouldValidate: true });
+    if (isDateRangeBooked(start, end)) {
+      setAlertMessage("Selected dates includes unavailable dates. Please choose different dates.");
+      setIsAlertOpen(true);
+      setStartDate(null);
+      setEndDate(null);
+      setValue("startDate", null);
+      setValue("endDate", null);
+      return;
+    }
 
+    if (end) {
+      setEndDate(end);
+      setValue("endDate", end, { shouldValidate: true });
+    }
+
+    setIsDatePickerOpen(!end);
     setIsAlertOpen(false);
-    if (!end) {
-      setIsDatePickerOpen(true);
-    } else {
-      setIsDatePickerOpen(false);
-    }
   };
+
+  function isPastDate(date) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
+  }
 
   return (
     <div className="flex flex-col gap-2 w-full relative">
@@ -123,10 +143,24 @@ function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDat
             placeholder={new Date().toLocaleDateString("en-GB")}
             value={startDate ? startDate.toLocaleDateString("en-GB") : ""}
             onClick={() => {
+              setDateSetting("start");
               setIsDatePickerOpen(true);
             }}
             readOnly
           />
+          {startDate && (
+            <button
+              type="button"
+              onClick={() => {
+                setStartDate(null);
+                setValue("startDate", null);
+                setEndDate(null);
+                setValue("endDate", null);
+              }}
+              className="text-gray-400 hover:text-gray-600">
+              <IoClose />
+            </button>
+          )}
         </div>
         {errors.startDate && <p className="text-error font-light">{errors.startDate.message}</p>}
       </div>
@@ -149,10 +183,22 @@ function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDat
             placeholder={new Date().toLocaleDateString("en-GB")}
             value={endDate ? endDate.toLocaleDateString("en-GB") : ""}
             onClick={() => {
+              setDateSetting("end");
               setIsDatePickerOpen(true);
             }}
             readOnly
           />
+          {endDate && (
+            <button
+              type="button"
+              onClick={() => {
+                setEndDate(null);
+                setValue("endDate", null);
+              }}
+              className="text-gray-400 hover:text-gray-600">
+              <IoClose />
+            </button>
+          )}
         </div>
         {errors.endDate && <p className="text-error font-light">{errors.endDate.message}</p>}
       </div>
@@ -164,14 +210,26 @@ function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDat
             onChange={handleDateChange}
             startDate={startDate}
             endDate={endDate}
-            selectsRange
-            inline
             minDate={new Date()}
             excludeDates={bookedDates}
             calendarStartDay={1}
+            selectsRange
+            inline
+            useWeekdaysShort
+            showDisabledMonthNavigation
+            calendarClassName="border-2 border-primary rounded-lg shadow bg-neutral"
+            dayClassName={(date) => {
+              if (isPastDate(date)) {
+                return "rounded-full text-gray-500";
+              } else if (isDateBooked(date)) {
+                return "rounded-full text-text";
+              }
+              return "rounded-full hover:rounded-full bg-primary text-neutral hover:bg-secondary hover:text-primary-dark";
+            }}
+            weekDayClassName={() => "text-neutral"}
           />
           {isAlertOpen && (
-            <div className="absolute bottom-full bg-red-50 p-2 rounded border border-error text-error z-30" role="alert">
+            <div className="absolute mb-1 bottom-full bg-red-50 p-2 rounded border border-error text-error z-30" role="alert">
               {alertMessage}
             </div>
           )}

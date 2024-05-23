@@ -46,7 +46,7 @@ export default function EditVenueForm({ venue }) {
     reset,
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       name: venue.name,
       description: venue.description,
@@ -374,8 +374,8 @@ export default function EditVenueForm({ venue }) {
 
       <div
         id="toast"
-        className={`items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-red-800 text-red-800 bg-red-50" : "bg-green-50 text-green-800 border-green-800"
+        className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
+          isError ? "border-error text-error" : "text-green-700 border-green-700"
         }`}
         role="alert">
         <div className="text-lg">
@@ -383,12 +383,12 @@ export default function EditVenueForm({ venue }) {
           {isError && !isDeleting && "Something went wrong when updating this venue! Please try again."}
           {!isError && !isDeleting && (
             <div>
-              Congratulations! You have updated the <span className="text-primary-light">{venue.name}</span> venue!
+              Congratulations! You have updated the <span className="text-primary">{venue.name}</span> venue!
             </div>
           )}
           {isDeleting && !isError && (
             <div>
-              You have deleted the <span className="text-primary-light">{venue.name}</span> venue!
+              You have deleted the <span className="text-primary">{venue.name}</span> venue!
             </div>
           )}
         </div>
@@ -396,7 +396,7 @@ export default function EditVenueForm({ venue }) {
         <button
           onClick={() => setShowToast(false)}
           type="button"
-          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-red-800 hover:text-red-50" : "hover:bg-green-800 hover:text-green-50"}`}
+          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-green-700 hover:text-neutral"}`}
           aria-label="Close">
           <IoClose size={20} />
         </button>

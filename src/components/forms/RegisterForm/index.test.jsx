@@ -69,8 +69,8 @@ describe("RegisterForm", () => {
     fireEvent.click(screen.getByRole("button", { name: /Register/i }));
 
     await waitFor(() => {
-      expect(screen.getByText(/Please enter your name/i)).toBeInTheDocument();
-      expect(screen.getByText(/Please enter a valid email address/i)).toBeInTheDocument();
+      expect(screen.getByText(/Please enter a username/i)).toBeInTheDocument();
+      expect(screen.getByText(/Please enter a valid @stud.noroff.no address/i)).toBeInTheDocument();
       expect(screen.getByText(/Password must be at least 8 characters long/i)).toBeInTheDocument();
       expect(screen.getByText(/Please confirm your password/i)).toBeInTheDocument();
     });

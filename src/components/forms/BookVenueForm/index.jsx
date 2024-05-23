@@ -13,7 +13,7 @@ import { API_BASE_URL } from "../../../constants/apiURL";
 const schema = yup.object({
   startDate: yup.date().required("Check-in date is required"),
   endDate: yup.date().required("Check-out date is required"),
-  guests: yup.number().required("Number of guests is required").positive("Number of guests must be positive").integer("Number of guests must be an integer"),
+  guests: yup.number().required("Number of guests is required").positive("Number of guests must be more than 0").integer("Number of guests must be a number"),
 });
 
 export default function BookVenueForm({ venue }) {
@@ -49,7 +49,11 @@ export default function BookVenueForm({ venue }) {
 
   const handleFormSubmit = async (data) => {
     setIsSubmitting(true);
-    const formData = { ...data, venueId: venue.id, dateFrom: startDate?.toISOString(), dateTo: endDate?.toISOString(), guests: parseInt(data.guests) };
+
+    const formattedStartDate = startDate ? new Date(Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())).toISOString() : null;
+    const formattedEndDate = endDate ? new Date(Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())).toISOString() : null;
+
+    const formData = { venueId: venue.id, dateFrom: formattedStartDate, dateTo: formattedEndDate, guests: parseInt(data.guests) };
 
     const options = postData(formData);
 
@@ -136,11 +140,11 @@ export default function BookVenueForm({ venue }) {
 
       <div
         id="toast"
-        className={`items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${isError && "border-error text-error bg-red-50"}`}
+        className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${isError && "border-error text-error"}`}
         role="alert">
         <div className="text-lg">{isError && "Something went wrong when creating your booking! Please try again."}</div>
 
-        <button onClick={() => setShowToast(false)} type="button" className="ms-5" aria-label="Close">
+        <button onClick={() => setShowToast(false)} type="button" className="ms-5 p-1 rounded-full hover:bg-error hover:text-neutral" aria-label="Close">
           <IoClose size={20} />
         </button>
       </div>

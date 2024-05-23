@@ -51,10 +51,6 @@ h5 {
   @apply rounded-none;
 }
 
-.custom-carousel button {
-  @apply bg-primary bg-opacity-50  hover:bg-opacity-100 rounded-full;
-}
-
 @media (min-width: 768px) {
   .custom-carousel div {
     @apply rounded;
@@ -84,4 +80,16 @@ h5 {
 
 #breadcrumbs ol {
   @apply flex-wrap;
+}
+
+.react-datepicker__header {
+  @apply bg-primary;
+}
+
+.react-datepicker__current-month {
+  @apply text-neutral;
+}
+
+.react-datepicker__day--in-range {
+  @apply bg-secondary text-primary-dark font-medium;
 }
