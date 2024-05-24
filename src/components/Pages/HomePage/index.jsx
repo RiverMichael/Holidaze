@@ -4,6 +4,7 @@ import VenuesList from "../../VenuesList";
 import { VscSettings } from "react-icons/vsc";
 import { Modal, ModalBody, ModalHeader } from "flowbite-react";
 import FilterVenuesForm from "../../forms/FilterVenuesForm";
+import SortVenuesForm from "../../forms/SortVenuesForm";
 
 export default function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,6 +51,7 @@ export default function HomePage() {
               <span className="absolute -top-2 -end-2 text-xs font-normal bg-primary text-neutral rounded-full w-5 h-5 flex items-center justify-center">{activeFiltersCount}</span>
             )}
           </button>
+          <SortVenuesForm />
         </div>
       </section>
 

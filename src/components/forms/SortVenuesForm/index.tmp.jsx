@@ -26,7 +26,7 @@ export default function SortVenuesForm({ setSortTerm, setSortOrder }) {
         break;
     }
   };
-  git;
+
   return (
     <form id="sortForm">
       <div className="flex w-max">
