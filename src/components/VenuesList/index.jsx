@@ -112,6 +112,10 @@ export default function VenuesList({ filterTerms }) {
   if (filteredVenues.length > 0) {
     return (
       <>
+        <div className="flex justify-center overflow-x-auto">
+          <Pagination currentPage={isCurrentPage} totalPages={Math.ceil(filteredVenues.length / venuesPerPage)} onPageChange={onPageChange} previousLabel="" nextLabel="" showIcons />
+        </div>
+
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {displayedVenues.map((venue) => (
             <VenueCard key={venue.id} venue={venue} />
