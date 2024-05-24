@@ -158,7 +158,7 @@ export default function VenueDetails() {
                 <h2 className="text-base">Venue manager</h2>
                 <div className="flex gap-2 items-center">
                   <figure>
-                    <img src={venue.owner.avatar.url} alt={`${venue.owner.name} avatar`} className="h-10 w-10 rounded-full object-cover object-center" />
+                    <img src={venue.owner.avatar.url} alt={`${venue.owner.name} avatar`} className="h-12 w-12 rounded-full object-cover object-center" />
                   </figure>
                   {isAuthenticated ? (
                     <Link to={`/profile/${venue.owner.name}`} className="link font-normal">

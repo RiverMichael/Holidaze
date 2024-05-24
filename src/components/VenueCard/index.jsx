@@ -56,7 +56,7 @@ export default function VenueCard({ venue }) {
         </div>
 
         <div className="flex justify-center">
-          <Link to={`/venues/${venue.id}`} className="btn btn-primary w-1/2">
+          <Link to={`/venues/${venue.id}`} className="btn btn-primary">
             View more
           </Link>
         </div>

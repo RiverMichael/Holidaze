@@ -24,7 +24,7 @@ export default function BookedVenueCard({ booking }) {
 
   return (
     <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 md:items-center">
-      <figure className="w-28 h-20 flex-none">
+      <figure className="w-56 h-28 flex-none">
         <Link to={`/venues/${booking.venue.id}`}>
           <img src={booking.venue.media[0].url} alt={booking.venue.name} className="w-full h-full rounded object-cover object-center" />
         </Link>

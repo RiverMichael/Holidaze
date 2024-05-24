@@ -207,11 +207,11 @@ export default function FilterVenuesForm({ filterTerms, setFilterTerms, setIsMod
         </ul>
       </div>
 
-      <div className="flex flex-wrap justify-around mt-2">
-        <button type="submit" className="btn btn-primary w-1/2">
+      <div className="flex flex-wrap justify-between mt-2">
+        <button type="submit" className="btn btn-primary sm:w-1/2">
           Apply filters
         </button>
-        <button type="button" onClick={handleClearFilters} className="btn btn-outlined w-1/4">
+        <button type="button" onClick={handleClearFilters} className="btn btn-outlined sm:w-1/4">
           Clear
         </button>
       </div>
