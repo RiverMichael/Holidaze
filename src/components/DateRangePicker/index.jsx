@@ -157,6 +157,7 @@ function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDat
                 setEndDate(null);
                 setValue("endDate", null);
               }}
+              aria-label="Clear date"
               className="text-gray-400 hover:text-gray-600">
               <IoClose />
             </button>
@@ -195,6 +196,7 @@ function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDat
                 setEndDate(null);
                 setValue("endDate", null);
               }}
+              aria-label="Clear date"
               className="text-gray-400 hover:text-gray-600">
               <IoClose />
             </button>
@@ -229,7 +231,7 @@ function DateRangePicker({ bookings, startDate, endDate, setStartDate, setEndDat
             weekDayClassName={() => "text-neutral"}
           />
           {isAlertOpen && (
-            <div className="absolute mb-1 bottom-full bg-red-50 p-2 rounded border border-error text-error z-30" role="alert">
+            <div className="absolute mb-1 bottom-full bg-neutral p-2 rounded border border-error text-error z-30" role="alert">
               {alertMessage}
             </div>
           )}

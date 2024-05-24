@@ -77,7 +77,7 @@ export default function ProfileDetails() {
           <section className="flex items-center gap-5 md:gap-10 w-full flex-wrap">
             <div className="flex flex-col">
               <figure className="w-28 h-28">
-                <img src={profile.avatar.url} alt={user.avatar.alt || user.name} className=" w-full h-full rounded-full object-cover object-center" />
+                <img src={profile.avatar.url} alt={profile.avatar.alt || profile.name} className=" w-full h-full rounded-full object-cover object-center" />
               </figure>
               {isProfileUsersProfile && (
                 <button onClick={() => setIsEditProfileModalOpen(true)} className="text-sm underline underline-offset-2 link font-normal">
@@ -92,13 +92,13 @@ export default function ProfileDetails() {
               <div className="w-max">
                 {profile.venueManager && (
                   <div className="flex items-center justify-between gap-5">
-                    <h3 className="text-base">Venues:</h3>
+                    <h2 className="text-base">Venues:</h2>
                     <span className="text-text">{data._count.venues}</span>
                   </div>
                 )}
 
                 <div className="flex items-center justify-between gap-5">
-                  <h3 className="text-base">Bookings:</h3>
+                  <h2 className="text-base">Bookings:</h2>
                   <span className="text-text">{data._count.bookings}</span>
                 </div>
               </div>
@@ -146,7 +146,9 @@ export default function ProfileDetails() {
         </div>
 
         <Modal dismissible size="md" show={isEditProfileModalOpen} onClose={() => setIsEditProfileModalOpen(false)}>
-          <ModalHeader className="p-3 border-none" />
+          <ModalHeader className="p-3 border-none">
+            <h3 className="sr-only">Edit profile</h3>
+          </ModalHeader>
           <ModalBody className="pt-0">
             <div className="flex flex-col gap-5">
               <h3 className="text-xl">Edit profile</h3>

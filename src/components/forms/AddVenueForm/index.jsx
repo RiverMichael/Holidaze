@@ -284,8 +284,8 @@ export default function AddVenueForm() {
           {fields.map((item, index) => (
             <div key={item.id} className="w-full flex flex-col gap-1">
               <label htmlFor={`media[${index}].url`} className="text-primary text-sm font-bold flex justify-between w-full">
-                Image URL{" "}
-                <button type="button" onClick={() => remove(index)} className="p-1 rounded-full hover:bg-primary-light hover:text-neutral">
+                Image URL
+                <button type="button" onClick={() => remove(index)} aria-label="Remove image" className="p-1 rounded-full hover:bg-primary-light hover:text-neutral">
                   <IoTrashOutline />
                 </button>
               </label>
@@ -294,6 +294,7 @@ export default function AddVenueForm() {
                 {...register(`media[${index}].url`)}
                 className={`form-input w-full ${errors.media && errors.media[index]?.url ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
                 placeholder="https://example.com/image.jpg"
+                aria-label="Add image"
               />
               {errors.media && errors.media[index]?.url && <p className="text-error font-light">{errors.media[index].url.message}</p>}
             </div>
