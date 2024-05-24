@@ -1,9 +1,14 @@
 import BookedVenueCard from "../BookedVenueCard";
 
+const resetTime = (date) => {
+  const newDate = new Date(date);
+  newDate.setHours(0, 0, 0, 0);
+  return newDate;
+};
+
 export default function PreviousBookingsList({ bookings }) {
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-  const sortedBookings = bookings.filter((booking) => new Date(booking.dateTo) < currentDate).sort((a, b) => new Date(b.dateTo) - new Date(a.dateTo));
+  const currentDate = resetTime(new Date());
+  const sortedBookings = bookings.filter((booking) => resetTime(booking.dateTo) < currentDate).sort((a, b) => new Date(b.dateTo) - new Date(a.dateTo));
 
   if (sortedBookings.length > 0) {
     return (
