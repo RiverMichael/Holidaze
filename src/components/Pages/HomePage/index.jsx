@@ -36,13 +36,13 @@ export default function HomePage() {
   }, [filterTerms]);
 
   return (
-    <main className="flex flex-col gap-8 px-5">
-      <section className="flex flex-col md:flex-row gap-8 justify-between md:items-center">
-        <div>
+    <main className="flex flex-col gap-8 px-5 container">
+      <section className="flex flex-wrap gap-8 justify-between items-center">
+        <div className="w-max">
           <h1>Browse</h1>
           <p className="text-primary font-heading font-bold text-lg">our holidaze venues</p>
         </div>
-        <div>
+        <div className="w-max">
           <button onClick={() => setIsModalOpen(true)} className="btn border-secondary hover:border-primary flex gap-2 relative">
             <VscSettings size={25} />
             Filters
