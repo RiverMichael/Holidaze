@@ -74,7 +74,7 @@ export default function ProfileDetails() {
     return (
       <>
         <div className="flex flex-col gap-12 justify-center items-center ">
-          <section className="flex items-center gap-5 md:gap-10 w-full">
+          <section className="flex items-center gap-5 md:gap-10 w-full flex-wrap">
             <div className="flex flex-col">
               <figure className="w-28 h-28">
                 <img src={profile.avatar.url} alt={user.avatar.alt || user.name} className=" w-full h-full rounded-full object-cover object-center" />
