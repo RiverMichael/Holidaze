@@ -28,7 +28,7 @@ export default function ProfileDropdown() {
   return (
     <>
       <button type="button" className="hidden lg:flex text-sm" id="user-menu-button" onClick={() => setIsDropdownOpen((prev) => !prev)} aria-expanded={isDropdownOpen} aria-label="Show user menu">
-        <figure className="w-10 h-10">
+        <figure className="w-12 h-12">
           <img src={user.avatar.url} alt={user.avatar.alt || user.name} className="w-full h-full rounded-full object-center object-cover" />
         </figure>
       </button>
@@ -36,7 +36,7 @@ export default function ProfileDropdown() {
       <div
         id="user-menu-dropdown"
         className={`${
-          isDropdownOpen ? "block absolute right-0 top-8" : "hidden"
+          isDropdownOpen ? "block absolute right-0 top-10" : "hidden"
         } z-50 my-4 text-base list-none bg-neutral border border-secondary divide-y divide-secondary rounded-lg shadow-lg  transition-all duration-500 ease-in-out overflow-hidden`}>
         <div className="px-4 py-4">
           <span className="block font-bold text-primary">{user.name}</span>

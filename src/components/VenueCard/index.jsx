@@ -5,7 +5,7 @@ import VenueFeaturesList from "../VenueFeaturesList";
 
 export default function VenueCard({ venue }) {
   return (
-    <div className="bg-neutral pb-2 border border-secondary rounded-lg shadow max-w-80 flex flex-col">
+    <div className="bg-neutral pb-2 border border-secondary rounded-lg shadow flex flex-col">
       <Link to={`/venues/${venue.id}`}>
         <figure className="w-full h-48 overflow-hidden rounded-t-lg">
           {venue.media.length ? (
@@ -56,7 +56,7 @@ export default function VenueCard({ venue }) {
         </div>
 
         <div className="flex justify-center">
-          <Link to={`/venues/${venue.id}`} className="btn btn-primary w-1/2">
+          <Link to={`/venues/${venue.id}`} className="btn btn-primary">
             View more
           </Link>
         </div>

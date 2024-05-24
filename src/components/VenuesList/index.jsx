@@ -112,7 +112,7 @@ export default function VenuesList({ filterTerms }) {
   if (filteredVenues.length > 0) {
     return (
       <>
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {displayedVenues.map((venue) => (
             <VenueCard key={venue.id} venue={venue} />
           ))}

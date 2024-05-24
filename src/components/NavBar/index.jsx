@@ -41,7 +41,7 @@ export default function NavBar() {
       <nav className="bg-neutral">
         <div className="w-full flex flex-wrap items-center justify-between mx-auto">
           <button type="button" onClick={() => setIsNavOpen(true)} id="navbar-toggler" className="lg:hidden" aria-label="show menu">
-            <IoMenu size={30} className="text-primary" />
+            <IoMenu size={40} className="text-primary" />
           </button>
 
           <Link to="/" onClick={() => handleNavLinks("/")}>
@@ -64,27 +64,27 @@ export default function NavBar() {
                 </button>
               </div>
 
-              <div className="flex flex-col lg:flex-row gap-5 lg:items-center grow justify-between px-5 mb-5 lg:mb-0 lg:p-0">
+              <div className="flex flex-col lg:flex-row gap-6 lg:items-center grow justify-between px-5 mb-5 lg:mb-0 lg:p-0">
                 <ul className="flex flex-col gap-5 lg:flex-row">
                   <li>
-                    <NavLink to="/" onClick={() => handleNavLinks("/")} className={({ isActive }) => `link ${isActive && "link-active"}`}>
+                    <NavLink to="/" onClick={() => handleNavLinks("/")} className={({ isActive }) => `link text-lg ${isActive && "link-active"}`}>
                       Home
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="about" onClick={() => handleNavLinks("/about")} className={({ isActive }) => `link ${isActive && "link-active"}`}>
+                    <NavLink to="about" onClick={() => handleNavLinks("/about")} className={({ isActive }) => `link text-lg ${isActive && "link-active"}`}>
                       About
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="contact" onClick={() => handleNavLinks("/contact")} className={({ isActive }) => `link ${isActive && "link-active"}`}>
+                    <NavLink to="contact" onClick={() => handleNavLinks("/contact")} className={({ isActive }) => `link text-lg ${isActive && "link-active"}`}>
                       Contact
                     </NavLink>
                   </li>
                 </ul>
 
                 {!isAuthenticated ? (
-                  <div className="flex flex-col lg:flex-row gap-2">
+                  <div className="flex flex-col lg:flex-row gap-5">
                     <NavLink to="login" onClick={() => setIsNavOpen(false)} className="btn btn-outlined bg-secondary lg:bg-neutral w-full">
                       Login
                     </NavLink>
@@ -97,14 +97,14 @@ export default function NavBar() {
                     <NavLink
                       to={`/profile/${user.name}`}
                       onClick={() => setIsNavOpen(false)}
-                      className={({ isActive }) => `flex items-center gap-2 lg:hidden link font-normal ${isActive && "link-active"}`}>
-                      <figure className="w-10 h-10">
+                      className={({ isActive }) => `flex items-center gap-2 lg:hidden link text-lg ${isActive && "link-active"}`}>
+                      <figure className="w-12 h-12">
                         <img src={user.avatar.url} alt={user.avatar.alt || user.name} className="w-full h-full rounded-full object-center object-cover" />
                       </figure>
                       {user.name}
                     </NavLink>
 
-                    <button onClick={() => handleLogout()} className="lg:hidden btn btn-outlined text-sm bg-secondary">
+                    <button onClick={() => handleLogout()} className="lg:hidden btn btn-outlined bg-secondary">
                       Log out
                     </button>
 

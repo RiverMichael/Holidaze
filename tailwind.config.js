@@ -10,7 +10,6 @@ export default {
       text: "#000812",
       primary: { light: "#657ab3", DEFAULT: "#394974", dark: "#222b44" },
       secondary: "#eaeef6",
-      accent: "#feb903",
       error: "#dc2626",
     },
     fontFamily: {
