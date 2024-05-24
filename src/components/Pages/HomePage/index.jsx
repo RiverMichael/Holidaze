@@ -56,9 +56,7 @@ export default function HomePage() {
       <VenuesList filterTerms={filterTerms} />
 
       <Modal dismissible size="lg" position="top-center" show={isModalOpen} onClose={() => setIsModalOpen(false)} popup>
-        <ModalHeader className="p-3 border-none">
-          <h3 className="sr-only">Filter venues</h3>
-        </ModalHeader>
+        <ModalHeader className="p-3 border-none" />
         <ModalBody className="pt-0 flex flex-col gap-5">
           <h3>Filter venues</h3>
           <FilterVenuesForm filterTerms={filterTerms} setFilterTerms={setFilterTerms} setIsModalOpen={setIsModalOpen} />
