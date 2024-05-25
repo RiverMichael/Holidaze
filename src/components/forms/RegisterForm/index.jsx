@@ -220,10 +220,10 @@ export default function RegisterForm() {
       <div
         id="toast"
         className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-error text-error" : "  border-green-700 text-green-700"
+          isError ? "border-error text-error" : "  border-primary text-primary"
         }`}
         role="alert">
-        <div className="text-lg">{isError ? "Something went wrong when creating you account! Please try again." : "Congratulations! You have created an account."}</div>
+        <div className="text-lg">{isError ? "Registration failed! Please try again." : `Welcome to Holidaze ${formData.name}!`}</div>
 
         <button
           onClick={() => setShowToast(false)}

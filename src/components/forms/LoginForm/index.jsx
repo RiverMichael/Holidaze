@@ -30,6 +30,7 @@ export default function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isError, setIsError] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [isUserName, setIsUserName] = useState("");
   const { setToken, setApiKey, setUser, user, setVenueManager } = useAuth();
   const navigate = useNavigate();
 
@@ -64,8 +65,10 @@ export default function LoginForm() {
 
     try {
       const result = await doFetch(`${API_AUTH_URL}/login`, options);
+
       setUser(result.data);
       setToken(result.data.accessToken);
+      setIsUserName(result.data.name);
       setIsUserLoggedIn(true);
       setIsError(false);
       reset();
@@ -131,10 +134,10 @@ export default function LoginForm() {
       <div
         id="toast"
         className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-error text-error" : "border-green-700 text-green-700"
+          isError ? "border-error text-error" : "border-primary text-primary"
         }`}
         role="alert">
-        <div className="text-lg">{isError ? "Something went wrong when trying to login to your account! Please try again." : "You have been logged in to your account."}</div>
+        <div className="text-lg">{isError ? "Login failed! Please try again." : `Welcome back ${isUserName}!`}</div>
 
         <button
           onClick={() => setShowToast(false)}
