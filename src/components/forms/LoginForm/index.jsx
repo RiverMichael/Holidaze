@@ -135,7 +135,7 @@ export default function LoginForm() {
       <div
         id="toast"
         className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-error text-error" : "p-8 border-primary text-primary"
+          isError ? "border-error text-error" : "border-primary text-primary"
         }`}
         role="alert">
         <div className="text-lg">{isError ? "Login failed! Please try again." : `Welcome back ${isUserName}!`}</div>
