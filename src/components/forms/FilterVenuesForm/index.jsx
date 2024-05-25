@@ -60,7 +60,7 @@ export default function FilterVenuesForm({ filterTerms, setFilterTerms, setIsMod
             ${priceRange[0]} - ${priceRange[1]}
           </span>
         </label>
-        <Slider range min={10} max={5000} step={10} allowCross={false} pushable={100} onChange={handlePriceRangeChange} value={priceRange} />
+        <Slider range min={10} max={10000} step={20} allowCross={false} pushable={100} onChange={handlePriceRangeChange} value={priceRange} />
       </div>
 
       <div className="w-full flex flex-col gap-1">
