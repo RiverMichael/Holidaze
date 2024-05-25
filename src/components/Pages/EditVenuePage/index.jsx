@@ -4,10 +4,13 @@ import useDoFetch from "../../../hooks/useDoFetch";
 import { API_BASE_URL } from "../../../constants/apiURL/";
 import ErrorMessage from "../../ui/ErrorMessage";
 import LoadingIndicator from "../../ui/LoadingIndicator";
+import useUpdateHead from "../../../hooks/useUpdateHead";
 
 export default function EditVenuePage() {
   let id = useParams().id;
   const { data: venue, isLoading, isError } = useDoFetch(`${API_BASE_URL}/venues/${id}`);
+
+  useUpdateHead(`${venue.name} | Edit venue`, "Edit your venue at Holidaze");
 
   if (isError)
     return (

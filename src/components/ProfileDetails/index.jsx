@@ -146,9 +146,7 @@ export default function ProfileDetails() {
         </div>
 
         <Modal dismissible size="md" show={isEditProfileModalOpen} onClose={() => setIsEditProfileModalOpen(false)}>
-          <ModalHeader className="p-3 border-none">
-            <h3 className="sr-only">Edit profile</h3>
-          </ModalHeader>
+          <ModalHeader className="p-3 border-none" />
           <ModalBody className="pt-0">
             <div className="flex flex-col gap-5">
               <h3 className="text-xl">Edit profile</h3>
