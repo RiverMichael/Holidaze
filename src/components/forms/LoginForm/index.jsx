@@ -7,7 +7,6 @@ import doFetch from "../../../utils/doFetch";
 import { API_AUTH_URL, API_BASE_URL } from "../../../constants/apiURL";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
-import { MdWavingHand } from "react-icons/md";
 import useAuth from "../../../store/auth";
 
 const schema = yup.object({
