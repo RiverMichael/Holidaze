@@ -171,6 +171,8 @@ export default function EditVenueForm({ venue }) {
               type="number"
               id="addVenuePrice"
               {...register("price")}
+              min={10}
+              max={10000}
               className={`form-input w-full text-center ${errors.price ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
               placeholder="$50"
             />
@@ -185,6 +187,7 @@ export default function EditVenueForm({ venue }) {
               type="number"
               id="addVenueGuests"
               {...register("maxGuests")}
+              min={1}
               className={`form-input w-full text-center ${errors.maxGuests ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
               placeholder="4"
             />
@@ -200,6 +203,8 @@ export default function EditVenueForm({ venue }) {
               step="0.1"
               id="addVenueRating"
               {...register("rating")}
+              min={0}
+              max={5}
               className={`form-input w-full text-center ${errors.rating ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
               placeholder="0"
             />
@@ -256,7 +261,7 @@ export default function EditVenueForm({ venue }) {
           <label htmlFor="addVenueZip" className="text-primary text-sm font-bold flex justify-between w-full">
             Zip code
           </label>
-          <input type="number" id="addVenueZip" {...register("location.zip")} className="form-input w-full focus:ring-primary-dark" placeholder="80201" />
+          <input type="number" id="addVenueZip" {...register("location.zip")} min={1} className="form-input w-full focus:ring-primary-dark" placeholder="80201" />
         </div>
 
         <div className="w-full flex flex-col gap-1">
@@ -297,6 +302,8 @@ export default function EditVenueForm({ venue }) {
               id="addVenueLatitude"
               step="0.000001"
               {...register("location.lat")}
+              min={-90}
+              max={90}
               className={`form-input w-full text-center ${errors.location?.lat ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
               placeholder="e.g., 34.0522"
             />
@@ -312,6 +319,8 @@ export default function EditVenueForm({ venue }) {
               id="addVenueLongitude"
               step="0.000001"
               {...register("location.lng")}
+              min={-180}
+              max={180}
               className={`form-input w-full text-center ${errors.location?.lng ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
               placeholder="e.g., -118.2437"
             />
