@@ -377,7 +377,7 @@ export default function EditVenueForm({ venue }) {
       <div
         id="toast"
         className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-error text-error" : "text-green-700 border-green-700"
+          isError ? "border-error text-error" : "text-primary border-primary"
         }`}
         role="alert">
         <div className="text-lg">
@@ -398,7 +398,7 @@ export default function EditVenueForm({ venue }) {
         <button
           onClick={() => setShowToast(false)}
           type="button"
-          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-green-700 hover:text-neutral"}`}
+          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-primary hover:text-neutral"}`}
           aria-label="Close">
           <IoClose size={20} />
         </button>
