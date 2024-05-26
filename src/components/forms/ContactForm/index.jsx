@@ -20,7 +20,7 @@ export default function ContactForm() {
     reset,
   } = useForm({ resolver: yupResolver(schema), mode: "onSubmit" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   function handleOnSubmit(data) {

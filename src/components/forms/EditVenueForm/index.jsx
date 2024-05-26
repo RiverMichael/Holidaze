@@ -405,9 +405,7 @@ export default function EditVenueForm({ venue }) {
       </div>
 
       <Modal show={showModal} size="md" onClose={() => setShowModal(false)} popup>
-        <ModalHeader>
-          <h3 className="sr-only">Are you sure you want to delete this venue?</h3>
-        </ModalHeader>
+        <ModalHeader />
         <ModalBody>
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-2 h-14 w-14 text-red-700" />

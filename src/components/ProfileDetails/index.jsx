@@ -145,8 +145,8 @@ export default function ProfileDetails() {
           )}
         </div>
 
-        <Modal dismissible size="md" show={isEditProfileModalOpen} onClose={() => setIsEditProfileModalOpen(false)}>
-          <ModalHeader className="p-3 border-none" />
+        <Modal dismissible size="md" show={isEditProfileModalOpen} onClose={() => setIsEditProfileModalOpen(false)} popup>
+          <ModalHeader />
           <ModalBody className="pt-0">
             <div className="flex flex-col gap-5">
               <h3 className="text-xl">Edit profile</h3>
