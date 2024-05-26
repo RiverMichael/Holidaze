@@ -52,7 +52,7 @@ export default function FilterVenuesForm({ filterTerms, setFilterTerms, setIsMod
   };
 
   return (
-    <form id="filterForm" onSubmit={handleSubmit(handleFilterFormSubmit)} className="flex flex-col gap-10">
+    <form id="filterForm" onSubmit={handleSubmit(handleFilterFormSubmit)} className="flex flex-col gap-10 px-2">
       <div className="w-full flex flex-col gap-1">
         <label htmlFor="priceRange" className="flex text-primary text-lg font-bold w-full justify-between items-center">
           Price range
