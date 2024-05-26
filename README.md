@@ -8,7 +8,7 @@
   </a>
 
 <h3>Project Exam 2 - Holidaze</h3>
-<p><i>A fictional accommodation booking website. Built with React, Vite, TailwindCSS, Flowbite, and the Noroff API.</i></p>
+<p><i>A fictional accommodation booking website. Built with React, Vite, Tailwind CSS, Flowbite, and the Noroff API.</i></p>
 
 [Link to project][github-repo] - [Link to live site][live-site]
 
@@ -31,6 +31,7 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#environment-variables">Environment Variables</a></li>
         <li><a href="#testing">Testing</a>
           <ul>
             <li><a href="#unit-testing">Unit Testing</a></li>
@@ -55,7 +56,6 @@
 
 ### Description
 
-<i>Insert description</i>
 This project was created as my _Project Exam 2_ at [Noroff][noroff-url]. The assignment was to create an accommodation booking website.
 
 The implementation was done using the Noroff Holidaze API, provided by [Noroff][noroff-url].
@@ -69,6 +69,7 @@ The implementation was done using the Noroff Holidaze API, provided by [Noroff][
 <a href="https://vitejs.dev/" target="_blank"><img src="/public/vite.svg" alt="vite" height="30" width="40"></a>
 <a href="https://tailwindcss.com/" target="_blank"><img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/FrontendDevelopment/tailwind.svg" alt="tailwindcss" height="30" width="40"></a>
 <a href="https://flowbite.com/" target="_blank"><img src="/public/flowbite_logo.svg" alt="flowbite" height="30" width="40"></img></a>
+
 </div>
 
 ### Project Configuration
@@ -87,8 +88,6 @@ To get a local copy up and running follow these steps:
 <!-- PREREQUISITES -->
 
 ### Prerequisites
-
-<i>.env</i> EDIT THIS
 
 - [Node.JS](https://nodejs.org/) version 20.11.1 or higher
 - [NPM](https://www.npmjs.com/) version 10.2.4 or higher
@@ -132,6 +131,21 @@ npm i
 ```sh
 npm run dev
 ```
+
+<!-- ENVIRONMENT VARIABLES -->
+
+### Environment Variables
+
+To configure the application, you will need to set up environment variables. Follow these steps:
+
+1. Create a _.env_ file in the root directory of the project.
+2. Use the provided _.env.example_ file as a template.
+
+```sh
+cp .env.example .env
+```
+
+3. Fill in the necessary values in the _.env_ file.
 
 <!-- TESTING -->
 
@@ -205,10 +219,11 @@ Michael "River" Nilsson - [mrn@michaelriver.dev][mrn-mail] - [michaelriver.dev][
 
 - [React](https://react.dev/)
 - [Vite](https://vitejs.dev/)
-- [TailwindCSS](https://tailwindcss.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [Flowbite](https://flowbite.com/)
 - [Noroff](https://www.noroff.no)
 - [Netlify](https://app.netlify.com)
+- [Vitest](https://vitest.dev/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
