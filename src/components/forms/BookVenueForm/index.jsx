@@ -142,7 +142,7 @@ export default function BookVenueForm({ venue }) {
         id="toast"
         className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${isError && "border-error text-error"}`}
         role="alert">
-        <div className="text-lg">{isError && "Something went wrong when creating your booking! Please try again."}</div>
+        <div className="text-lg">{isError && "Your booking of this venue failed! Please try again."}</div>
 
         <button onClick={() => setShowToast(false)} type="button" className="ms-5 p-1 rounded-full hover:bg-error hover:text-neutral" aria-label="Close">
           <IoClose size={20} />

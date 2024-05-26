@@ -331,6 +331,7 @@ export default function EditVenueForm({ venue }) {
               <input
                 type="url"
                 {...register(`media[${index}].url`)}
+                id={`media[${index}].url`}
                 className={`form-input w-full ${errors.media && errors.media[index]?.url ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
                 placeholder="https://example.com/image.jpg"
                 aria-label="Add image"
@@ -376,7 +377,7 @@ export default function EditVenueForm({ venue }) {
       <div
         id="toast"
         className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-error text-error" : "text-green-700 border-green-700"
+          isError ? "border-error text-error" : "text-primary border-primary"
         }`}
         role="alert">
         <div className="text-lg">
@@ -397,16 +398,14 @@ export default function EditVenueForm({ venue }) {
         <button
           onClick={() => setShowToast(false)}
           type="button"
-          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-green-700 hover:text-neutral"}`}
+          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-primary hover:text-neutral"}`}
           aria-label="Close">
           <IoClose size={20} />
         </button>
       </div>
 
       <Modal show={showModal} size="md" onClose={() => setShowModal(false)} popup>
-        <ModalHeader>
-          <h3 className="sr-only">Are you sure you want to delete this venue?</h3>
-        </ModalHeader>
+        <ModalHeader />
         <ModalBody>
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-2 h-14 w-14 text-red-700" />

@@ -142,7 +142,7 @@ export default function LoginForm() {
         <button
           onClick={() => setShowToast(false)}
           type="button"
-          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-green-700 hover:text-neutral"}`}
+          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-primary hover:text-neutral"}`}
           aria-label="Close">
           <IoClose size={20} />
         </button>

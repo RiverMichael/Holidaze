@@ -292,6 +292,7 @@ export default function AddVenueForm() {
               <input
                 type="url"
                 {...register(`media[${index}].url`)}
+                id={`media[${index}].url`}
                 className={`form-input w-full ${errors.media && errors.media[index]?.url ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
                 placeholder="https://example.com/image.jpg"
                 aria-label="Add image"
@@ -331,15 +332,15 @@ export default function AddVenueForm() {
       <div
         id="toast"
         className={`bg-neutral items-center m-4 p-5 border rounded-lg shadow fixed z-50 top-0 right-0 ${showToast ? "flex" : "hidden"} ${
-          isError ? "border-error text-error" : "border-green-700 text-green-700"
+          isError ? "border-error text-error" : "border-primary text-primary"
         }`}
         role="alert">
-        <div className="text-lg">{isError ? "Something went wrong when creating the venue! Please try again." : "Congratulations! You have created a new venue!"}</div>
+        <div className="text-lg">{isError ? "Creating this venue failed! Please try again." : "Congratulations! You have created a new venue!"}</div>
 
         <button
           onClick={() => setShowToast(false)}
           type="button"
-          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-green-700 hover:text-neutral"}`}
+          className={`ms-5 p-1 rounded-full ${isError ? "hover:bg-error hover:text-neutral" : "hover:bg-primary hover:text-neutral"}`}
           aria-label="Close">
           <IoClose size={20} />
         </button>

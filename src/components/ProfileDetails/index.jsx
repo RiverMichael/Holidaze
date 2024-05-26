@@ -145,8 +145,8 @@ export default function ProfileDetails() {
           )}
         </div>
 
-        <Modal dismissible size="md" show={isEditProfileModalOpen} onClose={() => setIsEditProfileModalOpen(false)}>
-          <ModalHeader className="p-3 border-none" />
+        <Modal dismissible size="md" show={isEditProfileModalOpen} onClose={() => setIsEditProfileModalOpen(false)} popup>
+          <ModalHeader />
           <ModalBody className="pt-0">
             <div className="flex flex-col gap-5">
               <h3 className="text-xl">Edit profile</h3>
@@ -156,10 +156,10 @@ export default function ProfileDetails() {
         </Modal>
 
         {showToast && (
-          <div id="toast" className="flex bg-green-50 text-green-800 items-center m-4 p-5 border border-green-800 rounded-lg shadow fixed z-50 top-0 right-0" role="alert">
+          <div id="toast" className="flex bg-neutral text-primary items-center m-4 p-5 border border-primary rounded-lg shadow fixed z-50 top-0 right-0" role="alert">
             <div className="text-lg">Your profile has been updated!</div>
 
-            <button onClick={() => setShowToast(false)} type="button" className="ms-5 hover:bg-green-800 hover:text-green-50 rounded-full p-1" aria-label="Close">
+            <button onClick={() => setShowToast(false)} type="button" className="ms-5 hover:bg-primary hover:text-neutral rounded-full p-1" aria-label="Close">
               <IoClose size={20} />
             </button>
           </div>
