@@ -292,6 +292,7 @@ export default function AddVenueForm() {
               <input
                 type="url"
                 {...register(`media[${index}].url`)}
+                id={`media[${index}].url`}
                 className={`form-input w-full ${errors.media && errors.media[index]?.url ? "form-input-error focus:ring-error" : "focus:ring-primary-dark"}`}
                 placeholder="https://example.com/image.jpg"
                 aria-label="Add image"
