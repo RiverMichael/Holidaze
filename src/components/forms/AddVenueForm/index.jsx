@@ -46,6 +46,8 @@ export default function AddVenueForm() {
     resolver: yupResolver(schema),
     mode: "onSubmit",
     defaultValues: {
+      price: 10,
+      maxGuests: 1,
       rating: 0,
       location: { lat: null, lng: null },
       media: [{ url: "" }],
