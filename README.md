@@ -108,19 +108,19 @@ cd replace-with-your-desired-folder
 git init
 ```
 
-3. Clone the repo:
+3. Clone the repo
 
 ```sh
 git clone https://github.com/RiverMichael/Holidaze.git
 ```
 
-4. Navigate to the project folder:
+4. Navigate to the project folder
 
 ```sh
 cd Holidaze
 ```
 
-5. Install NPM packages:
+5. Install NPM packages
 
 ```sh
 npm i
@@ -205,7 +205,7 @@ Please report any issues [here][github-issues] by following this steps:
 
 ## Contact
 
-Michael "River" Nilsson - [mrn@michaelriver.dev][mrn-mail] - [michaelriver.dev][mrn-url]
+Michael "River" Nilsson - [mrn@michaelriver.dev][mrn-mail] | [michaelriver.dev][mrn-url]
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -213,7 +213,7 @@ Michael "River" Nilsson - [mrn@michaelriver.dev][mrn-mail] - [michaelriver.dev][
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- AACKNOWLEDGMENTS -->
+<!-- ACKNOWLEDGMENTS -->
 
 ## Acknowledgments
 
